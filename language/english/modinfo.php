@@ -36,6 +36,9 @@ define("_MI_UHQGEO_MODCFG_APIKEY_DESC","Key required to use IPv4 API provider, i
 define("_MI_UHQGEO_MODCFG_CACHE","Cache API Results?");
 define("_MI_UHQGEO_MODCFG_CACHE_DESC","Cache web API calls, if used.");
 
+define("_MI_UHQGEO_MODCFG_CACHEEXP","Cache Expiry (Days)");
+define("_MI_UHQGEO_MODCFG_CACHEEXP_DEXC","The number of days which need to pass before a cache entry is invalid.");
+
 // Admin Menu
 
 define("_MI_UHQGEO_ADMENU_INDEX","Index");

@@ -1,6 +1,7 @@
 CREATE TABLE uhqgeolocate_v4cache (
 	ipaddr			INT UNSIGNED,
 	hits			INT UNSIGNED,
+	dateadd			DATE,
 	countrycode		CHAR(2),
 	region			VARCHAR(128),
 	city			VARCHAR(128),

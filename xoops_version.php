@@ -3,7 +3,7 @@
 // Modular Definitions
 
 $modversion['name'] = _MI_UHQGEO_NAME;
-$modversion['version'] = 0.92;
+$modversion['version'] = 0.93;
 $modversion['description'] = _MI_UHQGEO_DESC;
 $modversion['author'] = "Ian A. Underwood";
 $modversion['credits'] = "Underwood Headquarters";
@@ -109,6 +109,17 @@ $modversion['config'][] = array (
 	'default'		=> 1
 );
 
+// Option 7: API Cache Expiry
+
+$modversion['config'][] = array (
+	'name'			=> 'geoloc_cacheexpire',
+	'title'			=> '_MI_UHQGEO_MODCFG_CACHEEXP',
+	'description'	=> '_MI_UHQGEO_MODCFG_CACHEEXP_DEXC',
+	'formtype'		=> 'int',
+	'valuetype'		=> 'int',
+	'default'		=> 0
+);
+
 // Administrative Items
 
 $modversion['hasAdmin'] = 1;
@@ -125,7 +136,7 @@ $modversion['templates'][1]['file']			= "admin/uhqgeolocate_index.html";
 $modversion['templates'][1]['description']	= _MI_UHQGEO_TEMPLATE_INDEX;
 
 // Blocks
-	
+
 $modversion['blocks'][1]['file']		= 'uhqgeo_blocks.php';
 $modversion['blocks'][1]['name']		= _MI_UHQGEO_BLOCK_FROM_NAME;
 $modversion['blocks'][1]['description']	= _MI_UHQGEO_BLOCK_FROM_DESC;
