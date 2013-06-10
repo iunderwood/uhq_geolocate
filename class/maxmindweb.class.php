@@ -25,29 +25,29 @@ class maxmindweb {
 	protected $useISP = false;
 	protected $key = "";
 	protected $resolver = "geoip3.maxmind.com";
-	
+
 	var $service = "MaxMind Web API Class";
 	var $version = "0.92";
-	
+
 	function setCity() {
 		$this->useCity = true;
 	}
-	
+
 	function setISP() {
 		$this->useISP = true;
 	}
-	
+
 	function setKey($key) {
 		$this->key = $key;
 	}
-	
+
 	function setResolver($resolver) {
 		$this->resolver = $resolver;
 	}
-	
+
 	function getLocation($ip) {
 		if ( filter_var($ip,FILTER_VALIDATE_IP) ) {
-			
+
 			// Determine query type.
 			if (!$this->useCity) {
 				$type = "a";	// MaxMind Country
@@ -56,20 +56,20 @@ class maxmindweb {
 			} else {
 				$type = "b";	// MaxMind City
 			}
- 			
+
 			// Perform Query
 			$query = "http://".$this->resolver."/".$type."?l=".$this->key."&i=".$ip;
 			$result = @file_get_contents($query);
-			
+
 			if (!$result)
 				return NULL;
-			
+
 			$location = new maxmindweblocation;
-			
+
 			// Process result
 			$lines = explode("\n",$result);
 			$rawdata = $lines[count($lines)-1];
-			
+
 			if (!$this->useCity) {
 				// If we've got a CSV here, we've got an error.
 				if (strpos($rawdata,",")) {
@@ -81,7 +81,7 @@ class maxmindweb {
 			} else {
 				// Include the region code variables.
 				include_once "maxmindregionvars.php";
-				
+
 				$geo = explode(",",$rawdata);
 				$location->country = $geo[0];
 				$location->region = $GEOIP_REGION_NAME[$geo[0]][$geo[1]];
@@ -98,10 +98,10 @@ class maxmindweb {
 					$location->error = $geo[10];
 				} else {
 					$location->latitude = $geo[3];
-					$location->longitude = $geo[4];	
+					$location->longitude = $geo[4];
 				}
 			}
-			
+
 			$location->rawdata = $rawdata;
 			return $location;
 

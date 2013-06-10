@@ -50,14 +50,19 @@ $modversion['config'][] = array (
 	'valuetype'		=> 'int',
 	'options'		=> array (
 		_MI_UHQGEO_MODCFG_IPV4_DB_IP2L	=> 1,
-		// IPInfoDB Web API
+		// IPInfoDB Web API v2
 		_MI_UHQGEO_MODCFG_IPV4_API_IPDB_CITY_TZ		=> 11,
 		_MI_UHQGEO_MODCFG_IPV4_API_IPDB_CITY		=> 12,
 		_MI_UHQGEO_MODCFG_IPV4_API_IPDB_COUNTRY		=> 13,
+		// IPInfoDB Web API v3
+		_MI_UHQGEO_MODCFG_IPV4_API_IPDBV3_CITY		=> 14,
+		_MI_UHQGEO_MODCFG_IPV4_API_IPDBV3_COUNTRY	=> 15,
 		// MaxMind Web API
 		_MI_UHQGEO_MODCFG_IPV4_API_MAXMIND_CITY_ISP	=> 21,
 		_MI_UHQGEO_MODCFG_IPV4_API_MAXMIND_CITY		=> 22,
-		_MI_UHQGEO_MODCFG_IPV4_API_MAXMIND_COUNTRY	=> 23
+		_MI_UHQGEO_MODCFG_IPV4_API_MAXMIND_COUNTRY	=> 23,
+		// FreeGeoIP.net Web API
+		_MI_UHQGEO_MODCFG_IPV4_API_FREEGEOIPNET		=> 31
 	),
 	'default'		=> 1
 );
@@ -71,7 +76,10 @@ $modversion['config'][] = array (
 	'formtype'		=> 'select',
 	'valuetype'		=> 'int',
 	'options'		=> array (
-		_MI_UHQGEO_MODCFG_IPV6_DB_IP2L => 1
+		_MI_UHQGEO_MODCFG_IPV6_DB_IP2L => 1,
+		// IPInfoDB Web API
+		_MI_UHQGEO_MODCFG_IPV6_API_IPDBV3_CITY	=> 14,
+		_MI_UHQGEO_MODCFG_IPV6_API_IPDBV3_COUNTRY	=> 15
 	),
 	'default'		=> 1
 );
@@ -87,18 +95,29 @@ $modversion['config'][] = array (
 	'default'		=> 0
 );
 
-// Option 5: API Key (if Required)
+// Option 5: v4 API Key (if Required)
 
 $modversion['config'][] = array (
 	'name'			=> 'geoloc_apikey',
-	'title'			=> '_MI_UHQGEO_MODCFG_APIKEY',
-	'description'	=> '_MI_UHQGEO_MODCFG_APIKEY_DESC',
+	'title'			=> '_MI_UHQGEO_MODCFG_APIV4KEY',
+	'description'	=> '_MI_UHQGEO_MODCFG_APIV4KEY_DESC',
 	'formtype'		=> 'textbox',
 	'valuetype'		=> 'text',
 	'default'		=> ''
 );
 
-// Option 6: Activate API Cache?
+// Option 6: v6 API Key (if Required)
+
+$modversion['config'][] = array (
+	'name'			=> 'geoloc_apikey_v6',
+	'title'			=> '_MI_UHQGEO_MODCFG_APIV6KEY',
+	'description'	=> '_MI_UHQGEO_MODCFG_APIV6KEY_DESC',
+	'formtype'		=> 'textbox',
+	'valuetype'		=> 'text',
+	'default'		=> ''
+);
+
+// Option 7: Activate API Cache?
 
 $modversion['config'][] = array (
 	'name'			=> 'geoloc_cache',
@@ -109,7 +128,7 @@ $modversion['config'][] = array (
 	'default'		=> 1
 );
 
-// Option 7: API Cache Expiry
+// Option 8: API Cache Expiry
 
 $modversion['config'][] = array (
 	'name'			=> 'geoloc_cacheexpire',

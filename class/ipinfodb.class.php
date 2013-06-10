@@ -3,9 +3,9 @@ final class ipinfodb{
 	protected $errors = array();
 	protected $useCity = false;
 	protected $showTimezone = false;
-	protected $service = 'api.ipinfodb.com';
-	protected $version = 'v2';
 	protected $apiKey = '';
+	var $service = 'api.ipinfodb.com';
+	var $version = 'v2';
 
 	public function __construct(){}
 
@@ -14,7 +14,7 @@ final class ipinfodb{
 	public function setKey($key){
 		if(!empty($key)) $this->apiKey = $key;
 	}
-	
+
 	public function doCity() {
 		$this->useCity = true;
 	}
@@ -39,12 +39,13 @@ final class ipinfodb{
 				$xml = @file_get_contents('http://' . $this->service . '/' . $this->version . '/' . 'ip_query.php?key=' . $this->apiKey . '&ip=' . $ip);
 			}
 
-			try{
+			try {
 				$response = @new SimpleXMLElement($xml);
 
 				foreach($response as $field=>$value){
 					$result[(string)$field] = (string)$value;
 				}
+
 				return $result;
 			}
 			catch(Exception $e){

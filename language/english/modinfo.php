@@ -2,7 +2,7 @@
 
 // Module Information
 
-define("_MI_UHQGEO_NAME","UHQ-GeoLocate");
+define("_MI_UHQGEO_NAME","UHQ_GeoLocate");
 define("_MI_UHQGEO_DESC","Provide geolocation info per IP");
 
 // Module-Wide Configuration Options
@@ -19,19 +19,30 @@ define("_MI_UHQGEO_MODCFG_IPV6_DESC","Provider of IPv6 Location Information");
 define("_MI_UHQGEO_MODCFG_IPV4_DB_IP2L","DB: IP2Location IPv4 File");
 define("_MI_UHQGEO_MODCFG_IPV6_DB_IP2L","DB: IP2Location IPv6 File");
 
-define("_MI_UHQGEO_MODCFG_IPV4_API_IPDB_CITY_TZ","API: IPInfoDB (City + Timezone)");
-define("_MI_UHQGEO_MODCFG_IPV4_API_IPDB_CITY","API: IPInfoDB (City)");
-define("_MI_UHQGEO_MODCFG_IPV4_API_IPDB_COUNTRY","API: IPInfoDB (Country)");
+define("_MI_UHQGEO_MODCFG_IPV4_API_IPDB_CITY_TZ","API: IPInfoDB v2 (City + Timezone)");
+define("_MI_UHQGEO_MODCFG_IPV4_API_IPDB_CITY","API: IPInfoDB v2 (City)");
+define("_MI_UHQGEO_MODCFG_IPV4_API_IPDB_COUNTRY","API: IPInfoDB v2 (Country)");
+
+define("_MI_UHQGEO_MODCFG_IPV4_API_IPDBV3_CITY","API: IPInfoDB v3 (City)");
+define("_MI_UHQGEO_MODCFG_IPV4_API_IPDBV3_COUNTRY","API: IPInfoDB v3 (Country)");
+
+define("_MI_UHQGEO_MODCFG_IPV6_API_IPDBV3_CITY","API: IPInfoDB v3 (City)");
+define("_MI_UHQGEO_MODCFG_IPV6_API_IPDBV3_COUNTRY","API: IPInfoDB v3 (Country)");
 
 define("_MI_UHQGEO_MODCFG_IPV4_API_MAXMIND_CITY_ISP","API: MaxMind (City + ISP/Org)");
 define("_MI_UHQGEO_MODCFG_IPV4_API_MAXMIND_CITY","API: MaxMind (City)");
 define("_MI_UHQGEO_MODCFG_IPV4_API_MAXMIND_COUNTRY","API: MaxMind (Country)");
 
+define("_MI_UHQGEO_MODCFG_IPV4_API_FREEGEOIPNET","API: FreeGeoIP.net");
+
 define("_MI_UHQGEO_MODCFG_PRINTR","Show Diagnostic Array?");
 define("_MI_UHQGEO_MODCFG_PRINTR_DESC","Shows a print_r of the data on the admin/index page.");
 
-define("_MI_UHQGEO_MODCFG_APIKEY","API Key");
-define("_MI_UHQGEO_MODCFG_APIKEY_DESC","Key required to use IPv4 API provider, if used.");
+define("_MI_UHQGEO_MODCFG_APIV4KEY","IPv4 API Key");
+define("_MI_UHQGEO_MODCFG_APIV4KEY_DESC","Key required to use IPv4 API provider, if used.");
+
+define("_MI_UHQGEO_MODCFG_APIV6KEY","IPv6 API Key");
+define("_MI_UHQGEO_MODCFG_APIV6KEY_DESC","Key required to use IPv6 API provider, if used.");
 
 define("_MI_UHQGEO_MODCFG_CACHE","Cache API Results?");
 define("_MI_UHQGEO_MODCFG_CACHE_DESC","Cache web API calls, if used.");

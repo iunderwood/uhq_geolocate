@@ -80,14 +80,27 @@ function xoops_module_update_uhq_geolocate(&$module, $oldversion = null) {
 
 	if ($oldversion < 93) {
 
-		// Expand DB to include new fields
-
+		// New field: dateadd
 		$query = 'ALTER TABLE '.$xoopsDB->prefix("uhqgeolcate_v4cache")." ADD dateadd DATE AFTER hits";
 		$result = $xoopsDB->QueryF($query);
 		if (! $result) {
 			$module->setErrors("Error adding DB datadd field.");
 			return false;
 		}
+
+		// Update v4 API description
+		$query = 'UPDATE '.$xoopsDB->prefix("config").' WHERE conf_title = "_MI_UHQGEO_MODCFG_APIKEY" SET ';
+		$query .= 'conf_title = "_MI_UHQGEO_MODCFG_APIV4KEY", ';
+		$query .= 'conf_desc = "_MI_UHQGEO_MODCFG_APIV4KEY_DESC"';
+
+		$result = $xoopsDB->QueryF($query);
+
+		if (! $result) {
+			$module->setErrors("Error modifying API Key Description");
+			return false;
+		}
+
+		$oldversion = 93;
 	}
 
 	return true;
