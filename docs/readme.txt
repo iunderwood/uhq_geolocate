@@ -1,5 +1,5 @@
-uhq-geolocate
-=============
+README FIRST
+-----------------------
 
 This is the UHQ-GeoLocate XOOPS Module.
 
@@ -10,4 +10,4 @@ This module is meant to provide geolocation services given an IP address to othe
 * IP2Location (Binary Lookup)
 * MaxMind (Web API)
 
-This module works on XOOPS 2.5.6. It does not function on XOOPS 2.6.x at this time.
+This module works on XOOPS 2.5.6.  It does not function on XOOPS 2.6.x at this time.

@@ -52,7 +52,7 @@ define("_MI_UHQGEO_MODCFG_CACHEEXP_DEXC","The number of days which need to pass 
 
 // Admin Menu
 
-define("_MI_UHQGEO_ADMENU_INDEX","Index");
+define("_MI_UHQGEO_ADMENU_INDEX","GeoLocator");
 
 // Templates
 
