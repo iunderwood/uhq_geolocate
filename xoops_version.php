@@ -78,7 +78,6 @@ $modversion['config'][] = array (
 	'options'		=> array (
 		_MI_UHQGEO_MODCFG_IPV6_DB_IP2L => 1,
 		// IPInfoDB Web API
-		_MI_UHQGEO_MODCFG_IPV6_API_IPDBV3_CITY	=> 14,
 		_MI_UHQGEO_MODCFG_IPV6_API_IPDBV3_COUNTRY	=> 15
 	),
 	'default'		=> 1
