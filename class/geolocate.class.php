@@ -18,14 +18,18 @@ class geolocate {
 	var $ipver;
 
 	// Return IP type.  4 for IPv4, 6 for IPv6, 0 for bad IP.
-
 	function address_type() {
 		$this->ipver = 0;
+		
+		// IPv4 addresses are easy-peasy
 		if (filter_var($this->ipin,FILTER_VALIDATE_IP,FILTER_FLAG_IPV4)) {
 			$this->ipver=4;
 			$this->ipout=$this->ipin;
 		}
+		
+		// IPv6 is at least a little more complex.
 		if (filter_var($this->ipin,FILTER_VALIDATE_IP,FILTER_FLAG_IPV6)) {
+		    
 			// Look for embedded IPv4 in an embedded IPv6 address, where FFFF is appended.
 			if (strpos($this->ipin,"::FFFF:") === 0) {
 				$ipv4addr = substr($this->ipin,7);
@@ -33,6 +37,7 @@ class geolocate {
 					$this->ipver=4;
 					$this->ipout=$ipv4addr;
 				}
+				
 			// Look for an IPv4 address embedded as ::x.x.x.x
 			} else if (strpos($this->ipin,"::") === 0) {
 				$ipv4addr = substr($this->ipin,2);
@@ -40,15 +45,26 @@ class geolocate {
 					$this->ipver=4;
 					$this->ipout=$ipv4addr;
 				}
+				
+			// Otherwise, assume this an IPv6 address.
 			} else {
 				$this->ipver=6;
 				$this->ipout=$this->ipin;
 			}
 		}
 	}
+	
+	// Returns the first 16 hex characters of an IPv6 address.
+    function v6subnet() {
+		$v6packed = null;
+		
+	    foreach(str_split(inet_pton($this->ipout)) as $char)
+            $v6packed .= str_pad(dechex(ord($char)), 2, '0', STR_PAD_LEFT);
+		    
+		return substr($v6packed,0,16);
+	}
 
 	// True if module is enabled.
-
 	function geoloc_ready () {
 		// Load module options
 		$modhandler			=& xoops_gethandler('module');
@@ -65,7 +81,6 @@ class geolocate {
 	}
 
 	// True if caching is enabled
-
 	function geoloc_cache () {
 		// Load module options
 		$modhandler			=& xoops_gethandler('module');
@@ -82,7 +97,6 @@ class geolocate {
 	}
 
 	// Return the provider ID configured in the module for a given IP version.
-
 	function provider ($ipver) {
 		// Load module options
 		$modhandler			=& xoops_gethandler('module');
@@ -101,7 +115,6 @@ class geolocate {
 	}
 
 	// Get the API Key if we need it for the provider being used.
-
 	function apikey () {
 		// Load module options
 		$modhandler			=& xoops_gethandler('module');
@@ -110,7 +123,6 @@ class geolocate {
 		$xoopsModuleConfig	=& $config_handler->getConfigsByCat(0,$xoopsModule->getVar('mid'));
 
 		// Return a key, if we have one.
-
 		if ($this->ipver == 4) {
 			return $xoopsModuleConfig['geoloc_apikey'];
 		} else {
@@ -120,7 +132,6 @@ class geolocate {
 	}
 
 	// Get the cache expire time in days
-
 	function geoloc_cacheexpire () {
 		// Load module options
 		$modhandler			=& xoops_gethandler('module');
@@ -137,7 +148,6 @@ class geolocate {
 	}
 
 	// Return any DB information we may have for a given IP version
-
 	function dbinfo ($ipver) {
 		$result = array();
 
@@ -218,12 +228,10 @@ class geolocate {
 		}
 
 		$ipdb = null;
-
 		return $result;
 	}
 
-	// Do a cache lookup.  If it's a hit, return a location object.
-
+	// Do a cache lookup.  If it's a hit, increment the hit counter and return a location object.
 	private function cache_lookup () {
 		global $xoopsDB;
 
@@ -235,10 +243,11 @@ class geolocate {
 			$query .= "ipaddr = '".ip2long($this->ipout)."'";
 		}
 
-		// Cache for IPv6 not yet implemented
+		// Set our query for IPv6 lookups
 		if ($this->ipver == 6) {
-			return null;
-		}
+		    $query = "SELECT * FROM ".$xoopsDB->prefix("uhqgeolocate_v6cache")." WHERE ";
+		    $query .= "v6subnet = '".$this->v6subnet()."'";
+		 }
 
 		// Limit Result to cache expiration
 		$cacheexpire = $this->geoloc_cacheexpire();
@@ -260,6 +269,10 @@ class geolocate {
 				$hitquery = "UPDATE ".$xoopsDB->prefix("uhqgeolocate_v4cache")." SET ";
 				$hitquery .= "hits = hits + 1 WHERE ipaddr = '".ip2long($this->ipout)."'";
 			}
+		   	if ($this->ipver == 6) {
+		        $hitquery = "UPDATE ".$xoopsDB->prefix("uhqgeolocate_v6cache")." SET ";
+		        $hitquery .= "hits = hits +1 WHERE v6subnet = '".$this->v6subnet()."'";
+    		}
 
 			// Add a hit to the cache.
 			$hitresult = $xoopsDB->queryF($hitquery);
@@ -290,26 +303,28 @@ class geolocate {
 	private function cache_insert ($location) {
 		global $xoopsDB;
 
-		// Remove any expired entries
-		$query = "DELETE FROM ".$xoopsDB->prefix("uhqgeolocate_v4cache")." WHERE ipaddr ='".ip2long($this->ipout)."'";
-		$result = $xoopsDB->queryF($query);
-
 		// Set up insert query for IPv4 DB.
 		if ($this->ipver == 4) {
+	    	// Remove any expired entries
+    		$query = "DELETE FROM ".$xoopsDB->prefix("uhqgeolocate_v4cache")." WHERE ipaddr ='".ip2long($this->ipout)."'";
+        	$result = $xoopsDB->queryF($query);
+		    // Insert new entry
 			$query = "INSERT INTO ".$xoopsDB->prefix("uhqgeolocate_v4cache")." SET ";
 			$query .= "ipaddr = '".ip2long($this->ipout)."', ";
 		}
-
-		// IPv6 cache not implemented.
 		if ($this->ipver == 6) {
-			return true;
-		}
+		    // Remove any expire entries
+    		$query = "DELETE FROM ".$xoopsDB->prefix("uhqgeolocate_v6cache")." WHERE v6subnet ='".$this->v6subnet()."'";
+        	$result = $xoopsDB->queryF($query);
+		    // Insert new entry
+			$query = "INSERT INTO ".$xoopsDB->prefix("uhqgeolocate_v6cache")." SET ";
+			$query .= "v6subnet = '".$this->v6subnet()."', ";
+        }
 
 		$query .= "hits = 0, dateadd = DATE(NOW())";
 		$query .= ", countrycode = '".$location->country."'";
 
 		// Only add to the query if the variable is not empty.
-
 		if ($location->region)
 			$query .= ", region = '".$location->region."'";
 		if ($location->city)
@@ -325,8 +340,8 @@ class geolocate {
 
 		$result = $xoopsDB->queryF($query);
 
+        // Return false on query error.
 		if ($result == false) {
-			echo "Insert Fail: ".$query;
 			return false;
 		}
 		return true;
@@ -345,23 +360,34 @@ class geolocate {
 		}
 
 		// Check IP Address Type
-
 		$this->address_type();
 
 		// Query for Location
-
 		if ($this->ipver == 0) {
 			$location->error = 2;	// Invalid IP
 			return $location;
 		}
 
-		// Note if we are using the cache.
-		$usecache = $this->geoloc_cache();
-
+		// Use the cache if we have it and the provider can use it.
+		if ($this->geoloc_cache()) {
+            switch ($this->provider($this->ipver)) {
+                case 1:
+                    break;
+                default:
+                	$cache = $this->cache_lookup();
+					// Only return if we have an object.  All other errors lead to a lookup.
+					if ( is_object($cache) ) {
+						return $cache;
+					}
+            }
+		}
+		
+		// Process a lookup.
 		switch ($this->provider($this->ipver)) {
 
 			// IP2Location Binary File
 			case 1:
+				require_once XOOPS_ROOT_PATH."/modules/uhq_geolocate/class/ip2location.class.php";
 				// Set up Filename
 				if ($this->ipver == 4)
 					$file = XOOPS_TRUST_PATH.'/IP2LOCATION.BIN';
@@ -371,15 +397,10 @@ class geolocate {
 					$location->error = 3;
 					return $location;
 				}
-
-				// Load Class and get results.
-				require_once XOOPS_ROOT_PATH."/modules/uhq_geolocate/class/ip2location.class.php";
-
 				$ipdb = new ip2location;
 				$ipdb->open($file);
 				$ipdb->nullError = 1;
 				$result = $ipdb->getAll($this->ipout);
-
 				// Require a valid country code.  Sample data returns "??" or "-" depending on the data set.
 				if ( ($result->countryShort[0] >= "A") && ($result->countryShort[0] <= "Z") ) {
 					$location->country = $result->countryShort;
@@ -387,28 +408,14 @@ class geolocate {
 					$location->city = $result->city;
 					$location->isp = $result->isp;
 				}
-
-				$location->result = $result;
 				break;
 
 			// IPInfoDB Web API
-
 			case 11:
 				$timezone = true;
 			case 12:
 				$citylevel = true;
 			case 13:
-				// If we're caching, do a lookup.
-				if ($usecache) {
-					$cache = $this->cache_lookup();
-
-					// Only return if we have an object.  All other errors lead to a lookup.
-					if ( is_object($cache) ) {
-						return $cache;
-					}
-				}
-
-				// Do Lookup
 				require_once XOOPS_ROOT_PATH."/modules/uhq_geolocate/class/ipinfodb.class.php";
 				$ipdb = new ipinfodb;
 				$ipdb->setKey($this->apikey());
@@ -433,46 +440,24 @@ class geolocate {
 						$location->latitude = $result['Latitude'];
 					if ($result['Longitude'] != null)
 						$location->longitude = $result['Longitude'];
-
-					// Insert into cache if we're using it.
-					if ($usecache) {
-						$this->cache_insert($location);
-					}
 				}
-
-				// Append raw lookup result;
-				$location->lookupresult = $result;
 				break;
 
 			// IPInfoDB v3
 			case 14:
 				$citylevel = true;
 			case 15:
-				// If we're caching, do a lookup.
-				if ($usecache) {
-					$cache = $this->cache_lookup();
-
-					// Only return if we have an object.  All other errors lead to a lookup.
-					if ( is_object($cache) ) {
-						return $cache;
-					}
-				}
-
-				// Do Lookup
 				require_once XOOPS_ROOT_PATH."/modules/uhq_geolocate/class/ip2locationlite.class.php";
 				$ipdb = new ip2location_lite;
 				$ipdb->setKey($this->apikey());
-
 				if (isset($citylevel)) {
 					$result = $ipdb->getCity($this->ipout);
 				} else {
 					$result = $ipdb->getCountry($this->ipout);
 				}
-
 				// Result is valid if we have a country code.
 				if ( ($result['countryCode'][0] >= "A") && ($result['countryCode'][0] <= "Z") ) {
 					$location->country = $result['countryCode'];
-
 					// Add other variables if we have them.
 					if ($result['regionName'])
 						$location->region = ucwords(strtolower($result['regionName']));
@@ -482,37 +467,18 @@ class geolocate {
 						$location->latitude = $result['latitude'];
 					if ($result['longitude'] != null)
 						$location->longitude = $result['longitude'];
-
-					// Insert into cache if we're using it.
-					if ($usecache) {
-						$this->cache_insert($location);
-					}
 				}
-
-				// Append raw lookup result
-				$location->lookupresult = $result;
 				break;
 
 			// MaxMind Web API
-
 			case 21:
 				$isporg = true;
 			case 22:
 				$usecity = true;
 			case 23:
-				if ($usecache) {
-					$cache = $this->cache_lookup();
-					// Only return if we have an object.  All other errors lead to a lookup.
-					if ( is_object($cache) ) {
-						return $cache;
-					}
-				}
-
-				// Prepare Lookup
 				require_once XOOPS_ROOT_PATH . "/modules/uhq_geolocate/class/maxmindweb.class.php";
 				$ipdb = new maxmindweb;
 				$ipdb->setKey($this->apikey());
-
 				// Set options.
 				if (isset($usecity)) {
 					$ipdb->setCity();
@@ -520,13 +486,10 @@ class geolocate {
 						$ipdb->setISP();
 					}
 				}
-
 				$result = $ipdb->getLocation($this->ipout);
 
 				// Interpret data.
-
 				if ( ($result->country[0] >= "A") && ($result->country[0] <= "Z") ) {
-
 					$location->country = $result->country;
 					$location->region = $result->region;
 					$location->city = $result->city;
@@ -534,30 +497,10 @@ class geolocate {
 					$location->longitude = $result->longitude;
 					$location->isp = $result->isp;
 					$location->org = $result->org;
-
-					// Insert into cache if we're using it.
-					if ($usecache) {
-						$this->cache_insert($location);
-					}
 				}
-
-				// Append lookup result
-				$location->result = $result;
-				break;
 
 			// FreeGeoIP.net
 			case 31:
-				// If we're caching, do a lookup.
-				if ($usecache) {
-					$cache = $this->cache_lookup();
-
-					// Only return if we have an object.  All other errors lead to a lookup.
-					if ( is_object($cache) ) {
-						return $cache;
-					}
-				}
-
-				// Do Lookup
 				require_once XOOPS_ROOT_PATH."/modules/uhq_geolocate/class/freegeoipnet.class.php";
 				$ipdb = new freegeoip;
 
@@ -566,7 +509,6 @@ class geolocate {
 				// Result is valid if we have a country code.
 				if ( ($result['CountryCode'][0] >= "A") && ($result['CountryCode'][0] <= "Z") ) {
 					$location->country = $result['CountryCode'];
-
 					// Add other variables if we have them.
 					if ($result['RegionName'])
 						$location->region = ucwords(strtolower($result['RegionName']));
@@ -576,25 +518,23 @@ class geolocate {
 						$location->latitude = $result['Latitude'];
 					if ($result['Longitude'] != null)
 						$location->longitude = $result['Longitude'];
-
-					// Insert into cache if we're using it.
-					if ($usecache) {
-						$this->cache_insert($location);
-					}
 				}
-
-				// Append raw lookup result
-				$location->lookupresult = $result;
 				break;
-
+		}
+		
+		// Insert into the cache if we use it.
+		if ($this->geoloc_cache()) {
+            switch ($this->provider($this->ipver)) {
+                case 1:
+                    break;
+                default:
+					$this->cache_insert($location);			
+    				// Append raw lookup result
+	    			$location->lookupresult = $result;
+            }
 		}
 
-		// Return if we have errors.
-
+		// Return with the location object!
 		return $location;
-
 	}
-
 }
-
-?>

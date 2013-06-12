@@ -102,7 +102,33 @@ function xoops_module_update_uhq_geolocate(&$module, $oldversion = null) {
 
 		$oldversion = 93;
 	}
+	
+	if ( $oldversion < 94 ) {
+	    
+	    // New DB: IPv6 Cache
+	    $query = 'CREATE TABLE '.$xoopsDB->prefix("uhqgeolocate_v6cache").' (
+	        v6subnet        CHAR(16),
+	        hits            INT UNSIGNED,
+            dateadd         DATE,
+            countrycode     CHAR(2),
+            region          VARCHAR(128),
+            city            VARCHAR(128),
+            latitude        DOUBLE,
+            longitude       DOUBLE,
+            isp             VARCHAR(128),
+            org             VARCHAR(128),
+            PRIMARY KEY (v6subnet)
+        ) ENGINE=MyISAM;';
+        
+	    $result = $xoopsDB->QueryF($query);
 
+		if (! $result) {
+			$module->setErrors("Error modifying API Key Description");
+			return false;
+		}   
+		$oldversion = 94;
+	}
+	
 	// Remove sample files if we've already got them installed.
 
 	$distfile = XOOPS_ROOT_PATH."/modules/uhq_geolocate/IP-COUNTRY-SAMPLE.BIN";

@@ -1,13 +1,15 @@
 <?php
 
-include "../../../mainfile.php";
+$path = dirname(dirname(dirname(dirname(__FILE__))));
+include_once $path . '/mainfile.php';
+include_once $path . '/include/cp_functions.php';
+require_once $path . '/include/cp_header.php';
+
 require_once XOOPS_ROOT_PATH . "/modules/uhq_geolocate/class/geolocate.class.php";
 require_once XOOPS_ROOT_PATH . "/modules/uhq_geolocate/includes/countryshort.php";
-require_once XOOPS_ROOT_PATH . "/include/cp_header.php";
 require_once XOOPS_ROOT_PATH . '/class/template.php';
 
-//include_once XOOPS_ROOT_PATH."/Frameworks/art/functions.php";
-//include_once XOOPS_ROOT_PATH."/Frameworks/art/functions.admin.php";
+// If we're using a template, disable the cache.
 
 if (!isset($xoopsTpl)) {
 	$xoopsTpl = new XoopsTpl();
@@ -23,17 +25,23 @@ function uhqgeo_providername ($prov) {
 		case 11: return(_AM_UHQGEO_PROV_P11); break;
 		case 12: return(_AM_UHQGEO_PROV_P12); break;
 		case 13: return(_AM_UHQGEO_PROV_P13); break;
+		case 14: return(_AM_UHQGEO_PROV_P14); break;
+		case 15: return(_AM_UHQGEO_PROV_P15); break;
 		
-		case 21: return(_AM_UHQGEO_PROV_P11); break;
-		case 22: return(_AM_UHQGEO_PROV_P12); break;
-		case 23: return(_AM_UHQGEO_PROV_P13); break;
+		case 21: return(_AM_UHQGEO_PROV_P21); break;
+		case 22: return(_AM_UHQGEO_PROV_P22); break;
+		case 23: return(_AM_UHQGEO_PROV_P23); break;
+		
+		case 31: return(_AM_UHQGEO_PROV_P31); break;
 		
 		default: return;
 	}
 }
 
 // Header
+
 include_once dirname(__FILE__) . '/admin_header.php';
+
 xoops_cp_header();
 $mainAdmin = new ModuleAdmin();
 
@@ -62,8 +70,6 @@ function diagarray () {
 	}
 }
 
-//echo function_exists("loadModuleAdminMenu") ? loadModuleAdminMenu(0) : "";
-
 $geoloc = new geolocate;
 
 switch ($op) {
@@ -72,6 +78,13 @@ switch ($op) {
 		$dbresult = $xoopsDB->queryF($dbquery);
 		if ($dbresult) {
 			$data['cachedel'] = 1;
+		}
+		break;
+	case 'd' :  // Clear IPv6 Cache
+		$dbquery = "DELETE FROM ".$xoopsDB->prefix("uhqgeolocate_v6cache")." WHERE v6subnet NOT NULL";
+		$dbresult = $xoopsDB->queryF($dbquery);
+		if ($dbresult) {
+			$data['v6cachedel'] = 1;
 		}
 		break;
 	case "q" :	// Answer query form.
@@ -88,21 +101,32 @@ switch ($op) {
 
 $geoloc->ipin = $_SERVER['REMOTE_ADDR'];
 $result = $geoloc->locate();
+
 $data['input'] = (array) $geoloc;
+
 $data['result'] = (array) $result;
 $data['result']['flag'] = strtolower($data['result']['country']);
 $data['result']['ccname'] = isset($_UHQGEO_CC[$data['result']['country']]) ? $_UHQGEO_CC[$data['result']['country']]: '';
 
 if ($geoloc->geoloc_cache()) {
+   	$data['cacheactive'] = 1;
+
+    // IPv4 Cache Info
 	$dbquery = "SELECT count(ipaddr) as cachemiss, sum(hits) as cachehits from ".$xoopsDB->prefix("uhqgeolocate_v4cache");
 	$dbresult = $xoopsDB->queryF($dbquery);
-	
-	$data['cacheactive'] = 1;
-	
-	if ($dbresult) {
+			if ($dbresult) {
 		$row = $xoopsDB->fetchArray($dbresult);
 		$data['cachemiss'] = $row['cachemiss'];
 		$data['cachehits'] = $row['cachehits'];
+	}
+	
+	// IPv6 Cache Info
+	$dbquery = "SELECT count(v6subnet) as cachemiss, sum(hits) as cachehits from ".$xoopsDB->prefix("uhqgeolocate_v6cache");
+	$dbresult = $xoopsDB->queryF($dbquery);
+	if ($dbresult) {
+		$row = $xoopsDB->fetchArray($dbresult);
+		$data['v6cachemiss'] = $row['cachemiss'];
+		$data['v6cachehits'] = $row['cachehits'];
 	}
 }
 

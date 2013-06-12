@@ -21,9 +21,9 @@
 <{elseif $data.cacheactive}>
 	<p><{$smarty.const._AM_UHQGEO_CACHEACT}>: <{$data.cachemiss}> <{$smarty.const._AM_UHQGEO_CACHEMISS}> / <{$data.cachehits}> <{$smarty.const._AM_UHQGEO_CACHEHITS}></p>
 <br/>
-	<form action="index.php" method="post">
+	<form action="main.php" method="post">
 		<input type=hidden name="op" value="c">
-		<input type=submit value="Clear Cache">
+		<input type=submit value="<{$smarty.const._AM_UHQGEO_CLEARV4}>">
 	</form>
 <{/if}>
 
@@ -37,6 +37,16 @@
 <{/if}>
 <{if $data.v6db.dbsize}>
 <p><{$smarty.const._AM_UHQGEO_DBS}> <{$data.v6db.dbsize}> <{$smarty.const._AM_UHQGEO_RECORDS}></p>
+<{/if}>
+<{if $data.v6cachedel}>
+	<p><font color=red><{$smarty.const._AM_UHQGEO_CACHEDEL}></font></p>
+<{elseif $data.cacheactive}>
+	<p><{$smarty.const._AM_UHQGEO_CACHEACT}>: <{$data.v6cachemiss}> <{$smarty.const._AM_UHQGEO_CACHEMISS}> / <{$data.v6cachehits}> <{$smarty.const._AM_UHQGEO_CACHEHITS}></p>
+<br/>
+	<form action="main.php" method="post">
+		<input type=hidden name="op" value="d">
+		<input type=submit value="<{$smarty.const._AM_UHQGEO_CLEARV6}>">
+	</form>
 <{/if}>
 
 <br/><hr/><br/>
@@ -52,9 +62,11 @@
   </p>
   <br/>
 <{/if}>
-<form action="index.php" method="post">
-<{$smarty.const._AM_UHQGEO_FORM_IPQUERY}> <input type=text name="ipaddr">
-<input type=hidden name="op" value="q">
-<input type=submit value="Query">
+
+<form action="main.php" method="post">
+    <{$smarty.const._AM_UHQGEO_FORM_IPQUERY}>
+    <input type=text name="ipaddr">
+    <input type=hidden name="op" value="q">
+    <input type=submit value="Query">
 </form>
 <br/>

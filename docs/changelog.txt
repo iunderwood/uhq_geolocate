@@ -1,9 +1,7 @@
----------------------------------------
-0.93 Beta 2  2013-06-11
----------------------------------------
+====[ 0.94 -- 2013-06-15 ]====
 
-- Converted to XOOPS 2.5.5 Admin GUI (Mamba)
+Code Changes
+* Converted to XOOPS 2.5.5 Admin GUI (Mamba)
 
----------------------------------------
-0.93 Beta 1  2013-06-11
----------------------------------------
+Notes
+* Changelog back in text format, since it's supported in the Admin GUI.

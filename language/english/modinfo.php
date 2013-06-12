@@ -3,7 +3,7 @@
 // Module Information
 
 define("_MI_UHQGEO_NAME","UHQ_GeoLocate");
-define("_MI_UHQGEO_DESC","Provide geolocation info per IP");
+define("_MI_UHQGEO_DESC","Provide geolocation information based upon an IP address.");
 
 // Module-Wide Configuration Options
 

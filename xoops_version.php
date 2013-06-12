@@ -6,51 +6,58 @@ if (!defined('XOOPS_ROOT_PATH')) {
 	die('XOOPS root path not defined');
 }
 
-$modversion['name'] = _MI_UHQGEO_NAME;
-$modversion['version'] = 0.93;
-$modversion['description'] = _MI_UHQGEO_DESC;
-$modversion['author'] = "Ian A. Underwood";
-$modversion['credits'] = "Underwood Headquarters";
-$modversion['help']        = 'page=help';
-$modversion['license']     = 'GNU GPL 2.0 or later';
-$modversion['license_url'] = "www.gnu.org/licenses/gpl-2.0.html";
-//$modversion['help'] = 'geolocate';
-$modversion['official'] = 0;
-$modversion['image'] = "images/uhq_geolocate_slogo.png";
-$modversion['dirname'] = "uhq_geolocate";
+$modversion['name']         = _MI_UHQGEO_NAME;
+$modversion['version']      = 0.94;
+$modversion['description']  = _MI_UHQGEO_DESC;
+$modversion['author']       = "Ian A. Underwood";
+$modversion['credits']      = "Underwood Headquarters";
+$modversion['help']         = 'page=help';
+$modversion['license']      = 'GNU GPL 2.0 or later';
+$modversion['license_url']  = "www.gnu.org/licenses/gpl-2.0.html";
+$modversion['official']     = 0;
+$modversion['image']        = "images/uhq_geolocate_slogo.png";
+$modversion['dirname']      = "uhq_geolocate";
+
+// Administrative Defines
 
 $modversion['dirmoduleadmin'] = '/Frameworks/moduleclasses/moduleadmin';
 $modversion['icons16']        = '../../Frameworks/moduleclasses/icons/16';
 $modversion['icons32']        = '../../Frameworks/moduleclasses/icons/32';
-//about
-$modversion['release_date']        = '2013/06/11';
-$modversion["module_website_url"]  = "www.xoops.org";
-$modversion["module_website_name"] = "XOOPS";
-$modversion["module_status"]       = "Beta 2";
-$modversion['min_php']             = '5.2';
-$modversion['min_xoops']           = "2.5.6";
-$modversion['min_admin']           = '1.1';
-$modversion['min_db']              = array(
+
+// About Section
+
+$modversion['release_date']        = '2013/06/15';
+$modversion["module_website_url"]  = "xoops.underwood-hq.org";
+$modversion["module_website_name"] = "XOOPS@UHQ";
+$modversion["module_status"]       = "RC";
+
+// Minimums
+
+$modversion['min_php']      = '5.2';
+$modversion['min_xoops']    = "2.5.6";
+$modversion['min_admin']    = '1.1';
+$modversion['min_db']       = array(
     'mysql'  => '5.0.7',
     'mysqli' => '5.0.7'
 );
 
 // Install/Update Scripts
 
-$modversion['onInstall'] = 'includes/oninstall.php';
-$modversion['onUpdate'] = 'includes/onupdate.php';
-$modversion['onUninstall'] = 'includes/onuninstall.php';
+$modversion['onInstall']    = 'includes/oninstall.php';
+$modversion['onUpdate']     = 'includes/onupdate.php';
+$modversion['onUninstall']  = 'includes/onuninstall.php';
 
 // Database Information
 
 $modversion['sqlfile']['mysql'] = "sql/uhq_geolocate.sql";
 
 $modversion['tables'][] = "uhqgeolocate_v4cache";
+$modversion['tables'][] = "uhqgeolocate_v6cache";
 
 // Module-Wide Configuration Items
 
-$modversion['hasConfig'] = 1;
-$modversion['system_menu'] = 1;
+$modversion['hasConfig']    = 1;
+$modversion['system_menu']  = 1;
 
 // Option 1: Ability to turn off geolocation site-wide.  When off, query results will all be null.
 
@@ -163,13 +170,13 @@ $modversion['config'][] = array (
 
 // Administrative Items
 
-$modversion['hasAdmin'] = 1;
-$modversion['adminindex'] = "admin/index.php";
-$modversion['adminmenu'] = "admin/menu.php";
+$modversion['hasAdmin']     = 1;
+$modversion['adminindex']   = "admin/index.php";
+$modversion['adminmenu']    = "admin/menu.php";
 
 // Menu Items
 
-$modversion['hasMain'] = 0;
+$modversion['hasMain']  = 0;
 
 // Templates
 
@@ -178,12 +185,11 @@ $modversion['templates'][1]['description']	= _MI_UHQGEO_TEMPLATE_INDEX;
 
 // Blocks
 
-$modversion['blocks'][1]['file']		= 'uhqgeo_blocks.php';
-$modversion['blocks'][1]['name']		= _MI_UHQGEO_BLOCK_FROM_NAME;
-$modversion['blocks'][1]['description']	= _MI_UHQGEO_BLOCK_FROM_DESC;
-$modversion['blocks'][1]['show_func']	= "b_uhqgeo_from_show";
-//$modversion['blocks'][1]['edit_func']	= "b_uhqgeo_from_edit";
-$modversion['blocks'][1]['template']	= "uhqgeo_from.html";
-$modversion['blocks'][1]['options']		= "";
-
-?>
+$i=0;
+$modversion['blocks'][$i]['file']           = 'uhqgeo_blocks.php';
+$modversion['blocks'][$i]['name']           = _MI_UHQGEO_BLOCK_FROM_NAME;
+$modversion['blocks'][$i]['description']    = _MI_UHQGEO_BLOCK_FROM_DESC;
+$modversion['blocks'][$i]['show_func']      = "b_uhqgeo_from_show";
+//$modversion['blocks'][$i]['edit_func']    = "b_uhqgeo_from_edit";
+$modversion['blocks'][$i]['template']       = "uhqgeo_from.html";
+$modversion['blocks'][$i]['options']        = "";

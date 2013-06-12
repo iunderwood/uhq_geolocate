@@ -25,5 +25,3 @@ function b_uhqgeo_from_show($options) {
 	return $data;
 		
 }
-
-?>
