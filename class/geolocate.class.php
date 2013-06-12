@@ -114,6 +114,7 @@ class geolocate {
 		if ($this->ipver == 4) {
 			return $xoopsModuleConfig['geoloc_apikey'];
 		} else {
+			return $xoopsModuleConfig['geoloc_apikey_v6'];
 			return false;
 		}
 	}
@@ -184,6 +185,7 @@ class geolocate {
 			case 13:
 				require_once XOOPS_ROOT_PATH . "/modules/uhq_geolocate/class/ipinfodb.class.php";
 				$ipdb = new ipinfodb;
+				$result['querylib'] = $ipdb->service." / ".$ipdb->version;
 				$result['dbtype'] = "Web API";
 				break;
 
@@ -192,6 +194,7 @@ class geolocate {
 			case 15:
 				require_once XOOPS_ROOT_PATH . "/modules/uhq_geolocate/class/ip2locationlite.class.php";
 				$ipdb = new ip2location_lite;
+				$result['querylib'] = $ipdb->service." / ".$ipdb->version;
 				$result['dbtype'] = "Web API";
 				break;
 
@@ -201,6 +204,7 @@ class geolocate {
 			case 23:
 				require_once XOOPS_ROOT_PATH . "/modules/uhq_geolocate/class/maxmindweb.class.php";
 				$ipdb = new maxmindweb;
+				$result['querylib'] = $ipdb->service." / ".$ipdb->version;
 				$result['dbtype'] = "Web API";
 				break;
 
@@ -208,11 +212,11 @@ class geolocate {
 			case 31:
 				require_once XOOPS_ROOT_PATH . "/modules/uhq_geolocate/class/freegeoipnet.class.php";
 				$ipdb = new freegeoip;
+				$result['querylib'] = $ipdb->service." / ".$ipdb->version;
 				$result ['dbtype'] = "Web API";
 				break;
 		}
 
-		$result['querylib'] = $ipdb->service."/".$ipdb->version;
 		$ipdb = null;
 
 		return $result;

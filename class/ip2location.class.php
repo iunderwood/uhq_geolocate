@@ -39,7 +39,7 @@ class ip2locationRecord{
 	var $ipNumber;
 }
 
-class ip2location{
+class ip2location {
 	var $version = '4.11';
 	var $unpackMethod = 'unpack';
 	var $handle;
@@ -247,7 +247,7 @@ class ip2location{
 		}
 		return $ipv6No;
 	}
-	
+
 	function notSupported(){
 		if ($this->nullError) return null;
 		return 'This field is not supported in DB' . $this->dbType . '. Please upgrade your IP2Location database.';
