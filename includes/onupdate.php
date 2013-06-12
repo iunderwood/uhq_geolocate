@@ -103,6 +103,20 @@ function xoops_module_update_uhq_geolocate(&$module, $oldversion = null) {
 		$oldversion = 93;
 	}
 
+	// Remove sample files if we've already got them installed.
+
+	$distfile = XOOPS_ROOT_PATH."/modules/uhq_geolocate/IP-COUNTRY-SAMPLE.BIN";
+	$trustfile = XOOPS_TRUST_PATH."/IP2LOCATION.BIN";
+	if ( file_exists($trustfile) && file_exists($distfile) ) {
+		unlink ($distfile);
+	}
+
+	$distfile = XOOPS_ROOT_PATH."/modules/uhq_geolocate/IPV6-COUNTRY-SAMPLE.BIN";
+	$trustfile = XOOPS_TRUST_PATH."/IP2LOCATION-V6.BIN";
+	if ( file_exists($trustfile) && file_exists($distfile) ) {
+		unlink ($distfile);
+	}
+
 	return true;
 }
 
