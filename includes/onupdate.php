@@ -81,7 +81,7 @@ function xoops_module_update_uhq_geolocate(&$module, $oldversion = null) {
 	if ($oldversion < 93) {
 
 		// New field: dateadd
-		$query = 'ALTER TABLE '.$xoopsDB->prefix("uhqgeolcate_v4cache")." ADD dateadd DATE AFTER hits";
+		$query = 'ALTER TABLE '.$xoopsDB->prefix("uhqgeolocate_v4cache")." ADD dateadd DATE AFTER hits";
 		$result = $xoopsDB->QueryF($query);
 		if (! $result) {
 			$module->setErrors("Error adding DB datadd field.");
