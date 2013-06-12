@@ -2,16 +2,38 @@
 
 // Modular Definitions
 
+if (!defined('XOOPS_ROOT_PATH')) {
+	die('XOOPS root path not defined');
+}
+
 $modversion['name'] = _MI_UHQGEO_NAME;
 $modversion['version'] = 0.93;
 $modversion['description'] = _MI_UHQGEO_DESC;
 $modversion['author'] = "Ian A. Underwood";
 $modversion['credits'] = "Underwood Headquarters";
-$modversion['license'] = "CC-GNU GPL";
-$modversion['help'] = 'geolocate';
+$modversion['help']        = 'page=help';
+$modversion['license']     = 'GNU GPL 2.0 or later';
+$modversion['license_url'] = "www.gnu.org/licenses/gpl-2.0.html";
+//$modversion['help'] = 'geolocate';
 $modversion['official'] = 0;
 $modversion['image'] = "images/uhq_geolocate_slogo.png";
 $modversion['dirname'] = "uhq_geolocate";
+
+$modversion['dirmoduleadmin'] = '/Frameworks/moduleclasses/moduleadmin';
+$modversion['icons16']        = '../../Frameworks/moduleclasses/icons/16';
+$modversion['icons32']        = '../../Frameworks/moduleclasses/icons/32';
+//about
+$modversion['release_date']        = '2013/06/11';
+$modversion["module_website_url"]  = "www.xoops.org";
+$modversion["module_website_name"] = "XOOPS";
+$modversion["module_status"]       = "Beta 2";
+$modversion['min_php']             = '5.2';
+$modversion['min_xoops']           = "2.5.6";
+$modversion['min_admin']           = '1.1';
+$modversion['min_db']              = array(
+    'mysql'  => '5.0.7',
+    'mysqli' => '5.0.7'
+);
 
 // Install/Update Scripts
 
@@ -28,6 +50,7 @@ $modversion['tables'][] = "uhqgeolocate_v4cache";
 // Module-Wide Configuration Items
 
 $modversion['hasConfig'] = 1;
+$modversion['system_menu'] = 1;
 
 // Option 1: Ability to turn off geolocation site-wide.  When off, query results will all be null.
 
