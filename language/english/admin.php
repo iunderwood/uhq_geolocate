@@ -33,9 +33,10 @@ define("_AM_UHQGEO_PROV_P12","IPInfoDB Web API v2 - City");
 define("_AM_UHQGEO_PROV_P13","IPInfoDB Web API v2 - Country");
 define("_AM_UHQGEO_PROV_P14","IPInfoDB Web API v3 - City");
 define("_AM_UHQGEO_PROV_P15","IPInfoDB Web API v3 - Country");
-define("_AM_UHQGEO_PROV_P21","MaxMind Web API - City + ISP");
-define("_AM_UHQGEO_PROV_P22","MaxMind Web API - City");
-define("_AM_UHQGEO_PROV_P23","MaxMind Web API - Country");
+define("_AM_UHQGEO_PROV_P21","MaxMind GeoIP Web API - City + ISP (F)");
+define("_AM_UHQGEO_PROV_P22","MaxMind GeoIP Web API - City (B)");
+define("_AM_UHQGEO_PROV_P23","MaxMind GeoIP Web API - Country (A)");
+define("_AM_UHQGEO_PROV_P24","MaxMind GeoIP Web API - Omni (E)");
 define("_AM_UHQGEO_PROV_P31","FreeGeoIP Web API");
 
 ?>

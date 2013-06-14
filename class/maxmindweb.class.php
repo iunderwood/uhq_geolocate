@@ -1,7 +1,7 @@
 <?php
 
 /* maxmindweb.class.php
-	Copyright 2010 - Ian A. Underwood
+	Copyright 2010-2013 - Ian A. Underwood
 */
 
 class maxmindweblocation {
@@ -24,10 +24,10 @@ class maxmindweb {
 	protected $useCity = false;
 	protected $useISP = false;
 	protected $key = "";
-	protected $resolver = "geoip3.maxmind.com";
+	protected $resolver = "geoip.maxmind.com";
 
 	var $service = "MaxMind Web API Class";
-	var $version = "0.92";
+	var $version = "0.94";
 
 	function setCity() {
 		$this->useCity = true;
@@ -35,6 +35,10 @@ class maxmindweb {
 
 	function setISP() {
 		$this->useISP = true;
+	}
+
+	function setOmni() {
+		$this->useOmni = true;
 	}
 
 	function setKey($key) {
@@ -70,10 +74,11 @@ class maxmindweb {
 			$lines = explode("\n",$result);
 			$rawdata = $lines[count($lines)-1];
 
+			$geo = explode(",",$rawdata);
+
 			if (!$this->useCity) {
-				// If we've got a CSV here, we've got an error.
+				// If we've got a comma on the first character, we've got an error in the country data.
 				if (strpos($rawdata,",")) {
-					$geo = explode(",",$rawdata);
 					$location->error = $geo[1];
 				} else {
 					$location->country = $rawdata;
@@ -82,10 +87,9 @@ class maxmindweb {
 				// Include the region code variables.
 				include_once "maxmindregionvars.php";
 
-				$geo = explode(",",$rawdata);
 				$location->country = $geo[0];
 				$location->region = $GEOIP_REGION_NAME[$geo[0]][$geo[1]];
-				$location->regionvode = $geo[1];
+				$location->regioncode = $geo[1];
 				$location->city = $geo[2];
 				if ($this->useISP) {
 					$location->postal = $geo[3];
@@ -102,7 +106,7 @@ class maxmindweb {
 				}
 			}
 
-			$location->rawdata = $rawdata;
+			$location->rawdata = $result;
 			return $location;
 
 		} else {

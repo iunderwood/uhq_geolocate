@@ -20,16 +20,16 @@ class geolocate {
 	// Return IP type.  4 for IPv4, 6 for IPv6, 0 for bad IP.
 	function address_type() {
 		$this->ipver = 0;
-		
+
 		// IPv4 addresses are easy-peasy
 		if (filter_var($this->ipin,FILTER_VALIDATE_IP,FILTER_FLAG_IPV4)) {
 			$this->ipver=4;
 			$this->ipout=$this->ipin;
 		}
-		
+
 		// IPv6 is at least a little more complex.
 		if (filter_var($this->ipin,FILTER_VALIDATE_IP,FILTER_FLAG_IPV6)) {
-		    
+
 			// Look for embedded IPv4 in an embedded IPv6 address, where FFFF is appended.
 			if (strpos($this->ipin,"::FFFF:") === 0) {
 				$ipv4addr = substr($this->ipin,7);
@@ -37,7 +37,7 @@ class geolocate {
 					$this->ipver=4;
 					$this->ipout=$ipv4addr;
 				}
-				
+
 			// Look for an IPv4 address embedded as ::x.x.x.x
 			} else if (strpos($this->ipin,"::") === 0) {
 				$ipv4addr = substr($this->ipin,2);
@@ -45,7 +45,7 @@ class geolocate {
 					$this->ipver=4;
 					$this->ipout=$ipv4addr;
 				}
-				
+
 			// Otherwise, assume this an IPv6 address.
 			} else {
 				$this->ipver=6;
@@ -53,14 +53,14 @@ class geolocate {
 			}
 		}
 	}
-	
+
 	// Returns the first 16 hex characters of an IPv6 address.
     function v6subnet() {
 		$v6packed = null;
-		
+
 	    foreach(str_split(inet_pton($this->ipout)) as $char)
             $v6packed .= str_pad(dechex(ord($char)), 2, '0', STR_PAD_LEFT);
-		    
+
 		return substr($v6packed,0,16);
 	}
 
@@ -381,7 +381,7 @@ class geolocate {
 					}
             }
 		}
-		
+
 		// Process a lookup.
 		switch ($this->provider($this->ipver)) {
 
@@ -498,6 +498,7 @@ class geolocate {
 					$location->isp = $result->isp;
 					$location->org = $result->org;
 				}
+				break;
 
 			// FreeGeoIP.net
 			case 31:

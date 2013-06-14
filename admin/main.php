@@ -14,26 +14,26 @@ require_once XOOPS_ROOT_PATH . '/class/template.php';
 if (!isset($xoopsTpl)) {
 	$xoopsTpl = new XoopsTpl();
 }
-$xoopsTpl->xoops_setCaching(0);
+$xoopsTpl->caching = 0;
 
 // Functions
 
 function uhqgeo_providername ($prov) {
 	switch ($prov) {
 		case 1:	return(_AM_UHQGEO_PROV_P1); break;
-		
+
 		case 11: return(_AM_UHQGEO_PROV_P11); break;
 		case 12: return(_AM_UHQGEO_PROV_P12); break;
 		case 13: return(_AM_UHQGEO_PROV_P13); break;
 		case 14: return(_AM_UHQGEO_PROV_P14); break;
 		case 15: return(_AM_UHQGEO_PROV_P15); break;
-		
+
 		case 21: return(_AM_UHQGEO_PROV_P21); break;
 		case 22: return(_AM_UHQGEO_PROV_P22); break;
 		case 23: return(_AM_UHQGEO_PROV_P23); break;
-		
+
 		case 31: return(_AM_UHQGEO_PROV_P31); break;
-		
+
 		default: return;
 	}
 }
@@ -81,7 +81,7 @@ switch ($op) {
 		}
 		break;
 	case 'd' :  // Clear IPv6 Cache
-		$dbquery = "DELETE FROM ".$xoopsDB->prefix("uhqgeolocate_v6cache")." WHERE v6subnet NOT NULL";
+		$dbquery = "DELETE FROM ".$xoopsDB->prefix("uhqgeolocate_v6cache")."";
 		$dbresult = $xoopsDB->queryF($dbquery);
 		if ($dbresult) {
 			$data['v6cachedel'] = 1;
@@ -119,7 +119,7 @@ if ($geoloc->geoloc_cache()) {
 		$data['cachemiss'] = $row['cachemiss'];
 		$data['cachehits'] = $row['cachehits'];
 	}
-	
+
 	// IPv6 Cache Info
 	$dbquery = "SELECT count(v6subnet) as cachemiss, sum(hits) as cachehits from ".$xoopsDB->prefix("uhqgeolocate_v6cache");
 	$dbresult = $xoopsDB->queryF($dbquery);

@@ -1,5 +1,5 @@
-uhq-geolocate
-=============
+uhq-geolocate - readme.txt
+==========================
 
 This is the UHQ-GeoLocate XOOPS Module.
 
