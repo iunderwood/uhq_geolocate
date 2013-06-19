@@ -26,7 +26,7 @@ $modversion['icons32']        = '../../Frameworks/moduleclasses/icons/32';
 
 // About Section
 
-$modversion['release_date']        = '2013/06/31';
+$modversion['release_date']        = '2013/06/15';
 $modversion["module_website_url"]  = "xoops.underwood-hq.org";
 $modversion["module_website_name"] = "XOOPS@UHQ";
 $modversion["module_status"]       = "RC";

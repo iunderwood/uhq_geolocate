@@ -33,7 +33,7 @@ $adminmenu[$i]['link'] = "admin/index.php";
 $adminmenu[$i]["icon"]  = $pathIcon32 . '/home.png';
 
 $i++;
-$adminmenu[$i]['title'] = _MI_UHQGEO_ADMENU_SUMMARY;
+$adminmenu[$i]['title'] = _MI_UHQGEO_ADMENU_INDEX;
 $adminmenu[$i]['link'] = "admin/main.php";
 $adminmenu[$i]["icon"]  = $pathIcon32 . '/globe.png';
 
