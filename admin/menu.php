@@ -25,19 +25,17 @@ include_once $fileinc;
 
 global $adminmenu;
 
-$adminmenu = array();
-
-$i = 0;
-$adminmenu[$i]["title"] = _AM_MODULEADMIN_HOME;
+$i=1;
+$adminmenu[$i]['title'] = _AM_MODULEADMIN_HOME;
 $adminmenu[$i]['link'] = "admin/index.php";
-$adminmenu[$i]["icon"]  = $pathIcon32 . '/home.png';
+$adminmenu[$i]['icon']  = $pathIcon32 . '/home.png';
 
 $i++;
 $adminmenu[$i]['title'] = _MI_UHQGEO_ADMENU_INDEX;
 $adminmenu[$i]['link'] = "admin/main.php";
-$adminmenu[$i]["icon"]  = $pathIcon32 . '/globe.png';
+$adminmenu[$i]['icon']  = $pathIcon32 . '/globe.png';
 
 $i++;
 $adminmenu[$i]['title'] = _AM_MODULEADMIN_ABOUT;
-$adminmenu[$i]["link"]  = "admin/about.php";
-$adminmenu[$i]["icon"]  = $pathIcon32 . '/about.png';
+$adminmenu[$i]['link']  = "admin/about.php";
+$adminmenu[$i]['icon']  = $pathIcon32 . '/about.png';

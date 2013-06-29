@@ -57,7 +57,6 @@ $modversion['tables'][] = "uhqgeolocate_v6cache";
 // Module-Wide Configuration Items
 
 $modversion['hasConfig']    = 1;
-$modversion['system_menu']  = 1;
 
 // Option 1: Ability to turn off geolocation site-wide.  When off, query results will all be null.
 
@@ -175,6 +174,7 @@ $modversion['config'][] = array (
 // Administrative Items
 
 $modversion['hasAdmin']     = 1;
+$modversion['system_menu']  = 1;
 $modversion['adminindex']   = "admin/index.php";
 $modversion['adminmenu']    = "admin/menu.php";
 
@@ -184,8 +184,10 @@ $modversion['hasMain']  = 0;
 
 // Templates
 
-$modversion['templates'][1]['file']			= "admin/uhqgeolocate_index.html";
-$modversion['templates'][1]['description']	= _MI_UHQGEO_TEMPLATE_INDEX;
+$i=0;
+$modversion['templates'][$i]['file']			= "admin/uhqgeolocate_index.html";
+$modversion['templates'][$i]['type']			= "admin";
+$modversion['templates'][$i]['description']		= _MI_UHQGEO_TEMPLATE_INDEX;
 
 // Blocks
 
@@ -194,6 +196,5 @@ $modversion['blocks'][$i]['file']           = 'uhqgeo_blocks.php';
 $modversion['blocks'][$i]['name']           = _MI_UHQGEO_BLOCK_FROM_NAME;
 $modversion['blocks'][$i]['description']    = _MI_UHQGEO_BLOCK_FROM_DESC;
 $modversion['blocks'][$i]['show_func']      = "b_uhqgeo_from_show";
-//$modversion['blocks'][$i]['edit_func']    = "b_uhqgeo_from_edit";
 $modversion['blocks'][$i]['template']       = "uhqgeo_from.html";
 $modversion['blocks'][$i]['options']        = "";
