@@ -18,4 +18,4 @@
  * @version    $Id $
  */
 
-xoops_cp_footer();
+$xoops->footer();

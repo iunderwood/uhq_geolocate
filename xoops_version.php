@@ -7,7 +7,7 @@ if (!defined('XOOPS_ROOT_PATH')) {
 }
 
 $modversion['name']         = _MI_UHQGEO_NAME;
-$modversion['version']      = 0.94;
+$modversion['version']      = 0.95;
 $modversion['description']  = _MI_UHQGEO_DESC;
 $modversion['author']       = "Ian A. Underwood";
 $modversion['credits']      = "Underwood Headquarters";
@@ -20,9 +20,8 @@ $modversion['dirname']      = "uhq_geolocate";
 
 // Administrative Defines
 
-$modversion['dirmoduleadmin'] = '/Frameworks/moduleclasses/moduleadmin';
-$modversion['icons16']        = '../../Frameworks/moduleclasses/icons/16';
-$modversion['icons32']        = '../../Frameworks/moduleclasses/icons/32';
+$modversion['icons16']        = '../../media/xoops/images/icons/16';
+$modversion['icons32']        = '../../media/xoops/images/icons/32';
 
 // About Section
 

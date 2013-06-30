@@ -66,14 +66,10 @@ class geolocate {
 
 	// True if module is enabled.
 	function geoloc_ready () {
-		// Load module options
-		$modhandler			=& xoops_gethandler('module');
-		$xoopsModule		=& $modhandler->getByDirname('uhq_geolocate');
-		$config_handler		=& xoops_gethandler('config');
-		$xoopsModuleConfig	=& $config_handler->getConfigsByCat(0,$xoopsModule->getVar('mid'));
+	    $xoops = Xoops::getInstance();
 
 		// Return true if geolocation is enabled in the configuration.
-		if ($xoopsModuleConfig['geoloc_ready'] == 1) {
+		if ($xoops->getModuleConfig('geoloc_ready','uhq_geolocate') == 1) {
 			return true;
 		} else {
 			return false;
@@ -82,14 +78,10 @@ class geolocate {
 
 	// True if caching is enabled
 	function geoloc_cache () {
-		// Load module options
-		$modhandler			=& xoops_gethandler('module');
-		$xoopsModule		=& $modhandler->getByDirname('uhq_geolocate');
-		$config_handler		=& xoops_gethandler('config');
-		$xoopsModuleConfig	=& $config_handler->getConfigsByCat(0,$xoopsModule->getVar('mid'));
+	    $xoops = Xoops::getInstance();
 
 		// Return true if geolocation is enabled in the configuration.
-		if ($xoopsModuleConfig['geoloc_cache'] == 1) {
+		if ($xoops->getModuleConfig('geoloc_cache','uhq_geolocate') == 1) {
 			return true;
 		} else {
 			return false;
@@ -98,50 +90,38 @@ class geolocate {
 
 	// Return the provider ID configured in the module for a given IP version.
 	function provider ($ipver) {
-		// Load module options
-		$modhandler			=& xoops_gethandler('module');
-		$xoopsModule		=& $modhandler->getByDirname('uhq_geolocate');
-		$config_handler		=& xoops_gethandler('config');
-		$xoopsModuleConfig	=& $config_handler->getConfigsByCat(0,$xoopsModule->getVar('mid'));
+	    $xoops = Xoops::getInstance();
 
 		// Return true if geolocation is enabled in the configuration.
 		if ($ipver == 4) {
-			return $xoopsModuleConfig['ipv4_prov'];
+			return $xoops->getModuleConfig('ipv4_prov','uhq_geolocate');
 		}
 		if ($ipver == 6) {
-			return $xoopsModuleConfig['ipv6_prov'];
+			return $xoops->getModuleConfig('ipv6_prov','uhq_geolocate');
 		}
 		return false;
 	}
 
 	// Get the API Key if we need it for the provider being used.
 	function apikey () {
-		// Load module options
-		$modhandler			=& xoops_gethandler('module');
-		$xoopsModule		=& $modhandler->getByDirname('uhq_geolocate');
-		$config_handler		=& xoops_gethandler('config');
-		$xoopsModuleConfig	=& $config_handler->getConfigsByCat(0,$xoopsModule->getVar('mid'));
+	    $xoops = Xoops::getInstance();
 
 		// Return a key, if we have one.
 		if ($this->ipver == 4) {
-			return $xoopsModuleConfig['geoloc_apikey'];
+			return $xoops->getModuleConfig('geoloc_apikey','uhq_geolocate');
 		} else {
-			return $xoopsModuleConfig['geoloc_apikey_v6'];
+			return $xoops->getModuleConfig('geoloc_apikey_v6','uhq_geolocate');
 			return false;
 		}
 	}
 
 	// Get the cache expire time in days
 	function geoloc_cacheexpire () {
-		// Load module options
-		$modhandler			=& xoops_gethandler('module');
-		$xoopsModule		=& $modhandler->getByDirname('uhq_geolocate');
-		$config_handler		=& xoops_gethandler('config');
-		$xoopsModuleConfig	=& $config_handler->getConfigsByCat(0,$xoopsModule->getVar('mid'));
+	    $xoops = Xoops::getInstance();
 
 		// Return value of days for cache expiration.
-		if ($xoopsModuleConfig['geoloc_cacheexpire']) {
-			return $xoopsModuleConfig['geoloc_cacheexpire'];
+		if ($xoops->getModuleConfig('geoloc_cacheexpire','uhq_geolocate') ) {
+			return $xoops->getModuleConfig('geoloc_cacheexpire','uhq_geolocate');
 		} else {
 			return 0;
 		}
@@ -522,14 +502,14 @@ class geolocate {
 				}
 				break;
 		}
-		
+
 		// Insert into the cache if we use it.
 		if ($this->geoloc_cache()) {
             switch ($this->provider($this->ipver)) {
                 case 1:
                     break;
                 default:
-					$this->cache_insert($location);			
+					$this->cache_insert($location);
     				// Append raw lookup result
 	    			$location->lookupresult = $result;
             }

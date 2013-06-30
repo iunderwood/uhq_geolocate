@@ -1,20 +1,17 @@
 <?php
 
-$path = dirname(dirname(dirname(dirname(__FILE__))));
-include_once $path . '/mainfile.php';
-include_once $path . '/include/cp_functions.php';
-require_once $path . '/include/cp_header.php';
-
+// Includes
+include_once dirname(__FILE__) . '/admin_header.php';
 require_once XOOPS_ROOT_PATH . "/modules/uhq_geolocate/class/geolocate.class.php";
 require_once XOOPS_ROOT_PATH . "/modules/uhq_geolocate/includes/countryshort.php";
-require_once XOOPS_ROOT_PATH . '/class/template.php';
 
-// If we're using a template, disable the cache.
+$xoops = Xoops::getInstance();
 
-if (!isset($xoopsTpl)) {
-	$xoopsTpl = new XoopsTpl();
-}
-$xoopsTpl->caching = 0;
+$xoops->header();
+$adminPage = new XoopsModuleAdmin();
+$adminPage->displayNavigation('main.php');
+
+$xoops->tpl()->caching = 0;
 
 // Functions
 
@@ -38,15 +35,6 @@ function uhqgeo_providername ($prov) {
 	}
 }
 
-// Header
-
-include_once dirname(__FILE__) . '/admin_header.php';
-
-xoops_cp_header();
-$mainAdmin = new ModuleAdmin();
-
-echo $mainAdmin->addNavigation('main.php');
-
 // Now the fun begins!
 
 if ( isset($_REQUEST['op']) ) {
@@ -56,14 +44,10 @@ if ( isset($_REQUEST['op']) ) {
 }
 
 function diagarray () {
-	// Load module options
-	$modhandler			=& xoops_gethandler('module');
-	$xoopsModule		=& $modhandler->getByDirname('uhq_geolocate');
-	$config_handler		=& xoops_gethandler('config');
-	$xoopsModuleConfig	=& $config_handler->getConfigsByCat(0,$xoopsModule->getVar('mid'));
+	global $xoops;
 
 	// Return true if geolocation is enabled in the configuration.
-	if ($xoopsModuleConfig['geoloc_printr'] == 1) {
+	if ($xoops->getModuleConfig('geoloc_printr') == 1) {
 		return true;
 	} else {
 		return false;
@@ -136,8 +120,8 @@ $data['v4db']['name'] = uhqgeo_providername($data['v4db']['provider']);
 $data['v6db'] = (array) $geoloc->dbinfo(6);
 $data['v6db']['name'] = uhqgeo_providername($data['v6db']['provider']);
 
-$xoopsTpl->assign('data',$data);
-$xoopsTpl->display("db:admin/uhqgeolocate_index.html");
+$xoops->tpl()->assign('data',$data);
+$xoops->tpl()->display("db:admin/uhqgeolocate_index.html");
 
 if (diagarray()) {
 	echo "<hr><h3>Diagnostic Array</h3><pre>";

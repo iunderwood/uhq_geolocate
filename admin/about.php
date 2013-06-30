@@ -20,11 +20,11 @@
 
 include_once dirname(__FILE__) . '/admin_header.php';
 
-xoops_cp_header();
+$xoops = Xoops::getInstance();
+$xoops->header();
+$aboutAdmin = new XoopsModuleAdmin();
+$aboutAdmin->displayNavigation('about.php');
+$aboutAdmin->displayAbout('6KJ7RW5DR3VTJ', true);
+$xoops->footer();
 
-$aboutAdmin = new ModuleAdmin();
-
-echo $aboutAdmin->addNavigation('about.php');
-echo $aboutAdmin->renderAbout('6KJ7RW5DR3VTJ', false);
-
-include 'admin_footer.php';
+include_once dirname(__FILE__) . '/admin_footer.php';
