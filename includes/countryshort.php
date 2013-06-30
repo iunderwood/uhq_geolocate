@@ -288,5 +288,3 @@ $_UHQGEO_CC['YT'] = _UHQGEO_CC_YT;	// Mayotte
 $_UHQGEO_CC['ZA'] = _UHQGEO_CC_ZA;	// South Africa
 $_UHQGEO_CC['ZM'] = _UHQGEO_CC_ZM;	// Zambia
 $_UHQGEO_CC['ZW'] = _UHQGEO_CC_ZW;	// Zimbabwe
-
-?>
