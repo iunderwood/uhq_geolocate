@@ -1,16 +1,16 @@
-<{if $block.error == 1}>
+<{if $block.result.error == 1}>
 	<{$smarty.const._MB_UHQGEO_ERR1}>
-<{elseif $block.error == 2}>
+<{elseif $block.result.error == 2}>
 	<{$smarty.const._MB_UHQGEO_ERR2}><{$block.input.ipin}>
-<{elseif $block.error == 3}>
+<{elseif $block.result.error == 3}>
 	<{$smarty.const._MB_UHQGEO_ERR3}>
 <{else}>
 	<center>
 	IPv<{$block.input.ipver}> - <{$block.input.ipout}><br/>
 	<br/>
 	<{if $block.result.country}>
-		<img src="/modules/uhq_geolocate/images/flags/<{$block.result.flag}>.gif"> :: 
-		<{if $block.result.ccname}> 
+		<img src="/modules/uhq_geolocate/images/flags/<{$block.result.flag}>.gif"> ::
+		<{if $block.result.ccname}>
 			<{$block.result.ccname}>
 		<{else}>
 			<{$block.result.country}>
