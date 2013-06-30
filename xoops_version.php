@@ -186,7 +186,6 @@ $modversion['hasMain']  = 0;
 
 $i=0;
 $modversion['templates'][$i]['file']			= "admin/uhqgeolocate_index.html";
-$modversion['templates'][$i]['type']			= "admin";
 $modversion['templates'][$i]['description']		= _MI_UHQGEO_TEMPLATE_INDEX;
 
 // Blocks
