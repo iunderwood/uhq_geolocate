@@ -1,25 +1,35 @@
-<{$smarty.const._AM_UHQGEO_YOURIP}><{$data.input.ipout}> - IPv<{$data.input.ipver}><br/>
-<{$smarty.const._AM_UHQGEO_YOURLOC}>
-<{if $data.result.country}>
-  <img src="../images/flags/<{$data.result.flag}>.gif"> :: <{$data.result.country}> :: <{$data.result.ccname}>
+<{if $data.result.error == 1}>
+	<{$smarty.const._AM_UHQGEO_ERR1}>
+<{elseif $data.result.error == 2}>
+	<{$smarty.const._AM_UHQGEO_ERR2}><{$block.input.ipin}>
+<{elseif $data.result.error == 3}>
+	<{$smarty.const._AM_UHQGEO_ERR3}>
 <{else}>
-  <{$smarty.const._AM_UHQGEO_LOCNA}>
+	<{$smarty.const._AM_UHQGEO_YOURIP}><{$data.input.ipout}> - IPv<{$data.input.ipver}><br/>
+	<{$smarty.const._AM_UHQGEO_YOURLOC}>
+	<{if $data.result.country}>
+		<img src="../images/flags/<{$data.result.flag}>.gif"> :: <{$data.result.country}> :: <{$data.result.ccname}>
+	<{else}>
+		<{$smarty.const._AM_UHQGEO_LOCNA}>
+	<{/if}>
+	<br/>
 <{/if}>
-<br/><br/><hr/><br/>
+
+<hr/>
 <{$smarty.const._AM_HDR_LOCPROV}>
 <p class="odd"><b>IPv4: <{$data.v4db.name}></b></p>
-<p><{$smarty.const._AM_UHQGEO_QLV}> <{$data.v4db.querylib}></p>
-<p><{$smarty.const._AM_UHQGEO_DBT}> <{$data.v4db.dbtype}></p>
+<{$smarty.const._AM_UHQGEO_QLV}> <{$data.v4db.querylib}><br/>
+<{$smarty.const._AM_UHQGEO_DBT}> <{$data.v4db.dbtype}><br/>
 <{if $data.v4db.dbdate}>
-	<p><{$smarty.const._AM_UHQGEO_DBD}> <{$data.v4db.dbdate}></p>
+	<{$smarty.const._AM_UHQGEO_DBD}> <{$data.v4db.dbdate}><br/>
 <{/if}>
 <{if $data.v4db.dbsize}>
-	<p><{$smarty.const._AM_UHQGEO_DBS}> <{$data.v4db.dbsize}> <{$smarty.const._AM_UHQGEO_RECORDS}><p>
+	<{$smarty.const._AM_UHQGEO_DBS}> <{$data.v4db.dbsize}> <{$smarty.const._AM_UHQGEO_RECORDS}><br/>
 <{/if}>
 <{if $data.cachedel}>
-	<p><font color=red><{$smarty.const._AM_UHQGEO_CACHEDEL}></font></p>
+	<font color=red><{$smarty.const._AM_UHQGEO_CACHEDEL}></font><br/>
 <{elseif $data.cacheactive}>
-	<p><{$smarty.const._AM_UHQGEO_CACHEACT}>: <{$data.cachemiss}> <{$smarty.const._AM_UHQGEO_CACHEMISS}> / <{$data.cachehits}> <{$smarty.const._AM_UHQGEO_CACHEHITS}></p>
+	<{$smarty.const._AM_UHQGEO_CACHEACT}>: <{$data.cachemiss}> <{$smarty.const._AM_UHQGEO_CACHEMISS}> / <{$data.cachehits}> <{$smarty.const._AM_UHQGEO_CACHEHITS}><br/>
 <br/>
 	<form action="main.php" method="post">
 		<input type=hidden name="op" value="c">
@@ -27,29 +37,26 @@
 	</form>
 <{/if}>
 
-<br/>
-
 <p class="odd"><b>IPv6: <{$data.v6db.name}></b></p>
-<p><{$smarty.const._AM_UHQGEO_QLV}> <{$data.v6db.querylib}></p>
-<p><{$smarty.const._AM_UHQGEO_DBT}> <{$data.v6db.dbtype}></p>
+<{$smarty.const._AM_UHQGEO_QLV}> <{$data.v6db.querylib}><br/>
+<{$smarty.const._AM_UHQGEO_DBT}> <{$data.v6db.dbtype}><br/>
 <{if $data.v6db.dbdate}>
-<p><{$smarty.const._AM_UHQGEO_DBD}> <{$data.v6db.dbdate}></p>
+<{$smarty.const._AM_UHQGEO_DBD}> <{$data.v6db.dbdate}><br/>
 <{/if}>
 <{if $data.v6db.dbsize}>
-<p><{$smarty.const._AM_UHQGEO_DBS}> <{$data.v6db.dbsize}> <{$smarty.const._AM_UHQGEO_RECORDS}></p>
+<{$smarty.const._AM_UHQGEO_DBS}> <{$data.v6db.dbsize}> <{$smarty.const._AM_UHQGEO_RECORDS}><br/>
 <{/if}>
 <{if $data.v6cachedel}>
-	<p><font color=red><{$smarty.const._AM_UHQGEO_CACHEDEL}></font></p>
+	<font color=red><{$smarty.const._AM_UHQGEO_CACHEDEL}></font><br/>
 <{elseif $data.cacheactive}>
-	<p><{$smarty.const._AM_UHQGEO_CACHEACT}>: <{$data.v6cachemiss}> <{$smarty.const._AM_UHQGEO_CACHEMISS}> / <{$data.v6cachehits}> <{$smarty.const._AM_UHQGEO_CACHEHITS}></p>
-<br/>
+	<{$smarty.const._AM_UHQGEO_CACHEACT}>: <{$data.v6cachemiss}> <{$smarty.const._AM_UHQGEO_CACHEMISS}> / <{$data.v6cachehits}> <{$smarty.const._AM_UHQGEO_CACHEHITS}><br/>
 	<form action="main.php" method="post">
 		<input type=hidden name="op" value="d">
 		<input type=submit value="<{$smarty.const._AM_UHQGEO_CLEARV6}>">
 	</form>
 <{/if}>
 
-<br/><hr/><br/>
+<hr/>
 
 <{if $data.query}>
   <p><{$smarty.const._AM_UHQGEO_QUERYIP}><{$data.q2.ipout}> - IPv<{$data.q2.ipver}></p>
@@ -60,7 +67,6 @@
     <{$smarty.const._AM_UHQGEO_LOCNA}>
   <{/if}>
   </p>
-  <br/>
 <{/if}>
 
 <form action="main.php" method="post">
@@ -69,4 +75,3 @@
     <input type=hidden name="op" value="q">
     <input type=submit value="Query">
 </form>
-<br/>
