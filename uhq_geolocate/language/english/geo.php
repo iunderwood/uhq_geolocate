@@ -267,5 +267,3 @@ define('_UHQGEO_CC_YT',"Mayotte");
 define('_UHQGEO_CC_ZA',"South Africa");
 define('_UHQGEO_CC_ZM',"Zambia");
 define('_UHQGEO_CC_ZW',"Zimbabwe");
-
-?>

@@ -60,5 +60,3 @@ define("_MI_UHQGEO_TEMPLATE_INDEX","Admin Main Template");
 
 define("_MI_UHQGEO_BLOCK_FROM_NAME","Your Location");
 define("_MI_UHQGEO_BLOCK_FROM_DESC","Show the page viewer where we think they're from.");
-
-?>

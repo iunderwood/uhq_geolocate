@@ -12,5 +12,3 @@ define("_MB_UHQGEO_ERR3","DB Error");
 define("_MB_UHQGEO_REGION","Region: ");
 define("_MB_UHQGEO_CITY","City: ");
 define("_MB_UHQGEO_ISP","ISP: ");
-
-?>

@@ -38,5 +38,3 @@ define("_AM_UHQGEO_PROV_P22","MaxMind GeoIP Web API - City (B)");
 define("_AM_UHQGEO_PROV_P23","MaxMind GeoIP Web API - Country (A)");
 define("_AM_UHQGEO_PROV_P24","MaxMind GeoIP Web API - Omni (E)");
 define("_AM_UHQGEO_PROV_P31","FreeGeoIP Web API");
-
-?>

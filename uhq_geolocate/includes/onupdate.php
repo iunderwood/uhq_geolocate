@@ -2,31 +2,31 @@
 
 function xoops_module_update_uhq_geolocate(&$module, $oldversion = null) {
 
-	global $xoopsDB;
+    global $xoopsDB;
 
-	// Firstly, remove sample files on an update if we can.
+    // Firstly, remove sample files on an update if we can.
 
-	$distfile = XOOPS_ROOT_PATH."/modules/uhq_geolocate/IP-COUNTRY-SAMPLE.BIN";
+    $distfile = XOOPS_ROOT_PATH."/modules/uhq_geolocate/IP-COUNTRY-SAMPLE.BIN";
 
-	if ( file_exists($distfile) ) {
-		unlink ($distfile);
-	}
+    if ( file_exists($distfile) ) {
+        unlink ($distfile);
+    }
 
-	// Remove IPv6 Database
+    // Remove IPv6 Database
 
-	$distfile = XOOPS_ROOT_PATH."/modules/uhq_geolocate/IPV6-COUNTRY-SAMPLE.BIN";
+    $distfile = XOOPS_ROOT_PATH."/modules/uhq_geolocate/IPV6-COUNTRY-SAMPLE.BIN";
 
-	if ( file_exists($distfile) ) {
-		unlink ($distfile);
-	}
+    if ( file_exists($distfile) ) {
+        unlink ($distfile);
+    }
 
-	// Let's Update!
+    // Let's Update!
 
-	if ($oldversion < 91) {
+    if ($oldversion < 91) {
 
-		// Add new DB tables into the database
+        // Add new DB tables into the database
 
-		$query = 'CREATE TABLE '.$xoopsDB->prefix("uhqgeolocate_v4cache").' (
+        $query = 'CREATE TABLE '.$xoopsDB->prefix("uhqgeolocate_v4cache").' (
 			ipaddr			INT UNSIGNED,
 			hits			INT UNSIGNED,
 			countrycode		CHAR(2),
@@ -34,79 +34,86 @@ function xoops_module_update_uhq_geolocate(&$module, $oldversion = null) {
 			city			VARCHAR(128),
 			PRIMARY KEY (ipaddr)
 			) ENGINE=MyISAM;';
-		$result = $xoopsDB->queryF($query);
-		if (! $result) {
-			$module->setErrors("Error adding DB table uhqgeolocate_v4cache");
-			return false;
-		}
+        $result = $xoopsDB->queryF($query);
+        if (! $result) {
+            $module->setErrors("Error adding DB table uhqgeolocate_v4cache");
 
-		$oldversion = 91;
-	}
+            return false;
+        }
 
-	if ($oldversion < 92) {
+        $oldversion = 91;
+    }
 
-		// Expand DB to include new fields
+    if ($oldversion < 92) {
 
-		$query = 'ALTER TABLE '.$xoopsDB->prefix("uhqgeolocate_v4cache")." ADD latitude DOUBLE AFTER city";
-		$result = $xoopsDB->queryF($query);
-		if (! $result) {
-			$module->setErrors("Error adding DB latitude field.");
-			return false;
-		}
+        // Expand DB to include new fields
 
-		$query = 'ALTER TABLE '.$xoopsDB->prefix("uhqgeolocate_v4cache")." ADD longitude DOUBLE AFTER latitude";
-		$result = $xoopsDB->queryF($query);
-		if (! $result) {
-			$module->setErrors("Error adding DB longitude field.");
-			return false;
-		}
+        $query = 'ALTER TABLE '.$xoopsDB->prefix("uhqgeolocate_v4cache")." ADD latitude DOUBLE AFTER city";
+        $result = $xoopsDB->queryF($query);
+        if (! $result) {
+            $module->setErrors("Error adding DB latitude field.");
 
-		$query = 'ALTER TABLE '.$xoopsDB->prefix("uhqgeolocate_v4cache")." ADD isp VARCHAR(128) AFTER longitude";
-		$result = $xoopsDB->queryF($query);
-		if (! $result) {
-			$module->setErrors("Error adding DB isp field.");
-			return false;
-		}
+            return false;
+        }
 
-		$query = 'ALTER TABLE '.$xoopsDB->prefix("uhqgeolocate_v4cache")." ADD org VARCHAR(128) AFTER isp";
-		$result = $xoopsDB->queryF($query);
-		if (! $result) {
-			$module->setErrors("Error adding DB org field.");
-			return false;
-		}
+        $query = 'ALTER TABLE '.$xoopsDB->prefix("uhqgeolocate_v4cache")." ADD longitude DOUBLE AFTER latitude";
+        $result = $xoopsDB->queryF($query);
+        if (! $result) {
+            $module->setErrors("Error adding DB longitude field.");
 
-		$oldversion = 92;
-	}
+            return false;
+        }
 
-	if ($oldversion < 93) {
+        $query = 'ALTER TABLE '.$xoopsDB->prefix("uhqgeolocate_v4cache")." ADD isp VARCHAR(128) AFTER longitude";
+        $result = $xoopsDB->queryF($query);
+        if (! $result) {
+            $module->setErrors("Error adding DB isp field.");
 
-		// New field: dateadd
-		$query = 'ALTER TABLE '.$xoopsDB->prefix("uhqgeolocate_v4cache")." ADD dateadd DATE AFTER hits";
-		$result = $xoopsDB->QueryF($query);
-		if (! $result) {
-			$module->setErrors("Error adding DB datadd field.");
-			return false;
-		}
+            return false;
+        }
 
-		// Update v4 API description
-		$query = 'UPDATE '.$xoopsDB->prefix("config").' WHERE conf_title = "_MI_UHQGEO_MODCFG_APIKEY" SET ';
-		$query .= 'conf_title = "_MI_UHQGEO_MODCFG_APIV4KEY", ';
-		$query .= 'conf_desc = "_MI_UHQGEO_MODCFG_APIV4KEY_DESC"';
+        $query = 'ALTER TABLE '.$xoopsDB->prefix("uhqgeolocate_v4cache")." ADD org VARCHAR(128) AFTER isp";
+        $result = $xoopsDB->queryF($query);
+        if (! $result) {
+            $module->setErrors("Error adding DB org field.");
 
-		$result = $xoopsDB->QueryF($query);
+            return false;
+        }
 
-		if (! $result) {
-			$module->setErrors("Error modifying API Key Description");
-			return false;
-		}
+        $oldversion = 92;
+    }
 
-		$oldversion = 93;
-	}
-	
-	if ( $oldversion < 94 ) {
-	    
-	    // New DB: IPv6 Cache
-	    $query = 'CREATE TABLE '.$xoopsDB->prefix("uhqgeolocate_v6cache").' (
+    if ($oldversion < 93) {
+
+        // New field: dateadd
+        $query = 'ALTER TABLE '.$xoopsDB->prefix("uhqgeolocate_v4cache")." ADD dateadd DATE AFTER hits";
+        $result = $xoopsDB->QueryF($query);
+        if (! $result) {
+            $module->setErrors("Error adding DB datadd field.");
+
+            return false;
+        }
+
+        // Update v4 API description
+        $query = 'UPDATE '.$xoopsDB->prefix("config").' WHERE conf_title = "_MI_UHQGEO_MODCFG_APIKEY" SET ';
+        $query .= 'conf_title = "_MI_UHQGEO_MODCFG_APIV4KEY", ';
+        $query .= 'conf_desc = "_MI_UHQGEO_MODCFG_APIV4KEY_DESC"';
+
+        $result = $xoopsDB->QueryF($query);
+
+        if (! $result) {
+            $module->setErrors("Error modifying API Key Description");
+
+            return false;
+        }
+
+        $oldversion = 93;
+    }
+    
+    if ( $oldversion < 94 ) {
+        
+        // New DB: IPv6 Cache
+        $query = 'CREATE TABLE '.$xoopsDB->prefix("uhqgeolocate_v6cache").' (
 	        v6subnet        CHAR(16),
 	        hits            INT UNSIGNED,
             dateadd         DATE,
@@ -120,31 +127,29 @@ function xoops_module_update_uhq_geolocate(&$module, $oldversion = null) {
             PRIMARY KEY (v6subnet)
         ) ENGINE=MyISAM;';
         
-	    $result = $xoopsDB->QueryF($query);
+        $result = $xoopsDB->QueryF($query);
 
-		if (! $result) {
-			$module->setErrors("Error modifying API Key Description");
-			return false;
-		}   
-		$oldversion = 94;
-	}
-	
-	// Remove sample files if we've already got them installed.
+        if (! $result) {
+            $module->setErrors("Error modifying API Key Description");
 
-	$distfile = XOOPS_ROOT_PATH."/modules/uhq_geolocate/IP-COUNTRY-SAMPLE.BIN";
-	$trustfile = XOOPS_TRUST_PATH."/IP2LOCATION.BIN";
-	if ( file_exists($trustfile) && file_exists($distfile) ) {
-		unlink ($distfile);
-	}
+            return false;
+        }
+        $oldversion = 94;
+    }
+    
+    // Remove sample files if we've already got them installed.
 
-	$distfile = XOOPS_ROOT_PATH."/modules/uhq_geolocate/IPV6-COUNTRY-SAMPLE.BIN";
-	$trustfile = XOOPS_TRUST_PATH."/IP2LOCATION-V6.BIN";
-	if ( file_exists($trustfile) && file_exists($distfile) ) {
-		unlink ($distfile);
-	}
+    $distfile = XOOPS_ROOT_PATH."/modules/uhq_geolocate/IP-COUNTRY-SAMPLE.BIN";
+    $trustfile = XOOPS_TRUST_PATH."/IP2LOCATION.BIN";
+    if ( file_exists($trustfile) && file_exists($distfile) ) {
+        unlink ($distfile);
+    }
 
-	return true;
+    $distfile = XOOPS_ROOT_PATH."/modules/uhq_geolocate/IPV6-COUNTRY-SAMPLE.BIN";
+    $trustfile = XOOPS_TRUST_PATH."/IP2LOCATION-V6.BIN";
+    if ( file_exists($trustfile) && file_exists($distfile) ) {
+        unlink ($distfile);
+    }
+
+    return true;
 }
-
-
-?>
