@@ -36,10 +36,5 @@ $adminmenu[$i]['icon']  = $pathIcon32 . '/globe.png';
 
 $i++;
 $adminmenu[$i]['title'] = _AM_MODULEADMIN_ABOUT;
-<<<<<<< HEAD:uhq_geolocate/admin/menu.php
-$adminmenu[$i]["link"]  = "admin/about.php";
-$adminmenu[$i]["icon"]  = $pathIcon32 . '/about.png';
-=======
 $adminmenu[$i]['link']  = "admin/about.php";
 $adminmenu[$i]['icon']  = $pathIcon32 . '/about.png';
->>>>>>> develop:admin/menu.php

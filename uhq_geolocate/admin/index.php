@@ -23,17 +23,9 @@ include_once dirname(__FILE__) . '/admin_header.php';
 
 xoops_cp_header();
 
-<<<<<<< HEAD:uhq_geolocate/admin/index.php
-    $indexAdmin = new ModuleAdmin();
-=======
 $indexAdmin = new ModuleAdmin();
->>>>>>> develop:admin/index.php
 
 echo $indexAdmin->addNavigation('index.php');
 echo $indexAdmin->renderIndex();
 
-<<<<<<< HEAD:uhq_geolocate/admin/index.php
-include "admin_footer.php";
-=======
 include_once dirname(__FILE__) . '/admin_footer.php';
->>>>>>> develop:admin/index.php
