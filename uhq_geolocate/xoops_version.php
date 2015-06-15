@@ -7,7 +7,7 @@ if (!defined('XOOPS_ROOT_PATH')) {
 }
 
 $modversion['name']         = _MI_UHQGEO_NAME;
-$modversion['version']      = 0.94;
+$modversion['version']      = 0.96;
 $modversion['description']  = _MI_UHQGEO_DESC;
 $modversion['author']       = "Ian A. Underwood";
 $modversion['credits']      = "Underwood Headquarters";
@@ -26,7 +26,7 @@ $modversion['icons32']        = '../../Frameworks/moduleclasses/icons/32';
 
 // About Section
 
-$modversion['release_date']        = '2013/06/15';
+$modversion['release_date']        = '2015/06/15';
 $modversion["module_website_url"]  = "xoops.underwood-hq.org";
 $modversion["module_website_name"] = "XOOPS@UHQ";
 $modversion["module_status"]       = "RC";
