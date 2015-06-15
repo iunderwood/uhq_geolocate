@@ -27,6 +27,10 @@ define("_AM_UHQGEO_DBS","DB Size: ");
 define("_AM_UHQGEO_DBD","DB Date: ");
 define("_AM_UHQGEO_RECORDS","Records");
 
+define("_AM_UHQGEO_ERR1","This function has been disabled in module preferences.");
+define("_AM_UHQGEO_ERR2","Bad IP: ");
+define("_AM_UHQGEO_ERR3","DB Error.");
+
 define("_AM_UHQGEO_PROV_P1","IP2Location Binary File");
 define("_AM_UHQGEO_PROV_P11","IPInfoDB Web API v2 - City + Timezone");
 define("_AM_UHQGEO_PROV_P12","IPInfoDB Web API v2 - City");
