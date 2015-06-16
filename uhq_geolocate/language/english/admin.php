@@ -42,3 +42,9 @@ define("_AM_UHQGEO_PROV_P22","MaxMind GeoIP Web API - City (B)");
 define("_AM_UHQGEO_PROV_P23","MaxMind GeoIP Web API - Country (A)");
 define("_AM_UHQGEO_PROV_P24","MaxMind GeoIP Web API - Omni (E)");
 define("_AM_UHQGEO_PROV_P31","FreeGeoIP Web API");
+
+define("_AM_UHQGEO_UPDATE_ERR_LOCV4","Error updating IPv4 location provider.");
+
+define("_AM_UHQGEO_UPDATE_HDR","Module Update");
+define("_AM_UHQGEO_UPDATE_IPV4CHG","IPv4 Provider changed to: ");
+define("_AM_UHQGEO_UPDATE_TO","Updating for v");

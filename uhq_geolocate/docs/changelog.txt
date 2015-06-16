@@ -1,3 +1,24 @@
+====[ 0.96 -- 2015-06-28 ]====
+
+Code Changes
+* Modified directory structure to really fit in GitHub. (Mamba)
+* IPInfoDB v2 APIs are depreciated and have been removed as options.  Update scrips will change this accordingly.
+* Help section utilizes new help structure for 2.5.7+
+* Update script uses language localization in admin.php,
+* Update script now produces verbose notes for updates to v0.96.
+
+Fixes
+* Removed redundant file check in update script.
+
+Notes
+* Dev environment is now XOOPS 2.5.7.1
+
+====[ 0.95 -- Not Released ]====
+
+Fixes
+* Fixed a couple rendering issues which would see an error condition.
+* Sub-branch adjusting to quirks in XOOPS 2.6.0 Alpha 2.
+
 ====[ 0.94 -- 2013-06-15 ]====
 
 Feature Adds
