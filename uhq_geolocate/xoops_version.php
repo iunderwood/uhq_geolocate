@@ -7,7 +7,7 @@ if (!defined('XOOPS_ROOT_PATH')) {
 }
 
 $modversion['name']         = _MI_UHQGEO_NAME;
-$modversion['version']      = 0.96;
+$modversion['version']      = 0.97;
 $modversion['description']  = _MI_UHQGEO_DESC;
 $modversion['author']       = "Ian A. Underwood";
 $modversion['credits']      = "Underwood Headquarters";
