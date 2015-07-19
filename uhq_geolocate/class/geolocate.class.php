@@ -10,6 +10,7 @@ class geolocate_record {
     var $org;
     var $cache;
     var $error;
+    var $error_text;
 }
 
 class geolocate {
@@ -306,6 +307,11 @@ class geolocate {
     private function cache_insert ($location) {
         global $xoopsDB;
 
+        // Do not save if there is an error code set.
+        if ($location->error) {
+            return false;
+        }
+
         // Set up insert query for IPv4 DB.
         if ($this->ipver == 4) {
             // Remove any expired entries
@@ -412,10 +418,12 @@ class geolocate {
                     $location->region = $result->region;
                     $location->city = $result->city;
                     $location->isp = $result->isp;
+                } else {
+                    $location->error = 4;
                 }
                 break;
 
-            // IPInfoDB Web API
+            // IPInfoDB Web API - Depreciated
             case 11:
                 $timezone = true;
             case 12:
@@ -445,6 +453,8 @@ class geolocate {
                         $location->latitude = $result['Latitude'];
                     if ($result['Longitude'] != null)
                         $location->longitude = $result['Longitude'];
+                } else {
+                    $location->error = 4;
                 }
                 break;
 
@@ -472,6 +482,9 @@ class geolocate {
                         $location->latitude = $result['latitude'];
                     if ($result['longitude'] != null)
                         $location->longitude = $result['longitude'];
+                } else {
+                    $location->error=4;
+                    $location->error_text = $result['statusMessage'];
                 }
                 break;
 
@@ -502,10 +515,13 @@ class geolocate {
                     $location->longitude = $result->longitude;
                     $location->isp = $result->isp;
                     $location->org = $result->org;
+                } else {
+                    $location->error=4;
+                    $location->error_text = $result->error;
                 }
                 break;
 
-            // FreeGeoIP.net
+            // FreeGeoIP.net - No API Key Required
             case 31:
                 require_once XOOPS_ROOT_PATH."/modules/uhq_geolocate/class/freegeoipnet.class.php";
                 $ipdb = new freegeoip;
@@ -524,10 +540,13 @@ class geolocate {
                         $location->latitude = $result['Latitude'];
                     if ($result['Longitude'] != null)
                         $location->longitude = $result['Longitude'];
+                } else {
+                    $location->error=4;
+                    $location->error_text = $result['error'];
                 }
                 break;
         }
-        
+
         // Insert into the cache if we use it.
         if ($this->geoloc_cache()) {
             switch ($this->provider($this->ipver)) {

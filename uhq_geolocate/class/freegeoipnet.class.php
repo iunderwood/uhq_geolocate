@@ -18,7 +18,7 @@ final class freegeoip {
     public function getGeoLocation($host){
         $ip = @gethostbyname($host);
 
-        if(filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+        if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
             $xml = @file_get_contents('http://' . $this->service . '/xml/'.$ip);
 
             try {
@@ -31,9 +31,8 @@ final class freegeoip {
                 return $result;
             }
             catch(Exception $e){
-                $this->errors[] = $e->getMessage();
-
-                return;
+                $result['error'] = (string)$e->getMessage();
+                return $result;
             }
         }
 

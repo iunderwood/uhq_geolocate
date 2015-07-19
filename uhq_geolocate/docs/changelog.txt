@@ -1,8 +1,14 @@
-====[ 0.96 -- 2015-06-28 ]====
+====[ 0.97 -- 2015-07-19 ]====
+
+Fixes
+* Added proper XOOPS root in block template to properly reference the flag locations.  (GitHub-0002 / cesag)
+* Added missing error traps for two API providers.  (GitHub-0003 / cesag)
+
+====[ 0.96 -- 2015-06-16 ]====
 
 Code Changes
 * Modified directory structure to really fit in GitHub. (Mamba)
-* IPInfoDB v2 APIs are depreciated and have been removed as options.  Update scrips will change this accordingly.
+* IPInfoDB v2 APIs are depreciated and have been removed as options.  Update scripts will change this accordingly.
 * Help section utilizes new help structure for 2.5.7+
 * Update script uses language localization in admin.php,
 * Update script now produces verbose notes for updates to v0.96.
