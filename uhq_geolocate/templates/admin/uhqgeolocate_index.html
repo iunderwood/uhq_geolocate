@@ -5,7 +5,15 @@
 <{else}>
   <{$smarty.const._AM_UHQGEO_LOCNA}>
 <{/if}>
-<br/><br/><hr/><br/>
+<br/>
+<{if $data.result.error}>
+  <{$smarty.const._AM_UHQGEO_ERRCD}> <font color=red><{$data.result.error}></font>
+  <{if $data.result.error_text}>
+   - <{$data.result.error_text}>
+  <{/if}>
+  <br/>
+<{/if}>
+<br/><hr/><br/>
 <{$smarty.const._AM_HDR_LOCPROV}>
 <p class="odd"><b>IPv4: <{$data.v4db.name}></b></p>
 <p><{$smarty.const._AM_UHQGEO_QLV}> <{$data.v4db.querylib}></p>

@@ -4,6 +4,8 @@
 	<{$smarty.const._MB_UHQGEO_ERR2}><{$block.input.ipin}>
 <{elseif $block.result.error == 3}>
 	<{$smarty.const._MB_UHQGEO_ERR3}>
+<{elseif $block.result.error == 4}>
+    <{$smarty.const._MB_UHQGEO_ERR4}>
 <{else}>
 	<center>
 	IPv<{$block.input.ipver}> - <{$block.input.ipout}><br/>
