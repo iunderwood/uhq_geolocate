@@ -1,5 +1,6 @@
 <?php
-/* Copyright (C) 2005-2010 IP2Location.com
+/**
+ * Copyright (C) 2005-2014 IP2Location.com
  * All Rights Reserved
  *
  * This library is free software: you can redistribute it and/or
@@ -16,1052 +17,759 @@
  * License along with this library; If not, see <http://www.gnu.org/licenses/>.
  */
 
-class ip2locationRecord{
-    var $countryShort;
-    var $countryLong;
-    var $region;
-    var $city;
-    var $isp;
-    var $latitude;
-    var $longitude;
-    var $domain;
-    var $zipCode;
-    var $timeZone;
-    var $netSpeed;
-    var $iddCode;
-    var $areaCode;
-    var $weatherStationCode;
-    var $weatherStationName;
-    var $mcc;
-    var $mnc;
-    var $mobileBrand;
-    var $ipAddress;
-    var $ipNumber;
+class IP2LocationRecord {
+  public $ipAddress;
+  public $ipNumber;
+  public $countryCode;
+  public $countryName;
+  public $regionName;
+  public $cityName;
+  public $latitude;
+  public $longitude;
+  public $isp;
+  public $domainName;
+  public $zipCode;
+  public $timeZone;
+  public $netSpeed;
+  public $iddCode;
+  public $areaCode;
+  public $weatherStationCode;
+  public $weatherStationName;
+  public $mcc;
+  public $mnc;
+  public $mobileCarrierName;
+  public $elevation;
+  public $usageType;
 }
 
-class ip2location {
-    var $version = '4.11';
-    var $unpackMethod = 'unpack';
-    var $handle;
-    var $dbType;
-    var $dbColumn;
-    var $dbYear;
-    var $dbMonth;
-    var $dbDay;
-    var $dbCount;
-    var $baseAddress;
-    var $ipVersion;
+class IP2Location {
+  // Current version.
+  const VERSION = '7.0.0';
 
-    function ip2location(){
-        // Proceed endian test
-        list($endianTest) = array_values(unpack('L1L', pack('V', 1)));
+  // Database storage method.
+  const FILE_IO = 0;
+  const MEMORY_CACHE = 1;
+  const SHARED_MEMORY = 2;
 
-        // We use Big Endian Unpack if endian test failed
-        if($endianTest != 1) $this->unpackMethod = 'bigEndianUnpack';
+  // Unpack method.
+  const ENDIAN = 0;
+  const BIG_ENDIAN = 1;
 
-        // Call destructor, this method works in both PHP4 and PHP5
-        register_shutdown_function(array(&$this, 'destructor'));
+  // Record field.
+  const ALL = 100;
+  const COUNTRY_CODE = 1;
+  const COUNTRY_NAME = 2;
+  const REGION_NAME = 3;
+  const CITY_NAME = 4;
+  const LATITUDE = 5;
+  const LONGITUDE = 6;
+  const ISP = 7;
+  const DOMAIN_NAME = 8;
+  const ZIP_CODE = 9;
+  const TIME_ZONE = 10;
+  const NET_SPEED = 11;
+  const IDD_CODE = 12;
+  const AREA_CODE = 13;
+  const WEATHER_STATION_CODE = 14;
+  const WEATHER_STATION_NAME = 15;
+  const MCC = 16;
+  const MNC = 17;
+  const MOBILE_CARRIER_NAME = 18;
+  const ELEVATION = 19;
+  const USAGE_TYPE = 20;
+
+  // IP version.
+  const IPV4 = 0;
+  const IPV6 = 1;
+
+  // SHMOP memory address.
+  const SHM_KEY = 4194500608;
+
+  // Message.
+  const FIELD_NOT_SUPPORTED = NULL;
+  const INVALID_IP_ADDRESS = 'Invalid IP address.';
+
+  private $columns = array(
+    'COUNTRY_CODE' => array(
+      0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+    ),
+    'COUNTRY_NAME' => array(
+      0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+    ),
+    'REGION_NAME' => array(
+      0,0,0,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+    ),
+    'CITY_NAME' => array(
+      0,0,0,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
+    ),
+    'LATITUDE' => array(
+      0,0,0,0,0,5,5,0,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
+    ),
+    'LONGITUDE' => array(
+      0,0,0,0,0,6,6,0,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,
+    ),
+    'ISP' => array(
+      0,0,3,0,5,0,7,5,7,0,8,0,9,0,9,0,9,0,9,7,9,0,9,7,9,
+    ),
+    'DOMAIN_NAME' => array(
+      0,0,0,0,0,0,0,6,8,0,9,0,10,0,10,0,10,0,10,8,10,0,10,8,10,
+    ),
+    'ZIP_CODE' => array(
+      0,0,0,0,0,0,0,0,0,7,7,7,7,0,7,7,7,0,7,0,7,7,7,0,7,
+    ),
+    'TIME_ZONE' => array(
+      0,0,0,0,0,0,0,0,0,0,0,8,8,7,8,8,8,7,8,0,8,8,8,0,8,
+    ),
+    'NET_SPEED' => array(
+      0,0,0,0,0,0,0,0,0,0,0,0,0,8,11,0,11,8,11,0,11,0,11,0,11,
+    ),
+    'IDD_CODE' => array(
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,12,0,12,0,12,9,12,0,12,
+    ),
+    'AREA_CODE' => array(
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,13,0,13,0,13,10,13,0,13,
+    ),
+    'WEATHER_STATION_CODE' => array(
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,14,0,14,0,14,0,14,
+    ),
+    'WEATHER_STATION_NAME' => array(
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,15,0,15,0,15,0,15,
+    ),
+    'MCC' => array(
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,16,0,16,9,16,
+    ),
+    'MNC' => array(
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,17,0,17,10,17,
+    ),
+    'MOBILE_CARRIER_NAME' => array(
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11,18,0,18,11,18,
+    ),
+    'ELEVATION' => array(
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11,19,0,19,
+    ),
+    'USAGE_TYPE' => array(
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,20,
+    ),
+  );
+
+  private $shmId = '';
+  public $database = array();
+  private $unpackMethod;
+  private $buffer;
+  private $mode;
+  private $resource;
+  private $result;
+
+  /**
+   * Constructor.
+   */
+  public function __construct($file = NULL, $mode = self::FILE_IO) {
+    if (!file_exists($file)) {
+      throw new Exception('IP2Location.class.php: Unable to open file "' . $file . '".');
     }
 
-    function destructor(){
-        if(is_resource($this->handle)) fclose($this->handle);
-    }
+    // Define system unpack method.
+    list($test) = array_values(unpack('L1L', pack('V', 1)));
 
-    function error($message){
-        die('IP2Location: ' . $message . "\n");
-    }
+    // Use Big Endian Unpack if endian test failed.
+    $this->unpackMethod = (($test != 1)) ? self::BIG_ENDIAN : self::ENDIAN;
 
-    function getVersion(){
-        return $this->version;
-    }
-
-    function open($file){
-        if(!file_exists($file)){
-            $this->error('Cannot allocate database file at "' . $file . '".');
+    switch ($mode) {
+      case self::SHARED_MEMORY:
+        if (!function_exists('shmop_open')) {
+          throw new Exception('IP2Location.class.php: Please make sure your PHP setup has "php_shmop" enabled.');
         }
-        $this->handle = fopen($file, 'rb');
 
-        $this->dbType = $this->read8(1);
-        $this->dbColumn = $this->read8(2);
-        $this->dbYear = $this->read8(3);
-        $this->dbMonth = $this->read8(4);
-        $this->dbDay = $this->read8(5);
-        $this->dbCount = $this->read32(6);
-        $this->baseAddress = $this->read32(10);
-        $this->ipVersion = $this->read32(14);
-    }
+        $this->mode = self::SHARED_MEMORY;
 
-    function bigEndianUnpack($format, $data){
-        $ar = unpack($format, $data);
-        $vals = array_values($ar);
-        $f = explode('/', $format);
-        $i = 0;
+        $this->shmId = @shmop_open(self::SHM_KEY, 'a', 0, 0);
 
-        foreach($f as $fKey=>$fValue){
-            $repeater = intval (substr ($fValue, 1));
+        if ($this->shmId === FALSE) {
+          // First execution, load database into memory.
+          if (($fp = fopen($file, 'rb')) === FALSE) {
+            throw new Exception('IP2Location.class.php: Unable to open file "' . $file . '".');
+          }
 
-            if($repeater == 0) $repeater = 1;
-            if($fValue{1} == '*') $repeater = count ($ar) - $i;
-            if($fValue{0} != 'd') $i += $repeater; continue;
+          $stats = fstat($fp);
 
-            $j = $i + $repeater;
+          if ($shm_id = @shmop_open(self::SHM_KEY, 'w', 0, 0)) {
+            shmop_delete($shm_id);
+            shmop_close($shm_id);
+          }
 
-            for($a=$i; $a<$j; ++$a){
-                $p = pack('d', $vals[$i]);
-                $p = strrev ($p);
-                list($vals[$i]) = array_values(unpack('d1d', $p));
-                ++$i;
+          if ($shm_id = @shmop_open(self::SHM_KEY, 'c', 0644, $stats['size'])) {
+            $pointer = 0;
+            while ($pointer < $stats['size']) {
+              $buf = fread($fp, 524288);
+              shmop_write($shm_id, $buf, $pointer);
+              $pointer += 524288;
             }
+            shmop_close($shm_id);
+          }
+          fclose($fp);
+
+          $this->shmId = @shmop_open(self::SHM_KEY, 'a', 0, 0);
+
+          if ($this->shmId === FALSE) {
+            throw new Exception('IP2Location.class.php: Unable to access shared memory block.');
+          }
+        }
+        break;
+
+      default:
+        $this->mode = self::FILE_IO;
+        $this->resource = fopen($file, 'rb');
+
+        if ($mode == self::MEMORY_CACHE) {
+          $this->mode = self::MEMORY_CACHE;
+          $stats = fstat($this->resource);
+          $this->buffer = fread($this->resource, $stats['size']);
+        }
+    }
+
+    $this->database['type'] = $this->readByte(1, '8');
+    $this->database['column'] = $this->readByte(2, '8');
+    $this->database['year'] = $this->readByte(3, '8');
+    $this->database['month'] = $this->readByte(4, '8');
+    $this->database['day'] = $this->readByte(5, '8');
+    $this->database['ipv4_count'] = $this->readByte(6, '32');
+    $this->database['ipv4_base_address'] = $this->readByte(10, '32');
+    $this->database['ipv6_count'] = $this->readByte(14, '32');
+    $this->database['ipv6_base_address'] = $this->readByte(18, '32');
+
+    $this->result = new IP2LocationRecord();
+  }
+
+  /**
+   * Read bytes.
+   */
+  private function readByte($pos, $mode = 'string', $auto_size = FALSE) {
+    $result = '';
+
+    switch ($this->mode) {
+      case self::SHARED_MEMORY:
+        if ($mode == 'string') {
+          $data = shmop_read($this->shmId, $pos, ($auto_size) ? shmop_size($this->shmId) - $pos : 100);
+        }
+        else {
+          $data = shmop_read($this->shmId, $pos - 1, 50);
+        }
+        break;
+
+      case self::MEMORY_CACHE:
+        $data = substr($this->buffer, (($mode == 'string') ? $pos : $pos - 1), 100);
+        break;
+
+      default:
+        if ($mode == 'string') {
+          fseek($this->resource, $pos, SEEK_SET);
+          $data = @fread($this->resource, 1);
+        }
+        else {
+          fseek($this->resource, $pos - 1, SEEK_SET);
+          $data = @fread($this->resource, 50);
+        }
+    }
+
+    switch ($mode) {
+      case '8':
+        $out = $this->readBinary('C', $data);
+        $result = $out[1];
+
+        break;
+
+      case '32':
+        $out = $this->readBinary('V', $data);
+        if ($out[1] < 0) {
+          $out[1] += 4294967296;
         }
 
-        $a = 0;
-        foreach($ar as $arKey=>$arValue){
-            $ar[$arKey] = $vals[$a];
-            ++$a;
+        $result = (int) $out[1];
+
+        break;
+
+      case '128':
+        $array = preg_split('//', $data, -1, PREG_SPLIT_NO_EMPTY);
+
+        if (count($array) != 16) {
+          $result = 0;
         }
-
-        return $ar;
-    }
-
-    function readBinary($format, $data){
-        $result = ($this->unpackMethod == 'bigEndianUnpack') ? $this->bigEndianUnpack($format, $data) : unpack($format, $data);
-
-        return $result;
-    }
-
-    function read8($position){
-        fseek($this->handle, $position-1, SEEK_SET);
-        $data = @fread($this->handle, 1);
-
-        $output = $this->readBinary('C', $data);
-
-        return $output[1];
-    }
-
-    function read32($position){
-        fseek($this->handle, $position-1, SEEK_SET);
-        $data = @fread($this->handle, 4);
-
-        $output = $this->readBinary('V', $data);
-        if($output[1]<0) $output[1] += 4294967296;
-
-        return (int)$output[1];
-    }
-
-    function read128($position){
-        fseek($this->handle, $position-1, SEEK_SET);
-        $data = @fread($this->handle, 16);
-
-        return $this->bytes2Int($data);
-    }
-
-    function readString($position){
-        fseek($this->handle, $position, SEEK_SET);
-        $size = @fread($this->handle, 1);
-        $output = $this->readBinary('C', $size);
-
-        $data = @fread($this->handle, $output[1]);
-
-        return $data;
-    }
-
-    function readFloat($position){
-        fseek($this->handle, $position-1, SEEK_SET);
-        $data = @fread($this->handle, 4);
-        $output = $this->readBinary('f', $data);
-
-        return $output[1];
-    }
-
-    function bytes2Int($binData){
-        $array = preg_split('//', $binData, -1, PREG_SPLIT_NO_EMPTY);
-
-        if(count($array) != 16) return 0;
 
         $ip96_127 = $this->readBinary('V', $array[0] . $array[1] . $array[2] . $array[3]);
         $ip64_95 = $this->readBinary('V', $array[4] . $array[5] . $array[6] . $array[7]);
         $ip32_63 = $this->readBinary('V', $array[8] . $array[9] . $array[10] . $array[11]);
         $ip1_31 = $this->readBinary('V', $array[12] . $array[13] . $array[14] . $array[15]);
 
-        if($ip96_127[1]<0) $ip96_127[1] += 4294967296;
-        if($ip64_95[1]<0) $ip64_95[1] += 4294967296;
-        if($ip32_63[1]<0) $ip32_63[1] += 4294967296;
-        if($ip1_31[1]<0) $ip1_31[1] += 4294967296;
+        if ($ip96_127[1] < 0) {
+          $ip96_127[1] += 4294967296;
+        }
+        if ($ip64_95[1] < 0) {
+          $ip64_95[1] += 4294967296;
+        }
+        if ($ip32_63[1] < 0) {
+          $ip32_63[1] += 4294967296;
+        }
+        if ($ip1_31[1] < 0) {
+          $ip1_31[1] += 4294967296;
+        }
 
-        $result = bcadd(bcadd(bcmul($ip1_31[1], bcpow(4294967296, 3)), bcmul($ip32_63[1], bcpow(4294967296, 2))), bcadd( bcmul($ip64_95[1], 4294967296), $ip96_127[1]));
+        $result = bcadd(bcadd(bcmul($ip1_31[1], bcpow(4294967296, 3)), bcmul($ip32_63[1], bcpow(4294967296, 2))), bcadd(bcmul($ip64_95[1], 4294967296), $ip96_127[1]));
 
-        return $result;
+        break;
+
+      case 'float':
+        $out = $this->readBinary('f', $data);
+
+        $result = $out[1];
+
+        break;
+
+      default:
+        $out = $this->readBinary('C', $data);
+        $result = (in_array($this->mode, array(self::SHARED_MEMORY, self::MEMORY_CACHE))) ? substr($data, 1, $out[1]) : @fread($this->resource, $out[1]);
     }
 
-    function isIPv4($ip){
-        return (long2ip(ip2long($ip)) == $ip) ? true : false;
+    return $result;
+  }
+
+  /**
+   * Read binary.
+   */
+  private function readBinary($format, $data) {
+    if ($this->unpackMethod == self::BIG_ENDIAN) {
+      $ar = unpack($format, $data);
+      $vals = array_values($ar);
+      $f = explode('/', $format);
+      $i = 0;
+
+      foreach ($f as $f_value) {
+        $repeater = intval(substr($f_value, 1));
+
+        if ($repeater == 0) {
+          $repeater = 1;
+        }
+        if ($f_value{1} == '*') {
+          $repeater = count($ar) - $i;
+        }
+        if ($f_value{0} != 'd') {
+          $i += $repeater;
+          continue;
+        }
+
+        $j = $i + $repeater;
+
+        for ($a = $i; $a < $j; ++$a) {
+          $p = pack('d', $vals[$i]);
+          $p = strrev($p);
+          list($vals[$i]) = array_values(unpack('d1d', $p));
+          ++$i;
+        }
+      }
+
+      $a = 0;
+      foreach ($ar as $ar_key => $ar_value) {
+        $ar[$ar_key] = $vals[$a];
+        ++$a;
+      }
+      return $ar;
+    }
+    return unpack($format, $data);
+  }
+
+  /**
+   * Convert IPv6 into long integer.
+   */
+  private function ipv6Numeric($ipv6) {
+    $ip_n = inet_pton($ipv6);
+    $bits = 15;
+
+    // 16 x 8 bit = 128bit
+    $ipv6long = 0;
+
+    while ($bits >= 0) {
+      $bin = sprintf("%08b", (ord($ip_n[$bits])));
+
+      if ($ipv6long) {
+        $ipv6long = $bin . $ipv6long;
+      }
+      else {
+        $ipv6long = $bin;
+      }
+      $bits--;
+    }
+    return gmp_strval(gmp_init($ipv6long, 2), 10);
+  }
+
+  /**
+   * Validate IP address.
+   */
+  private function validate($ip) {
+    if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+      return 4;
     }
 
-    function isIPv6($ip){
-        $n = substr_count($ip, ':');
+    if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+      return 6;
+    }
 
-        if($n<1 || $n>7) return false;
+    return FALSE;
+  }
 
-        $k = 0;
-        foreach(preg_split('/:/', $ip) as $ipSub){
-            $k++;
+  /**
+   * Core function to lookup geolocation data.
+   */
+  public function lookup($ip, $fields = self::ALL) {
+    $this->result->ipAddress = $ip;
 
-            if($ipSub == '') continue;
-            if(preg_match('/^[a-f\d]{1,4}$/i', $ipSub)) continue;
+    if (($version = $this->validate($ip)) === FALSE) {
+      foreach ($this->result as &$obj) {
+        if ($obj) {
+          continue;
+        }
 
-            if($k == $n+1){
-                if($this->isIPv4($ipSub)){
-                    // here we know it is embeded ipv4, should retrieve data from ipv4 db, pending...
-                    // the result of this will not be valid, since all characters are treated and calculated
-                    // in hex based.
-                    // In addition, embeded ipv4 requires 96 '0' bits. We need to check this too.
-                    continue;
-                }
+        $obj = self::INVALID_IP_ADDRESS;
+      }
+
+      return $this->result;
+    }
+
+    if ($version == 4) {
+      return $this->ipv4Lookup($ip, $fields);
+    }
+
+    if ($version == 6) {
+      return $this->ipv6Lookup($ip, $fields);
+    }
+  }
+
+  /**
+   * Lookup for IPv4 records.
+   */
+  private function ipv4Lookup($ip, $fields) {
+    $keys = array_keys($this->columns);
+
+    $base_address = $this->database['ipv4_base_address'];
+    $high = $this->database['ipv4_count'];
+    $ip_number = sprintf('%u', ip2long($ip));
+    $ip_number = ($ip_number >= 4294967295) ? ($ip_number - 1) : $ip_number;
+    $this->result->ipNumber = $ip_number;
+
+    $low = 0;
+    $mid = 0;
+    $ip_from = 0;
+    $ip_to = 0;
+
+    while ($low <= $high) {
+      $mid = (int) (($low + $high) / 2);
+      $ip_from = $this->readByte($base_address + $mid * ($this->database['column'] * 4), 32);
+      $ip_to = $this->readByte($base_address + ($mid + 1) * ($this->database['column'] * 4), 32);
+
+      if ($ip_from < 0) {
+        $ip_from += pow(2, 32);
+      }
+
+      if ($ip_to < 0) {
+        $ip_to += pow(2, 32);
+      }
+
+      if (($ip_number >= $ip_from) && ($ip_number < $ip_to)) {
+        $return = '';
+        $pointer = $base_address + ($mid * $this->database['column'] * 4);
+
+        switch ($fields) {
+          case self::COUNTRY_CODE:
+          case self::REGION_NAME:
+          case self::CITY_NAME:
+          case self::ISP:
+          case self::DOMAIN_NAME:
+          case self::ZIP_CODE:
+          case self::TIME_ZONE:
+          case self::NET_SPEED:
+          case self::IDD_CODE:
+          case self::AREA_CODE:
+          case self::WEATHER_STATION_CODE:
+          case self::WEATHER_STATION_NAME:
+          case self::MCC:
+          case self::MNC:
+          case self::MOBILE_CARRIER_NAME:
+          case self::ELEVATION:
+            $return = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[$fields - 1]][$this->database['type']] - 1), '32'), 'string', TRUE);
+
+            break;
+
+          case self::COUNTRY_NAME:
+            $return = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[$fields - 1]][$this->database['type']] - 1), '32') + 3, 'string', TRUE);
+
+            break;
+
+          case self::LATITUDE:
+          case self::LONGITUDE:
+            $return = $this->readByte($pointer + 4 * ($this->columns[$keys[$fields - 1]][$this->database['type']] - 1), 'float', TRUE);
+
+            break;
+
+          case self::USAGE_TYPE:
+            $return = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[$fields - 1]][$this->database['type']] - 1), '32'), 'string', TRUE);
+
+            break;
+
+          default:
+            $this->result->regionName = $this->result->cityName = $this->result->latitude = $this->result->longitude = $this->result->isp = $this->result->domainName = $this->result->zipCode = $this->result->timeZone = $this->result->netSpeed = $this->result->iddCode = $this->result->areaCode = $this->result->weatherStationCode = $this->result->weatherStationName = $this->result->mcc = $this->result->mnc = $this->result->mobileCarrierName = $this->result->elevation = $this->result->usageType = self::FIELD_NOT_SUPPORTED;
+
+            $this->result->countryCode = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::COUNTRY_CODE - 1]][$this->database['type']] - 1), '32'), 'string', TRUE);
+
+            $this->result->countryName = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::COUNTRY_NAME - 1]][$this->database['type']] - 1), '32') + 3, 'string', TRUE);
+
+            if ($this->columns[$keys[self::REGION_NAME - 1]][$this->database['type']] != 0) {
+              $this->result->regionName = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::REGION_NAME - 1]][$this->database['type']] - 1), '32'), 'string', TRUE);
             }
 
-            return false;
-        }
-
-        $m = preg_match_all('/:(?=:)/', $ip, $dummy);
-        if($m>1 && $n<7) return false;
-
-        return true;
-    }
-
-    function ipv6ToLong($ip){
-        $n = substr_count($ip, ':');
-
-        if($n < 7){
-            $expanded = '::';
-
-            while($n < 7){
-                $expanded .= ':';
-                $n++;
+            if ($this->columns[$keys[self::CITY_NAME - 1]][$this->database['type']] != 0) {
+              $this->result->cityName = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::CITY_NAME - 1]][$this->database['type']] - 1), '32'), 'string', TRUE);
             }
-            $ip = preg_replace('/::/', $expanded, $ip);
-        }
 
-        $subLoc = 8;
-        $ipv6No = '0';
-
-        foreach(preg_split('/:/', $ip) as $ipSub){
-            $subLoc--;
-
-            if($ipSub == '') continue;
-            $ipv6No = bcadd( $ipv6No, bcmul(hexdec($ipSub), bcpow(hexdec('0x10000'), $subLoc)));
-        }
-
-        return $ipv6No;
-    }
-
-    function notSupported(){
-        if ($this->nullError) return null;
-
-        return 'This field is not supported in DB' . $this->dbType . '. Please upgrade your IP2Location database.';
-    }
-
-    function invalidIPAddress(){
-        if ($this->nullError) return null;
-
-        return 'Invalid IP address.';
-    }
-
-    function invalidIPv6Address(){
-        if ($this->nullError) return null;
-
-        return 'Invalid IPv6 address.';
-    }
-
-    function getRecord($ip, $mode='all'){
-        $arrCountry                = array(0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2);
-        $arrRegion                = array(0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3);
-        $arrCity                = array(0, 0, 0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4);
-        $arrIsp                    = array(0, 0, 3, 0, 5, 0, 7, 5, 7, 0, 8, 0, 9, 0, 9, 0, 9, 0, 9, 7, 9);
-        $arrLatitude            = array(0, 0, 0, 0, 0, 5, 5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5);
-        $arrLongitude            = array(0, 0, 0, 0, 0, 6, 6, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6);
-        $arrDomain                = array(0, 0, 0, 0, 0, 0, 0, 6, 8, 0, 9, 0, 10, 0, 10, 0, 10, 0, 10, 8, 10);
-        $arrZipCode                = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7, 0, 7, 7, 7, 0, 7, 0, 7);
-        $arrTimeZone            = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 7, 8, 8, 8, 7, 8, 0, 8);
-        $arrNetSpeed            = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 11, 0, 11, 8, 11, 0, 11);
-        $arrIddCode                = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 12, 0, 12, 0, 12);
-        $arrAreaCode            = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 13, 0, 13, 0, 13);
-        $arrWeatherStationCode    = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 14, 0, 14);
-        $arrWeatherStationName    = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 15, 0, 15);
-        $arrMcc                 = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 16);
-        $arrMnc                 = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 17);
-        $arrMobileBrand         = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 18);
-
-        $result = new ip2locationRecord;
-
-        switch($mode){
-            case 'countryShort':
-                if($arrCountry[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'countryLong':
-                if($arrCountry[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'region':
-                if($arrRegion[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'city':
-                if($arrCity[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'isp':
-                if($arrIsp[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'latitude':
-                if($arrLatitude[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'longitude':
-                if($arrLongitude[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'domain':
-                if($arrDomain[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'zipCode':
-                if($arrZipCode[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'timeZone':
-                if($arrTimeZone[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'netSpeed':
-                if($arrNetSpeed[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'iddCode':
-                if($arrIddCode[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'areaCode':
-                if($arrAreaCode[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'weatherStationCode':
-                if($arrWeatherStationCode[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'weatherStationName':
-                if($arrWeatherStationName[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'mcc':
-                if($arrMcc[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'mnc':
-                if($arrMnc[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'mobileBrand':
-                if($arrMobileBrand[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-        }
-
-        if($ip == '') $this->error('Missing IP address.');
-
-        if(!$this->isIPv4($ip)){
-            $result->countryShort = $this->invalidIPAddress();
-            $result->countryLong = $this->invalidIPAddress();
-            $result->region = $this->invalidIPAddress();
-            $result->city = $this->invalidIPAddress();
-            $result->isp = $this->invalidIPAddress();
-            $result->latitude = $this->invalidIPAddress();
-            $result->longitude = $this->invalidIPAddress();
-            $result->domain = $this->invalidIPAddress();
-            $result->zipCode = $this->invalidIPAddress();
-            $result->timeZone = $this->invalidIPAddress();
-            $result->netSpeed = $this->invalidIPAddress();
-            $result->iddCode = $this->invalidIPAddress();
-            $result->areaCode = $this->invalidIPAddress();
-            $result->weatherStationCode = $this->invalidIPAddress();
-            $result->weatherStationName = $this->invalidIPAddress();
-            $result->mcc = $this->invalidIPAddress();
-            $result->mnc = $this->invalidIPAddress();
-            $result->mobileBrand = $this->invalidIPAddress();
-            $result->ipAddress = $this->invalidIPAddress();
-            $result->ipNumber = $this->invalidIPAddress();
-
-            return $result;
-        }
-
-        $ip = gethostbyname($ip);
-        $ipLong = sprintf('%u', ip2long($ip));
-
-        $low = 0;
-        $high = $this->dbCount;
-        $mid = 0;
-        $ipFrom = 0;
-        $ipTo = 0;
-
-        $ipLong  = ($ipLong == 4294967295) ? ($ipLong-1) : $ipLong;
-
-        $result->countryShort = $this->notSupported();
-        $result->countryLong = $this->notSupported();
-        $result->region = $this->notSupported();
-        $result->city = $this->notSupported();
-        $result->isp = $this->notSupported();
-        $result->latitude = $this->notSupported();
-        $result->longitude = $this->notSupported();
-        $result->domain = $this->notSupported();
-        $result->zipCode = $this->notSupported();
-        $result->timeZone = $this->notSupported();
-        $result->netSpeed = $this->notSupported();
-        $result->iddCode = $this->notSupported();
-        $result->areaCode = $this->notSupported();
-        $result->weatherStationCode = $this->notSupported();
-        $result->weatherStationName = $this->notSupported();
-        $result->mcc = $this->notSupported();
-        $result->mnc = $this->notSupported();
-        $result->mobileBrand = $this->notSupported();
-        $result->ipAddress = $ip;
-        $result->ipNumber = $ipLong;
-
-        while($low <= $high){
-            $mid = (int)(($low + $high)/2);
-            $ipFrom = $this->read32($this->baseAddress + $mid * $this->dbColumn * 4);
-            $ipTo = $this->read32($this->baseAddress + ($mid + 1) * $this->dbColumn * 4);
-
-            if($ipFrom < 0) $ipFrom += pow(2, 32);
-            if($ipTo < 0) $ipTo += pow(2, 32);
-
-            if(($ipLong >= $ipFrom) && ($ipLong  < $ipTo)){
-                switch($mode){
-                    case 'countryShort':
-                        return $this->readString($this->read32($this->baseAddress + ($mid * $this->dbColumn * 4) + 4 * ($arrCountry[$this->dbType]-1)));
-                    break;
-
-                    case 'countryLong':
-                        return $this->readString($this->read32($this->baseAddress + ($mid * $this->dbColumn * 4) + 4 * ($arrCountry[$this->dbType]-1))+3);
-                    break;
-
-                    case 'region':
-                        return $this->readString($this->read32($this->baseAddress + ($mid * $this->dbColumn * 4) + 4 * ($arrRegion[$this->dbType]-1)));
-                    break;
-
-                    case 'city':
-                        return$this->readString($this->read32($this->baseAddress + ($mid * $this->dbColumn * 4) + 4 * ($arrCity[$this->dbType]-1)));
-                    break;
-
-                    case 'isp':
-                        return $this->readString($this->read32($this->baseAddress + ($mid * $this->dbColumn * 4) + 4 * ($arrIsp[$this->dbType]-1)));
-                    break;
-
-                    case 'latitude':
-                        return $this->readFloat($this->baseAddress + ($mid * $this->dbColumn * 4) + 4 * ($arrLatitude[$this->dbType]-1));
-                    break;
-
-                    case 'longitude':
-                        return $this->readFloat($this->baseAddress + ($mid * $this->dbColumn * 4) + 4 * ($arrLongitude[$this->dbType]-1));
-                    break;
-
-                    case 'domain':
-                        return $this->readString($this->read32($this->baseAddress + ($mid * $this->dbColumn * 4) + 4 * ($arrDomain[$this->dbType]-1)));
-                    break;
-
-                    case 'zipCode':
-                        return $this->readString($handle, $this->read32($this->baseAddress + ($mid * $this->dbColumn * 4) + 4 * ($arrZipCode[$this->dbType]-1)));
-                    break;
-
-                    case 'timeZone':
-                        return $this->readString($this->read32($this->baseAddress + $mid *($this->dbColumn * 4) + 4 * ($arrTimeZone[$this->dbType]-1)));
-                    break;
-
-                    case 'netSpeed':
-                        return $this->readString($handle, $this->read32($this->baseAddress + $mid *($this->dbColumn * 4) + 4 * ($arrNetSpeed[$this->dbType]-1)));
-                    break;
-
-                    case 'iddCode':
-                        return $this->readString($handle, $this->read32($this->baseAddress + $mid *($this->dbColumn * 4) + 4 * ($arrIddCode[$this->dbType]-1)));
-                    break;
-
-                    case 'areaCode':
-                        return $this->readString($handle, $this->read32($this->baseAddress + $mid *($this->dbColumn * 4) + 4 * ($arrAreaCode[$this->dbType]-1)));
-                    break;
-
-                    case 'weatherStationCode':
-                        return $this->readString($handle, $this->read32($this->baseAddress + $mid *($this->dbColumn * 4) + 4 * ($arrWeatherStationCode[$this->dbType]-1)));
-                    break;
-
-                    case 'weatherStationName':
-                        return $this->readString($this->read32($this->baseAddress + ($mid * $this->dbColumn * 4) + 4 * ($arrWeatherStationName[$this->dbType]-1)));
-                    break;
-
-                    case 'mcc':
-                        return $this->readString($this->read32($this->baseAddress + ($mid * $this->dbColumn * 4) + 4 * ($arrMcc[$this->dbType]-1)));
-                    break;
-
-                    case 'mnc':
-                        return $this->readString($this->read32($this->baseAddress + ($mid * $this->dbColumn * 4) + 4 * ($arrMnc[$this->dbType]-1)));
-                    break;
-
-                    case 'mobileBrand':
-                        return $this->readString($this->read32($this->baseAddress + ($mid * $this->dbColumn * 4) + 4 * ($arrMobileBrand[$this->dbType]-1)));
-                    break;
-
-                    default:
-                        if($arrCountry[$this->dbType] != 0){
-                            $result->countryShort = $this->readString($this->read32($this->baseAddress + ($mid * $this->dbColumn * 4) + 4 * ($arrCountry[$this->dbType]-1)));
-                            $result->countryLong = $this->readString($this->read32($this->baseAddress + ($mid * $this->dbColumn * 4) + 4 * ($arrCountry[$this->dbType]-1))+3);
-                        }
-
-                        if($arrRegion[$this->dbType] != 0){
-                            $result->region = $this->readString($this->read32($this->baseAddress + ($mid * $this->dbColumn * 4) + 4 * ($arrRegion[$this->dbType]-1)));
-                        }
-
-                        if($arrCity[$this->dbType] != 0){
-                            $result->city = $this->readString($this->read32($this->baseAddress + ($mid * $this->dbColumn * 4) + 4 * ($arrCity[$this->dbType]-1)));
-                        }
-
-                        if($arrIsp[$this->dbType] != 0){
-                            $result->isp = $this->readString($this->read32($this->baseAddress + ($mid * $this->dbColumn * 4) + 4 * ($arrIsp[$this->dbType]-1)));
-                        }
-
-                        if($arrLatitude[$this->dbType] != 0){
-                            $result->latitude = $this->readFloat($this->baseAddress + ($mid * $this->dbColumn * 4) + 4 * ($arrLatitude[$this->dbType]-1));
-                        }
-
-                        if($arrLongitude[$this->dbType] != 0){
-                            $result->longitude = $this->readFloat($this->baseAddress + ($mid * $this->dbColumn * 4) + 4 * ($arrLongitude[$this->dbType]-1));
-                        }
-
-                        if($arrDomain[$this->dbType] != 0){
-                            $result->domain = $this->readString($this->read32($this->baseAddress + ($mid * $this->dbColumn * 4) + 4 * ($arrDomain[$this->dbType]-1)));
-                        }
-
-                        if($arrZipCode[$this->dbType] != 0){
-                            $result->zipCode = $this->readString($this->read32($this->baseAddress + ($mid * $this->dbColumn * 4) + 4 * ($arrZipCode[$this->dbType]-1)));
-                        }
-
-                        if($arrTimeZone[$this->dbType] != 0){
-                            $result->timeZone = $this->readString($this->read32($this->baseAddress + ($mid * $this->dbColumn * 4) + 4 * ($arrTimeZone[$this->dbType]-1)));
-                        }
-
-                        if($arrNetSpeed[$this->dbType] != 0){
-                            $result->netSpeed = $this->readString($this->read32($this->baseAddress + ($mid * $this->dbColumn * 4) + 4 * ($arrNetSpeed[$this->dbType]-1)));
-                        }
-
-                        if($arrIddCode[$this->dbType] != 0){
-                            $result->iddCode = $this->readString($this->read32($this->baseAddress + ($mid * $this->dbColumn * 4) + 4 * ($arrIddCode[$this->dbType]-1)));
-                        }
-
-                        if($arrAreaCode[$this->dbType] != 0){
-                            $result->areaCode = $this->readString($this->read32($this->baseAddress + ($mid * $this->dbColumn * 4) + 4 * ($arrAreaCode[$this->dbType]-1)));
-                        }
-
-                        if($arrWeatherStationCode[$this->dbType] != 0){
-                            $result->weatherStationCode = $this->readString($this->read32($this->baseAddress + ($mid * $this->dbColumn * 4) + 4 * ($arrWeatherStationCode[$this->dbType]-1)));
-                        }
-
-                        if($arrWeatherStationName[$this->dbType] != 0){
-                            $result->weatherStationName = $this->readString($this->read32($this->baseAddress + ($mid * $this->dbColumn * 4) + 4 * ($arrWeatherStationName[$this->dbType]-1)));
-                        }
-
-                        if($arrMcc[$this->dbType] != 0){
-                            $result->mcc = $this->readString($this->read32($this->baseAddress + ($mid * $this->dbColumn * 4) + 4 * ($arrMcc[$this->dbType]-1)));
-                        }
-
-                        if($arrMnc[$this->dbType] != 0){
-                            $result->mnc = $this->readString($this->read32($this->baseAddress + ($mid * $this->dbColumn * 4) + 4 * ($arrMnc[$this->dbType]-1)));
-                        }
-
-                        if($arrMobileBrand[$this->dbType] != 0){
-                            $result->mobileBrand = $this->readString($this->read32($this->baseAddress + ($mid * $this->dbColumn * 4) + 4 * ($arrMobileBrand[$this->dbType]-1)));
-                        }
-
-                        return $result;
-                    break;
-                }
+            if ($this->columns[$keys[self::LATITUDE - 1]][$this->database['type']] != 0) {
+              $this->result->latitude = $this->readByte($pointer + 4 * ($this->columns[$keys[self::LATITUDE - 1]][$this->database['type']] - 1), 'float', TRUE);
             }
-            else{
-                if($ipLong <$ipFrom){
-                    $high = $mid - 1;
-                }
-                else{
-                    $low = $mid + 1;
-                }
+
+            if ($this->columns[$keys[self::LONGITUDE - 1]][$this->database['type']] != 0) {
+              $this->result->longitude = $this->readByte($pointer + 4 * ($this->columns[$keys[self::LONGITUDE - 1]][$this->database['type']] - 1), 'float', TRUE);
             }
-        }
 
-        return $result;
-    }
-
-    function getRecordV6 ($ip, $mode='all'){
-        $arrCountry                = array(0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2);
-        $arrRegion                = array(0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3);
-        $arrCity                = array(0, 0, 0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4);
-        $arrIsp                    = array(0, 0, 3, 0, 5, 0, 7, 5, 7, 0, 8, 0, 9, 0, 9, 0, 9, 0, 9, 7, 9);
-        $arrLatitude            = array(0, 0, 0, 0, 0, 5, 5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5);
-        $arrLongitude            = array(0, 0, 0, 0, 0, 6, 6, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6);
-        $arrDomain                = array(0, 0, 0, 0, 0, 0, 0, 6, 8, 0, 9, 0, 10, 0, 10, 0, 10, 0, 10, 8, 10);
-        $arrZipCode                = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7, 0, 7, 7, 7, 0, 7, 0, 7);
-        $arrTimeZone            = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 7, 8, 8, 8, 7, 8, 0, 8);
-        $arrNetSpeed            = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 11, 0, 11, 8, 11, 0, 11);
-        $arrIddCode                = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 12, 0, 12, 0, 12);
-        $arrAreaCode            = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 13, 0, 13, 0, 13);
-        $arrWeatherStationCode    = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 14, 0, 14);
-        $arrWeatherStationName    = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 15, 0, 15);
-        $arrMcc                 = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 16);
-        $arrMnc                 = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 17);
-        $arrMobileBrand         = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 18);
-
-        $result = new ip2locationRecord;
-
-        switch($mode){
-            case 'countryShort':
-                if($arrCountry[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'countryLong':
-                if($arrCountry[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'region':
-                if($arrRegion[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'city':
-                if($arrCity[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'isp':
-                if($arrIsp[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'latitude':
-                if($arrLatitude[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'longitude':
-                if($arrLongitude[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'domain':
-                if($arrDomain[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'zipCode':
-                if($arrZipCode[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'timeZone':
-                if($arrTimeZone[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'netSpeed':
-                if($arrNetSpeed[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'iddCode':
-                if($arrIddCode[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'areaCode':
-                if($arrAreaCode[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'weatherStationCode':
-                if($arrWeatherStationCode[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'weatherStationName':
-                if($arrWeatherStationName[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'mcc':
-                if($arrMcc[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'mnc':
-                if($arrMnc[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-
-            case 'mobileBrand':
-                if($arrMobileBrand[$this->dbType] == 0){
-                    return $this->notSupported();
-                }
-            break;
-        }
-
-        if($ip == '') $this->error('Missing IP address.');
-
-        if(!$this->isIPv6($ip)){
-            $result->countryShort = $this->invalidIPv6Address();
-            $result->countryLong = $this->invalidIPv6Address();
-            $result->region = $this->invalidIPv6Address();
-            $result->city = $this->invalidIPv6Address();
-            $result->isp = $this->invalidIPv6Address();
-            $result->latitude = $this->invalidIPv6Address();
-            $result->longitude = $this->invalidIPv6Address();
-            $result->domain = $this->invalidIPv6Address();
-            $result->zipCode = $this->invalidIPv6Address();
-            $result->timeZone = $this->invalidIPv6Address();
-            $result->netSpeed = $this->invalidIPv6Address();
-            $result->iddCode = $this->invalidIPv6Address();
-            $result->areaCode = $this->invalidIPv6Address();
-            $result->weatherStationCode = $this->invalidIPv6Address();
-            $result->weatherStationName = $this->invalidIPv6Address();
-            $result->mcc = $this->invalidIPv6Address();
-            $result->mnc = $this->invalidIPv6Address();
-            $result->mobileBrand = $this->invalidIPv6Address();
-            $result->ipAddress = $this->invalidIPv6Address();
-            $result->ipNumber = $this->invalidIPv6Address();
-
-            return $result;
-        }
-
-        $ipLong  = $this->ipv6ToLong($ip);
-
-        $low = 0;
-        $high = $this->dbCount;
-        $mid = 0;
-        $ipFrom = 0;
-        $ipTo = 0;
-
-        $ipLong = (bccomp($ipLong , 340282366920938463463374607431768211455) == 0) ? bcsub($ipLong , 1) : $ipLong;
-
-        $result->countryShort = $this->notSupported();
-        $result->countryLong = $this->notSupported();
-        $result->region = $this->notSupported();
-        $result->city = $this->notSupported();
-        $result->isp = $this->notSupported();
-        $result->latitude = $this->notSupported();
-        $result->longitude = $this->notSupported();
-        $result->domain = $this->notSupported();
-        $result->zipCode = $this->notSupported();
-        $result->timeZone = $this->notSupported();
-        $result->netSpeed = $this->notSupported();
-        $result->iddCode = $this->notSupported();
-        $result->areaCode = $this->notSupported();
-        $result->weatherStationCode = $this->notSupported();
-        $result->weatherStationName = $this->notSupported();
-        $result->mcc = $this->notSupported();
-        $result->mnc = $this->notSupported();
-        $result->mobileBrand = $this->notSupported();
-        $result->ipAddress = $ip;
-        $result->ipNumber = $ipLong;
-
-        $count=0;
-        while($low <= $high){
-            $mid = (int)(($low + $high)/2);
-            $ipFrom = $this->read128($this->baseAddress + $mid * ($this->dbColumn * 4 + 12));
-            $ipTo = $this->read128($this->baseAddress + ($mid + 1) * ($this->dbColumn * 4 + 12));
-            $count++;
-
-            if((bccomp($ipLong , $ipFrom) >= 0 ) && (bccomp($ipLong, $ipTo) < 0)){
-                switch($mode){
-                    case 'countryShort':
-                        return $this->readString($this->read32($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrCountry[$this->dbType]-1)));
-                    break;
-
-                    case 'countryLong':
-                        return $this->readString($this->read32($this->baseAddress + $mid * ($this->dbColumn * 4 + 12) + 12 + 4 * ($arrCountry[$this->dbType]-1))+3);
-                    break;
-
-                    case 'region':
-                        return $this->readString($this->read32($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrRegion[$this->dbType]-1)));
-                    break;
-
-                    case 'city':
-                        return $this->readString($this->read32($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrCity[$this->dbType]-1)));
-                    break;
-
-                    case 'isp':
-                        return $this->readString($this->read32($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrIsp[$this->dbType]-1)));
-                    break;
-
-                    case 'latitude':
-                        return $this->readFloat($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrLatitude[$this->dbType]-1));
-                    break;
-
-                    case 'longitude':
-                        return $this->readFloat($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrLongitude[$this->dbType]-1));
-                    break;
-
-                    case 'domain':
-                        return $this->readString($this->read32($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrDomain[$this->dbType]-1)));
-                    break;
-
-                    case 'zipCode':
-                        return $this->readString($handle, $this->read32($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrZipCode[$this->dbType]-1)));
-                    break;
-
-                    case 'timeZone':
-                        return $this->readString($this->read32($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrTimeZone[$this->dbType]-1)));
-                    break;
-
-                    case 'netSpeed':
-                        return $this->readString($handle, $this->read32($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrNetSpeed[$this->dbType]-1)));
-                    break;
-
-                    case 'iddCode':
-                        return $this->readString($handle, $this->read32($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrIddCode[$this->dbType]-1)));
-                    break;
-
-                    case 'areaCode':
-                        return $this->readString($handle, $this->read32($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrAreaCode[$this->dbType]-1)));
-                    break;
-
-                    case 'weatherStationCode':
-                        return $this->readString($handle, $this->read32($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrWeatherStationCode[$this->dbType]-1)));
-                    break;
-
-                    case 'weatherStationName':
-                        return $this->readString($handle, $this->read32($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrWeatherStationName[$this->dbType]-1)));
-                    break;
-
-                    case 'mcc':
-                        return $this->readString($handle, $this->read32($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrMcc[$this->dbType]-1)));
-                    break;
-
-                    case 'mnc':
-                        return $this->readString($handle, $this->read32($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrMnc[$this->dbType]-1)));
-                    break;
-
-                    case 'mobileBrand':
-                        return $this->readString($handle, $this->read32($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrMobileBrand[$this->dbType]-1)));
-                    break;
-
-                    default:
-                        if($arrCountry[$this->dbType] != 0){
-                            $result->countryShort = $this->readString($this->read32($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrCountry[$this->dbType]-1)));
-                            $result->countryLong = $this->readString($this->read32($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrCountry[$this->dbType]-1))+3);
-                        }
-
-                        if($arrRegion[$this->dbType] != 0){
-                            $result->region = $this->readString($this->read32($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrRegion[$this->dbType]-1)));
-                        }
-
-                        if($arrCity[$this->dbType] != 0){
-                            $result->city = $this->readString($this->read32($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrCity[$this->dbType]-1)));
-                        }
-
-                        if($arrIsp[$this->dbType] != 0){
-                            $result->isp = $this->readString($this->read32($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrIsp[$this->dbType]-1)));
-                        }
-
-                        if($arrLatitude[$this->dbType] != 0){
-                            $result->latitude = $this->readFloat($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrLatitude[$this->dbType]-1));
-                        }
-
-                        if($arrLongitude[$this->dbType] != 0){
-                            $result->longitude = $this->readFloat($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrLongitude[$this->dbType]-1));
-                        }
-
-                        if($arrDomain[$this->dbType] != 0){
-                            $result->domain = $this->readString($this->read32($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrDomain[$this->dbType]-1)));
-                        }
-
-                        if($arrZipCode[$this->dbType] != 0){
-                            $result->zipCode = $this->readString($this->read32($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrZipCode[$this->dbType]-1)));
-                        }
-
-                        if($arrTimeZone[$this->dbType] != 0){
-                            $result->timeZone = $this->readString($this->read32($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrTimeZone[$this->dbType]-1)));
-                        }
-
-                        if($arrNetSpeed[$this->dbType] != 0){
-                            $result->netSpeed = $this->readString($this->read32($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrNetSpeed[$this->dbType]-1)));
-                        }
-
-                        if($arrIddCode[$this->dbType] != 0){
-                            $result->iddCode = $this->readString($this->read32($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrIddCode[$this->dbType]-1)));
-                        }
-
-                        if($arrAreaCode[$this->dbType] != 0){
-                            $result->areaCode = $this->readString($handle, $this->read32($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrAreaCode[$this->dbType]-1)));
-                        }
-
-                        if($arrWeatherStationCode[$this->dbType] != 0){
-                            $result->weatherStationCode = $this->readString($this->read32($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrWeatherStationCode[$this->dbType]-1)));
-                        }
-
-                        if($arrWeatherStationName[$this->dbType] != 0){
-                            $result->weatherStationName = $this->readString($this->read32($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrWeatherStationName[$this->dbType]-1)));
-                        }
-
-                        if($arrMcc[$this->dbType] != 0){
-                            $result->mcc = $this->readString($this->read32($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrMcc[$this->dbType]-1)));
-                        }
-
-                        if($arrMnc[$this->dbType] != 0){
-                            $result->mnc = $this->readString($this->read32($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrMnc[$this->dbType]-1)));
-                        }
-
-                        if($arrMobileBrand[$this->dbType] != 0){
-                            $result->mobileBrand = $this->readString($this->read32($this->baseAddress + $mid *($this->dbColumn * 4 + 12) + 12 + 4 * ($arrMobileBrand[$this->dbType]-1)));
-                        }
-
-                        return $result;
-                    break;
-                }
+            if ($this->columns[$keys[self::ISP - 1]][$this->database['type']] != 0) {
+              $this->result->isp = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::ISP - 1]][$this->database['type']] - 1), '32'), 'string', TRUE);
             }
-            else{
-                if(bccomp($ipLong, $ipFrom)<0){
-                    $high = $mid - 1;
-                }
-                else{
-                    $low = $mid + 1;
-                }
+
+            if ($this->columns[$keys[self::DOMAIN_NAME - 1]][$this->database['type']] != 0) {
+              $this->result->domainName = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::DOMAIN_NAME - 1]][$this->database['type']] - 1), '32'), 'string', TRUE);
             }
+
+            if ($this->columns[$keys[self::ZIP_CODE - 1]][$this->database['type']] != 0) {
+              $this->result->zipCode = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::ZIP_CODE - 1]][$this->database['type']] - 1), '32'), 'string', TRUE);
+            }
+
+            if ($this->columns[$keys[self::TIME_ZONE - 1]][$this->database['type']] != 0) {
+              $this->result->timeZone = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::TIME_ZONE - 1]][$this->database['type']] - 1), '32'), 'string', TRUE);
+            }
+
+            if ($this->columns[$keys[self::NET_SPEED - 1]][$this->database['type']] != 0) {
+              $this->result->netSpeed = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::NET_SPEED - 1]][$this->database['type']] - 1), '32'), 'string', TRUE);
+            }
+
+            if ($this->columns[$keys[self::IDD_CODE - 1]][$this->database['type']] != 0) {
+              $this->result->iddCode = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::IDD_CODE - 1]][$this->database['type']] - 1), '32'), 'string', TRUE);
+            }
+
+            if ($this->columns[$keys[self::AREA_CODE - 1]][$this->database['type']] != 0) {
+              $this->result->areaCode = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::AREA_CODE - 1]][$this->database['type']] - 1), '32'), 'string', TRUE);
+            }
+
+            if ($this->columns[$keys[self::WEATHER_STATION_CODE - 1]][$this->database['type']] != 0) {
+              $this->result->weatherStationCode = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::WEATHER_STATION_CODE - 1]][$this->database['type']] - 1), '32'), 'string', TRUE);
+            }
+
+            if ($this->columns[$keys[self::WEATHER_STATION_NAME - 1]][$this->database['type']] != 0) {
+              $this->result->weatherStationName = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::WEATHER_STATION_NAME - 1]][$this->database['type']] - 1), '32'), 'string', TRUE);
+            }
+
+            if ($this->columns[$keys[self::MCC - 1]][$this->database['type']] != 0) {
+              $this->result->mcc = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::MCC - 1]][$this->database['type']] - 1), '32'), 'string', TRUE);
+            }
+
+            if ($this->columns[$keys[self::MNC - 1]][$this->database['type']] != 0) {
+              $this->result->mnc = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::MNC - 1]][$this->database['type']] - 1), '32'), 'string', TRUE);
+            }
+
+            if ($this->columns[$keys[self::MOBILE_CARRIER_NAME - 1]][$this->database['type']] != 0) {
+              $this->result->mobileCarrierName = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::MOBILE_CARRIER_NAME - 1]][$this->database['type']] - 1), '32'), 'string', TRUE);
+            }
+
+            if ($this->columns[$keys[self::ELEVATION - 1]][$this->database['type']] != 0) {
+              $this->result->elevation = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::ELEVATION - 1]][$this->database['type']] - 1), '32'), 'string', TRUE);
+            }
+
+            if ($this->columns[$keys[self::USAGE_TYPE - 1]][$this->database['type']] != 0) {
+              $this->result->usageType = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::USAGE_TYPE - 1]][$this->database['type']] - 1), '32'), 'string', TRUE);
+            }
+
+            return $this->result;
         }
-
-        return $result;
+        return $return;
+      }
+      else {
+        if ($ip_number < $ip_from) {
+          $high = $mid - 1;
+        }
+        else {
+          $low = $mid + 1;
+        }
+      }
     }
+  }
 
-    function getCountryShort($ip){
-        return ($this->ipVersion==1) ? $this->getRecordV6($ip, 'countryShort') : $this->getRecord($ip, 'countryShort');
-    }
+  /**
+   * Lookup for IPv6 records.
+   */
+  private function ipv6Lookup($ip, $fields) {
+    $keys = array_keys($this->columns);
 
-    function getCountryLong($ip){
-        return ($this->ipVersion==1) ? $this->getRecordV6($ip, 'countryLong') : $this->getRecord($ip, 'countryLong');
-    }
+    $base_address = $this->database['ipv6_base_address'];
+    $ip_number = $this->ipv6Numeric($ip);
+    $this->result->ipNumber = $ip_number;
 
-    function getRegion($ip){
-        return ($this->ipVersion==1) ? $this->getRecordV6($ip, 'region') : $this->getRecord($ip, 'region');
-    }
+    $low = 0;
+    $mid = 0;
+    $high = $this->database['ipv6_count'];
+    $ip_from = 0;
+    $ip_to = 0;
 
-    function getCity($ip){
-        return ($this->ipVersion==1) ? $this->getRecordV6($ip, 'city') : $this->getRecord($ip, 'city');
-    }
+    while ($low <= $high) {
+      $mid = (int) (($low + $high) / 2);
+      $ip_from = $this->readByte($base_address + $mid * ($this->database['column'] * 4 + 12), 128);
+      $ip_to = $this->readByte($base_address + ($mid + 1) * ($this->database['column'] * 4 + 12), 128);
 
-    function getIsp($ip){
-        return ($this->ipVersion==1) ? $this->getRecordV6($ip, 'isp') : $this->getRecord($ip, 'isp');
-    }
+      if ($ip_from < 0) {
+        $ip_from += pow(2, 32);
+      }
 
-    function getLatitude($ip){
-        return ($this->ipVersion==1) ? $this->getRecordV6($ip, 'latitude') : $this->getRecord($ip, 'latitude');
-    }
+      if ($ip_to < 0) {
+        $ip_to += pow(2, 32);
+      }
 
-    function getLongitude($ip){
-        return ($this->ipVersion==1) ? $this->getRecordV6($ip, 'longitude') : $this->getRecord($ip, 'longitude');
-    }
+      if (($ip_number >= $ip_from) && ($ip_number < $ip_to)) {
+        $return = '';
+        $pointer = $base_address + ($mid * ($this->database['column'] * 4 + 12)) + 8;
 
-    function getZipCode($ip){
-        return ($this->ipVersion==1) ? $this->getRecordV6($ip, 'zipCode') : $this->getRecord($ip, 'zipCode');
-    }
+        switch ($fields) {
+          case self::COUNTRY_CODE:
+          case self::REGION_NAME:
+          case self::CITY_NAME:
+          case self::ISP:
+          case self::DOMAIN_NAME:
+          case self::ZIP_CODE:
+          case self::TIME_ZONE:
+          case self::NET_SPEED:
+          case self::IDD_CODE:
+          case self::AREA_CODE:
+          case self::WEATHER_STATION_CODE:
+          case self::WEATHER_STATION_NAME:
+          case self::MCC:
+          case self::MNC:
+          case self::MOBILE_CARRIER_NAME:
+          case self::ELEVATION:
+            $return = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[$fields - 1]][$this->database['type']]), '32'), 'string', TRUE);
 
-    function getDomain($ip){
-        return ($this->ipVersion==1) ? $this->getRecordV6($ip, 'domain') : $this->getRecord($ip, 'domain');
-    }
+            break;
 
-    function getTimeZone($ip){
-        return ($this->ipVersion==1) ? $this->getRecordV6($ip, 'timeZone') : $this->getRecord($ip, 'timeZone');
-    }
+          case self::COUNTRY_NAME:
+            $return = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[$fields - 1]][$this->database['type']]), '32') + 3, 'string', TRUE);
 
-    function getNetSpeed($ip){
-        return ($this->ipVersion==1) ? $this->getRecordV6($ip, 'netSpeed') : $this->getRecord($ip, 'netSpeed');
-    }
+            break;
 
-    function getIddCode($ip){
-        return ($this->ipVersion==1) ? $this->getRecordV6($ip, 'iddCode') : $this->getRecord($ip, 'iddCode');
-    }
+          case self::LATITUDE:
+          case self::LONGITUDE:
+            $return = $this->readByte($pointer + 4 * ($this->columns[$keys[$fields - 1]][$this->database['type']]), 'float', TRUE);
 
-    function getAreaCode($ip){
-        return ($this->ipVersion==1) ? $this->getRecordV6($ip, 'areaCode') : $this->getRecord($ip, 'areaCode');
-    }
+            break;
 
-    function getWeatherStationCode($ip){
-        return ($this->ipVersion==1) ? $this->getRecordV6($ip, 'weatherStationCode') : $this->getRecord($ip, 'weatherStationCode');
-    }
+          case self::USAGE_TYPE:
+            $return = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[$fields - 1]][$this->database['type']]), '32'), 'string', TRUE);
 
-    function getWeatherStationName($ip){
-        return ($this->ipVersion==1) ? $this->getRecordV6($ip, 'weatherStationName') : $this->getRecord($ip, 'weatherStationName');
-    }
+            break;
 
-    function getMcc($ip){
-        return ($this->ipVersion==1) ? $this->getRecordV6($ip, 'mcc') : $this->getRecord($ip, 'mcc');
-    }
+          default:
+            $this->result->regionName = $this->result->cityName = $this->result->latitude = $this->result->longitude = $this->result->isp = $this->result->domainName = $this->result->zipCode = $this->result->timeZone = $this->result->netSpeed = $this->result->iddCode = $this->result->areaCode = $this->result->weatherStationCode = $this->result->weatherStationName = $this->result->mcc = $this->result->mnc = $this->result->mobileCarrierName = $this->result->elevation = $this->result->usageType = self::FIELD_NOT_SUPPORTED;
 
-    function getMnc($ip){
-        return ($this->ipVersion==1) ? $this->getRecordV6($ip, 'mnc') : $this->getRecord($ip, 'mnc');
-    }
+            if ($this->columns[$keys[self::COUNTRY_CODE - 1]][$this->database['type']] != 0) {
+              $this->result->countryCode = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::COUNTRY_CODE - 1]][$this->database['type']]), '32'), 'string', TRUE);
 
-    function getMobileBrand($ip){
-        return ($this->ipVersion==1) ? $this->getRecordV6($ip, 'mobileBrand') : $this->getRecord($ip, 'mobileBrand');
-    }
+              $this->result->countryName = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::COUNTRY_CODE - 1]][$this->database['type']]), '32') + 3, 'string', TRUE);
+            }
 
-    function getAll($ip){
-        return ($this->ipVersion==1) ? $this->getRecordV6($ip, 'all') : $this->getRecord($ip, 'all');
+            if ($this->columns[$keys[self::REGION_NAME - 1]][$this->database['type']] != 0) {
+              $this->result->regionName = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::REGION_NAME - 1]][$this->database['type']]), '32'), 'string', TRUE);
+            }
+
+            if ($this->columns[$keys[self::CITY_NAME - 1]][$this->database['type']] != 0) {
+              $this->result->cityName = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::CITY_NAME - 1]][$this->database['type']]), '32'), 'string', TRUE);
+            }
+
+            if ($this->columns[$keys[self::LATITUDE - 1]][$this->database['type']] != 0) {
+              $this->result->latitude = $this->readByte($pointer + 4 * ($this->columns[$keys[self::LATITUDE - 1]][$this->database['type']]), 'float', TRUE);
+            }
+
+            if ($this->columns[$keys[self::LONGITUDE - 1]][$this->database['type']] != 0) {
+              $this->result->longitude = $this->readByte($pointer + 4 * ($this->columns[$keys[self::LONGITUDE - 1]][$this->database['type']]), 'float', TRUE);
+            }
+
+            if ($this->columns[$keys[self::ISP - 1]][$this->database['type']] != 0) {
+              $this->result->isp = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::ISP - 1]][$this->database['type']]), '32'), 'string', TRUE);
+            }
+
+            if ($this->columns[$keys[self::DOMAIN_NAME - 1]][$this->database['type']] != 0) {
+              $this->result->domainName = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::DOMAIN_NAME - 1]][$this->database['type']]), '32'), 'string', TRUE);
+            }
+
+            if ($this->columns[$keys[self::ZIP_CODE - 1]][$this->database['type']] != 0) {
+              $this->result->zipCode = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::ZIP_CODE - 1]][$this->database['type']]), '32'), 'string', TRUE);
+            }
+
+            if ($this->columns[$keys[self::TIME_ZONE - 1]][$this->database['type']] != 0) {
+              $this->result->timeZone = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::TIME_ZONE - 1]][$this->database['type']]), '32'), 'string', TRUE);
+            }
+
+            if ($this->columns[$keys[self::NET_SPEED - 1]][$this->database['type']] != 0) {
+              $this->result->netSpeed = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::NET_SPEED - 1]][$this->database['type']]), '32'), 'string', TRUE);
+            }
+
+            if ($this->columns[$keys[self::IDD_CODE - 1]][$this->database['type']] != 0) {
+              $this->result->iddCode = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::IDD_CODE - 1]][$this->database['type']]), '32'), 'string', TRUE);
+            }
+
+            if ($this->columns[$keys[self::AREA_CODE - 1]][$this->database['type']] != 0) {
+              $this->result->areaCode = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::AREA_CODE - 1]][$this->database['type']]), '32'), 'string', TRUE);
+            }
+
+            if ($this->columns[$keys[self::WEATHER_STATION_CODE - 1]][$this->database['type']] != 0) {
+              $this->result->weatherStationCode = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::WEATHER_STATION_CODE - 1]][$this->database['type']]), '32'), 'string', TRUE);
+            }
+
+            if ($this->columns[$keys[self::WEATHER_STATION_NAME - 1]][$this->database['type']] != 0) {
+              $this->result->weatherStationName = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::WEATHER_STATION_NAME - 1]][$this->database['type']]), '32'), 'string', TRUE);
+            }
+
+            if ($this->columns[$keys[self::MCC - 1]][$this->database['type']] != 0) {
+              $this->result->mcc = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::MCC - 1]][$this->database['type']]), '32'), 'string', TRUE);
+            }
+
+            if ($this->columns[$keys[self::MNC - 1]][$this->database['type']] != 0) {
+              $this->result->mnc = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::MNC - 1]][$this->database['type']]), '32'), 'string', TRUE);
+            }
+
+            if ($this->columns[$keys[self::MOBILE_CARRIER_NAME - 1]][$this->database['type']] != 0) {
+              $this->result->mobileCarrierName = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::MOBILE_CARRIER_NAME - 1]][$this->database['type']]), '32'), 'string', TRUE);
+            }
+
+            if ($this->columns[$keys[self::ELEVATION - 1]][$this->database['type']] != 0) {
+              $this->result->elevation = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::ELEVATION - 1]][$this->database['type']]), '32'), 'string', TRUE);
+            }
+
+            if ($this->columns[$keys[self::USAGE_TYPE - 1]][$this->database['type']] != 0) {
+              $this->result->usageType = $this->readByte($this->readByte($pointer + 4 * ($this->columns[$keys[self::USAGE_TYPE - 1]][$this->database['type']]), '32'), 'string', TRUE);
+            }
+
+            return $this->result;
+        }
+        return $return;
+      }
+      else {
+        if ($ip_number < $ip_from) {
+          $high = $mid - 1;
+        }
+        else {
+          $low = $mid + 1;
+        }
+      }
     }
+  }
 }

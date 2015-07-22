@@ -167,7 +167,6 @@ class geolocate {
             // IP2Location Binary File
             case 1:
                 require_once XOOPS_ROOT_PATH."/modules/uhq_geolocate/class/ip2location.class.php";
-                $ipdb = new ip2location;
                 switch ($ipver) {
                     case 4:
                         $dbfile = XOOPS_TRUST_PATH.'/IP2LOCATION.BIN';
@@ -177,16 +176,16 @@ class geolocate {
                         break;
                 }
                 if (file_exists($dbfile)) {
-                    $ipdb->open($dbfile);
-                    $result['querylib'] = $ipdb->version." / ".$ipdb->unpackMethod;
-                    $result['dbtype'] = "DB".$ipdb->dbType;
-                    if ($ipdb->dbYear < 10) {
+                    $ipdb = new IP2Location ($dbfile);
+                    $result['querylib'] = "7.0.0";
+                    $result['dbtype'] = "DB".$ipdb->database['type'];
+                    if ($ipdb->database['year'] < 10) {
                         $result['dbdate'] = "200";
                     } else {
                         $result['dbdate'] = "20";
                     }
-                    $result['dbdate'] .= $ipdb->dbYear."-".$ipdb->dbMonth."-".$ipdb->dbDay;
-                    $result['dbsize'] = $ipdb->dbCount;
+                    $result['dbdate'] .= $ipdb->database['year']."-".$ipdb->database['month']."-".$ipdb->database['day'];
+                    $result['dbsize'] = "v4: ".$ipdb->database['ipv4_count']." / v6: ".$ipdb->database['ipv6_count'];
                 } else {
                     $result['error'] = $dbfile;
                 }
@@ -408,19 +407,25 @@ class geolocate {
 
                     return $location;
                 }
-                $ipdb = new ip2location;
-                $ipdb->open($file);
-                $ipdb->nullError = 1;
-                $result = $ipdb->getAll($this->ipout);
+                $ipdb = new IP2Location ($file);
+
+                $result = $ipdb->lookup($this->ipout);
+
                 // Require a valid country code.  Sample data returns "??" or "-" depending on the data set.
-                if ( ($result->countryShort[0] >= "A") && ($result->countryShort[0] <= "Z") ) {
-                    $location->country = $result->countryShort;
-                    $location->region = $result->region;
-                    $location->city = $result->city;
+                if ( ($result->countryCode[0] >= "A") && ($result->countryCode[0] <= "Z") ) {
+                    $location->country = $result->countryCode;
+
+                    $location->region = $result->regionName;
+                    $location->city = $result->cityName;
                     $location->isp = $result->isp;
+                    $location->org = $result->domainName;
+                    $location->latitude = $result->latitude;
+                    $location->longitude = $result->longitude;
                 } else {
                     $location->error = 4;
                 }
+
+                $location->rawresult = $result;
                 break;
 
             // IPInfoDB Web API - Depreciated

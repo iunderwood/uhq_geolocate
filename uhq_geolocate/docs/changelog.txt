@@ -1,3 +1,12 @@
+====[ 0.98 -- 2015 ]====
+
+Updates:
+* IP2Location class updated to v7, from v4.11, with modifications.
+* IP2Location samples updated to current API sample files.
+
+Notes:
+* php5_gmp is now a required resource for the IP2Location class.
+
 ====[ 0.97 -- 2015-07-19 ]====
 
 Fixes
