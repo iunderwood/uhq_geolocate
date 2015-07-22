@@ -1,6 +1,6 @@
 <?php
 
-$path = dirname(dirname(dirname(dirname(__FILE__))));
+$path = dirname(dirname(dirname(__DIR__)));
 include_once $path . '/mainfile.php';
 include_once $path . '/include/cp_functions.php';
 require_once $path . '/include/cp_header.php';
@@ -40,7 +40,7 @@ function uhqgeo_providername ($prov) {
 
 // Header
 
-include_once dirname(__FILE__) . '/admin_header.php';
+include_once __DIR__ . '/admin_header.php';
 
 xoops_cp_header();
 $mainAdmin = new ModuleAdmin();
@@ -145,4 +145,4 @@ if (diagarray()) {
     echo "</pre>";
 }
 
-include_once dirname(__FILE__) . '/admin_footer.php';
+include_once __DIR__ . '/admin_footer.php';
