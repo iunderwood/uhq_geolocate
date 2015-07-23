@@ -1,5 +1,8 @@
 ====[ 0.98 -- 2015 ]====
 
+Fixes:
+* Fixed incorrect implementaion of $adminmenu, which could yield unpredictable results.
+
 Updates:
 * IP2Location class updated to v7, from v4.11, with modifications.
 * IP2Location samples updated to current API sample files.

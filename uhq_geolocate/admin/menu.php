@@ -22,7 +22,7 @@ include_once $fileinc;
 
 // Assign goodies for Admin Menu
 
-global $adminmenu;
+$adminmenu = array();
 
 $i=1;
 $adminmenu[$i]['title'] = _AM_MODULEADMIN_HOME;
