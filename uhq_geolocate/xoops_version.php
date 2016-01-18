@@ -33,8 +33,8 @@ $modversion["module_status"]       = "RC";
 
 // Minimums
 
-$modversion['min_php']      = '5.2';
-$modversion['min_xoops']    = "2.5.7";
+$modversion['min_php']      = '5.5';
+$modversion['min_xoops']    = "2.5.7.2";
 $modversion['min_admin']    = '1.1';
 $modversion['min_db']       = array(
     'mysql'  => '5.0.7',
