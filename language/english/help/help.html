@@ -1,40 +1,73 @@
 <div id="help-template" class="outer">
 
-    <h1 class="head">
+    <h1 class="head">Help:
         <a class="ui-corner-all tooltip" href="<{$xoops_url}>/modules/uhq_geolocate/admin/index.php"
-           title="UHQ_GeoLocate Administration">UHQ_GeoLocate
+           title="Back to the administration of UHQ_GeoLocate"> UHQ_GeoLocate
+            <img src="<{xoAdminIcons home.png}>"
+                 alt="Back to the Administration of UHQ_GeoLocate">
         </a>
-        :: Overview
     </h1>
-	<hr>
-    <h4 class="odd">Description</h4>
-    <p class="even">This is the UHQ_GeoLocate XOOPS Module.</p>
-    <p>This module is meant to provide geolocation services given an IP address to other XOOPS modules and currently supports the following information services:</p>
-    <ul>
-        <li>FreeGeoIP (Web API)</li>
-        <li>IPInfoDB v3 (Web API)</li>
-        <li>IP2Location (Binary Lookup)</li>
-        <li>MaxMind (Web API)</li>
-    </ul>
+    <hr>
+    <h4 class="odd">DESCRIPTION</h4>
+    <p class="even"> This is the UHQ_GeoLocate XOOPS Module.<br> <br>
 
-	<hr>
-    <h4 class="odd">Install / Update / Uninstall</h4>
+        This module is meant to provide geolocation services given an IP address to other XOOPS modules and currently
+        supports the following information services:<br> <br>
 
-    <p class="even">There are no special requirements for installing this module.  Sample binary lookup files for IP2Location are provided and will be moved into the XOOPS Trust Path and automatically removed by the installer</p>
-
-    <p class="even">Special care has been taken with each release to automate any changes required between releases.  The use cases are not perfect, but it is a driving goal of the UHQ module series to be as administratively friendly as possible.</p>
-
-    <p class="even">Upon uninstall, the module will remove the IP2Location binary files from the XOOPS Trust Path, regardless if they were part of the module distribution or not.  Please keep this in mind if you are subscribing to the IP2Location service and don't have a backup copy before you uninstall this module.</p>
+        * FreeGeoIP (Web API)<br> <br>
+        * IPInfoDB v2 & v3 (Web API)<br> <br>
+        * IP2Location (Binary Lookup)<br> <br>
+        * MaxMind (Web API)<br> <br></p>
 
     <hr>
-    <h4 class="odd">Operating instructions</h4>
+    <h3>Module Preference</h3>
 
-    <p class="even">There are no special operating instructions for this module.  Modules which interact with the information this one provides should do so automatically and w/o an effort.</p>
+    <h4 class="odd">Enable Geolocation Service?</h4>
+    <p class="even">This option enables the module. Disabling this will return null results whenever the functions are
+        called.</p>
 
-	<hr>
+    <h4 class="odd">IPv4 Location Provider</h4>
+    <p class="even">This is where you may select your IPv4 location provider.</p>
 
-    <h4 class="odd">Tutorial</h4>
+    <h4 class="odd">IPv6 Location Provider</h4>
+    <p class="even">This is where you may select your IPv6 location provider.</p>
 
-    <p class="even">The module itself is simple, hence there is no tutorial.</p>
+    <h4 class="odd">Show Diagnostic Array?</h4>
+    <p class="even">If this is set to yes, a print_r of the data array which generates the admin page will be
+        displayed.</p>
+
+    <h4 class="odd">API Key</h4>
+    <p class="even">This is your key/license which is required for you to access an external API provider.</p>
+
+    <h4 class="odd">Cache API Results?</h4>
+    <p class="even">This option caches all web API calls until the cache is manually cleared. This is enabled by default
+        and will prevent multiple queries for the same IP from using many external
+        queries.</p>
+
+    <hr>
+
+    <h4 class="odd">INSTALL/UNINSTALL</h4>
+
+    <p class="even">No special measures necessary, follow the standard installation process –
+        extract the module folder into the ../modules directory. Install the
+        module through Admin -> System Module -> Modules.<br> <br>
+        Detailed instructions on installing modules are available in the
+        <a href="https://www.gitbook.com/book/xoops/xoops-operations-guide/" target="_blank">Chapter 2.12 of our XOOPS
+            Operations Manual</a></p>
+
+    <hr>
+
+    <h4 class="odd">OPERATING INSTRUCTIONS</h4>
+
+    This module and its operations are very simple.<br> <br>
+    Detailed instructions on configuring the access rights for user groups are available in the
+    <a href="https://www.gitbook.com/book/xoops/xoops-operations-guide/" target="_blank">XOOPS Operations Manual</a><br>
+    <br>
+
+    <hr>
+
+    <h4 class="odd">TUTORIAL</h4>
+
+    <p class="even">There is no tutorial available at the moment.</p>
 
 </div>

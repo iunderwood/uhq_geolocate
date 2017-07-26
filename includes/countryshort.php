@@ -10,10 +10,10 @@ if (!isset($xoopsConfig)) {
     global $xoopsConfig;
 }
 
-if (file_exists(XOOPS_ROOT_PATH.'/modules/uhq_geolocate/language/'.$xoopsConfig['language'].'/geo.php')) {
-    include_once XOOPS_ROOT_PATH.'/modules/uhq_geolocate/language/'.$xoopsConfig['language'].'/geo.php';
+if (file_exists(XOOPS_ROOT_PATH . '/modules/uhq_geolocate/language/' . $xoopsConfig['language'] . '/geo.php')) {
+    require_once XOOPS_ROOT_PATH . '/modules/uhq_geolocate/language/' . $xoopsConfig['language'] . '/geo.php';
 } else {
-    include_once XOOPS_ROOT_PATH.'/modules/uhq_geolocate/language/english/geo.php';
+    require_once XOOPS_ROOT_PATH . '/modules/uhq_geolocate/language/english/geo.php';
 }
 
 // Define Array, ordered by country code
@@ -288,4 +288,3 @@ $_UHQGEO_CC['YT'] = _UHQGEO_CC_YT;    // Mayotte
 $_UHQGEO_CC['ZA'] = _UHQGEO_CC_ZA;    // South Africa
 $_UHQGEO_CC['ZM'] = _UHQGEO_CC_ZM;    // Zambia
 $_UHQGEO_CC['ZW'] = _UHQGEO_CC_ZW;    // Zimbabwe
-;

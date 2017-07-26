@@ -1,8 +1,8 @@
 ====[ 0.97 -- 2015-07-19 ]====
 
 Fixes
-* Added proper XOOPS root in block template to properly reference the flag locations.  (GitHub-0002 / cesag)
-* Added missing error traps for two API providers.  (GitHub-0003 / cesag)
+* Added proper XOOPS root in block template to properly reference the flag locations.  (GitHub-0002 / cesagonchu)
+* Added missing error traps for two API providers.  (GitHub-0003 / cesagonchu)
 
 ====[ 0.96 -- 2015-06-16 ]====
 

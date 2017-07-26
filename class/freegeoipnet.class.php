@@ -2,36 +2,43 @@
 
 // FreeGeoIP.net PHP Class
 
-final class freegeoip {
-    protected $errors = array();
-    var $service = 'freegeoip.net';
-    var $version = 'v1';
+final class freegeoip
+{
+    protected $errors  = array();
+    public $service = 'freegeoip.net';
+    public $version = 'v1';
 
-    public function __construct(){}
+    public function __construct()
+    {
+    }
 
-    public function __destruct(){}
+    public function __destruct()
+    {
+    }
 
-    public function getError(){
+    public function getError()
+    {
         return implode("\n", $this->errors);
     }
 
-    public function getGeoLocation($host){
+    public function getGeoLocation($host)
+    {
         $ip = @gethostbyname($host);
 
         if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
-            $xml = @file_get_contents('http://' . $this->service . '/xml/'.$ip);
+            $xml = @file_get_contents('http://' . $this->service . '/xml/' . $ip);
 
             try {
                 $response = @new SimpleXMLElement($xml);
 
-                foreach($response as $field=>$value){
+                foreach ($response as $field => $value) {
                     $result[(string)$field] = (string)$value;
                 }
 
                 return $result;
-            }
-            catch(Exception $e){
+            } catch (Exception $e) {
                 $result['error'] = (string)$e->getMessage();
+
                 return $result;
             }
         }
