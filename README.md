@@ -1,7 +1,7 @@
 #uhq_geolocate
 [![Software License](https://img.shields.io/badge/license-GPL-brightgreen.svg?style=flat)](LICENSE) 
 
-This is the UHQ-GeoLocate [XOOPS](http://xoops.org) Module.
+This is the UHQ-GeoLocate [XOOPS](https://xoops.org) Module.
 
 This module is meant to provide geolocation services given an IP address to other XOOPS modules and currently supports the following information services:
 
