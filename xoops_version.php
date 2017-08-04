@@ -47,12 +47,14 @@ $modversion['tables'][] = 'uhqgeolocate_v6cache';
 
 // Help Section
 
-$i                                     = 0;
-$modversion['helpsection'][$i]['name'] = 'Overview';
-$modversion['helpsection'][$i]['link'] = 'page=help';
-$i++;
-$modversion['helpsection'][$i]['name'] = 'Module Preferences';
-$modversion['helpsection'][$i]['link'] = 'page=module_prefs';
+// ------------------- Help files ------------------- //
+$modversion['helpsection'] = array(
+    ['name' => _MI_UHQGEO_OVERVIEW, 'link' => 'page=help'],
+    ['name' => _MI_UHQGEO_DISCLAIMER, 'link' => 'page=disclaimer'],
+    ['name' => _MI_UHQGEO_LICENSE, 'link' => 'page=license'],
+    ['name' => _MI_UHQGEO_SUPPORT, 'link' => 'page=support'],
+    ['name' => _MI_UHQGEO_PREFERENCES, 'link' => 'page=module_prefs'],
+);
 
 // Module-Wide Configuration Items
 

@@ -62,3 +62,18 @@ define('_MI_UHQGEO_TEMPLATE_INDEX', 'Admin Main Template');
 
 define('_MI_UHQGEO_BLOCK_FROM_NAME', 'Your Location');
 define('_MI_UHQGEO_BLOCK_FROM_DESC', "Show the page viewer where we think they're from.");
+
+//0.97
+//Help
+define('_MI_UHQGEO_DIRNAME', basename(dirname(dirname(__DIR__))));
+define('_MI_UHQGEO_HELP_HEADER', __DIR__.'/help/helpheader.tpl');
+define('_MI_UHQGEO_BACK_2_ADMIN', 'Back to Administration of ');
+define('_MI_UHQGEO_OVERVIEW', 'Overview');
+
+//define('_MI_UHQGEO_HELP_DIR', __DIR__);
+
+//help multi-page
+define('_MI_UHQGEO_DISCLAIMER', 'Disclaimer');
+define('_MI_UHQGEO_LICENSE', 'License');
+define('_MI_UHQGEO_SUPPORT', 'Support');
+define('_MI_UHQGEO_PREFERENCES', 'Preferences');

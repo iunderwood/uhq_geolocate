@@ -1,14 +1,8 @@
 <div id="help-template" class="outer">
+    <{include file=$smarty.const._MI_UHQGEO_HELP_HEADER}>
 
-    <h1 class="head">Help:
-        <a class="ui-corner-all tooltip" href="<{$xoops_url}>/modules/uhq_geolocate/admin/index.php"
-           title="Back to the administration of UHQ_GeoLocate"> UHQ_GeoLocate
-            <img src="<{xoAdminIcons home.png}>"
-                 alt="Back to the Administration of UHQ_GeoLocate">
-        </a>
-    </h1>
-    <hr>
-    <h4 class="odd">DESCRIPTION</h4>
+    <h4 class="odd">DESCRIPTION</h4> <br>
+
     <p class="even"> This is the UHQ_GeoLocate XOOPS Module.<br> <br>
 
         This module is meant to provide geolocation services given an IP address to other XOOPS modules and currently
