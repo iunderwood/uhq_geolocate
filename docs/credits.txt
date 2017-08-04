@@ -4,5 +4,5 @@ Credits
 Main Developer: Ian A. Underwood (iunderwood)
 
 Contributors:
-	Michael Beck (mamba)
-		XOOPS 2.5 Admin GUI
+    Michael Beck (mamba)
+        XOOPS 2.5 Admin GUI
