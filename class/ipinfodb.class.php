@@ -2,7 +2,7 @@
 
 final class ipinfodb
 {
-    protected $errors       = array();
+    protected $errors       = [];
     protected $useCity      = false;
     protected $showTimezone = false;
     protected $apiKey       = '';

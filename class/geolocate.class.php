@@ -163,7 +163,7 @@ class geolocate
     // Return any DB information we may have for a given IP version
     public function dbinfo($ipver)
     {
-        $result = array();
+        $result = [];
 
         // Get Provider
         $provider = $this->provider($ipver);
@@ -451,8 +451,10 @@ class geolocate
             // IPInfoDB Web API - Depreciated
             case 11:
                 $timezone = true;
+                // no break
             case 12:
                 $citylevel = true;
+                // no break
             case 13:
                 require_once XOOPS_ROOT_PATH . '/modules/uhq_geolocate/class/ipinfodb.class.php';
                 $ipdb = new ipinfodb;
@@ -492,6 +494,7 @@ class geolocate
             // IPInfoDB v3
             case 14:
                 $citylevel = true;
+                // no break
             case 15:
                 require_once XOOPS_ROOT_PATH . '/modules/uhq_geolocate/class/ip2locationlite.class.php';
                 $ipdb = new ip2location_lite;
@@ -526,8 +529,10 @@ class geolocate
             // MaxMind Web API
             case 21:
                 $isporg = true;
+                // no break
             case 22:
                 $usecity = true;
+                // no break
             case 23:
                 require_once XOOPS_ROOT_PATH . '/modules/uhq_geolocate/class/maxmindweb.class.php';
                 $ipdb = new maxmindweb;

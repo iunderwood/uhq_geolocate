@@ -4,7 +4,7 @@
 
 final class freegeoip
 {
-    protected $errors  = array();
+    protected $errors  = [];
     public $service = 'freegeoip.net';
     public $version = 'v1';
 

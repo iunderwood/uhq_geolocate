@@ -18,7 +18,7 @@ if (file_exists(XOOPS_ROOT_PATH . '/modules/uhq_geolocate/language/' . $xoopsCon
 
 // Define Array, ordered by country code
 
-$_UHQGEO_CC = array();
+$_UHQGEO_CC = [];
 
 $_UHQGEO_CC['AD'] = _UHQGEO_CC_AD;    // Andorra
 $_UHQGEO_CC['AE'] = _UHQGEO_CC_AE;    // United Arab Emirates

@@ -2,7 +2,7 @@
 
 final class ip2location_lite
 {
-    protected $errors  = array();
+    protected $errors  = [];
     protected $apiKey  = '';
     public $service = 'api.ipinfodb.com';
     public $version = 'v3';
