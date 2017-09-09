@@ -20,16 +20,16 @@ $moduleHelper->loadLanguage('modinfo');
 global $adminObject;
 
 $i                      = 1;
-$adminmenu[$i]['title'] = _AM_MODULEADMIN_HOME;
-$adminmenu[$i]['link']  = 'admin/index.php';
-$adminmenu[$i]['icon']  = $pathIcon32 . '/home.png';
+'title' =>  _AM_MODULEADMIN_HOME,
+'link' =>  'admin/index.php',
+'icon' =>  $pathIcon32 . '/home.png',
 
 ++$i;
-$adminmenu[$i]['title'] = _MI_UHQGEO_ADMENU_INDEX;
-$adminmenu[$i]['link']  = 'admin/main.php';
-$adminmenu[$i]['icon']  = $pathIcon32 . '/globe.png';
+'title' =>  _MI_UHQGEO_ADMENU_INDEX,
+'link' =>  'admin/main.php',
+'icon' =>  $pathIcon32 . '/globe.png',
 
 ++$i;
-$adminmenu[$i]['title'] = _AM_MODULEADMIN_ABOUT;
-$adminmenu[$i]['link']  = 'admin/about.php';
-$adminmenu[$i]['icon']  = $pathIcon32 . '/about.png';
+'title' =>  _AM_MODULEADMIN_ABOUT,
+'link' =>  'admin/about.php',
+'icon' =>  $pathIcon32 . '/about.png',
