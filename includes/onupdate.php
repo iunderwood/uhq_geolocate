@@ -163,7 +163,7 @@ function xoops_module_update_uhq_geolocate(XoopsModule $module, $oldversion = nu
         $configHandler     = xoops_getHandler('config');
         $xoopsModuleConfig = $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
 
-        if (($xoopsModuleConfig['ipv4_prov'] == 11) || ($xoopsModuleConfig['ipv4_prov'] == 12)) {
+        if ((11 == $xoopsModuleConfig['ipv4_prov']) || (12 == $xoopsModuleConfig['ipv4_prov'])) {
             // Set to 14
 
             $query = 'UPDATE ' . $xoopsDB->prefix('config') . ' SET ';
@@ -177,7 +177,7 @@ function xoops_module_update_uhq_geolocate(XoopsModule $module, $oldversion = nu
             } else {
                 uhq_onupdate_line(_AM_UHQGEO_UPDATE_IPV4CHG . _AM_UHQGEO_PROV_P14);
             }
-        } elseif ($xoopsModuleConfig['ipv4_prov'] == 13) {
+        } elseif (13 == $xoopsModuleConfig['ipv4_prov']) {
             // Set to 15
 
             $query = 'UPDATE ' . $xoopsDB->prefix('config') . ' SET ';

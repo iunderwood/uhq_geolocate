@@ -35,7 +35,7 @@ class geolocate
         if (filter_var($this->ipin, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
 
             // Look for embedded IPv4 in an embedded IPv6 address, where FFFF is appended.
-            if (strpos($this->ipin, '::FFFF:') === 0) {
+            if (0 === strpos($this->ipin, '::FFFF:')) {
                 $ipv4addr = substr($this->ipin, 7);
                 if (filter_var($ipv4addr, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
                     $this->ipver = 4;
@@ -43,7 +43,7 @@ class geolocate
                 }
 
                 // Look for an IPv4 address embedded as ::x.x.x.x
-            } elseif (strpos($this->ipin, '::') === 0) {
+            } elseif (0 === strpos($this->ipin, '::')) {
                 $ipv4addr = substr($this->ipin, 2);
                 if (filter_var($ipv4addr, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
                     $this->ipver = 4;
@@ -80,7 +80,7 @@ class geolocate
         $xoopsModuleConfig = $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
 
         // Return true if geolocation is enabled in the configuration.
-        if ($xoopsModuleConfig['geoloc_ready'] == 1) {
+        if (1 == $xoopsModuleConfig['geoloc_ready']) {
             return true;
         } else {
             return false;
@@ -97,7 +97,7 @@ class geolocate
         $xoopsModuleConfig = $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
 
         // Return true if geolocation is enabled in the configuration.
-        if ($xoopsModuleConfig['geoloc_cache'] == 1) {
+        if (1 == $xoopsModuleConfig['geoloc_cache']) {
             return true;
         } else {
             return false;
@@ -114,10 +114,10 @@ class geolocate
         $xoopsModuleConfig = $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
 
         // Return true if geolocation is enabled in the configuration.
-        if ($ipver == 4) {
+        if (4 == $ipver) {
             return $xoopsModuleConfig['ipv4_prov'];
         }
-        if ($ipver == 6) {
+        if (6 == $ipver) {
             return $xoopsModuleConfig['ipv6_prov'];
         }
 
@@ -134,7 +134,7 @@ class geolocate
         $xoopsModuleConfig = $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
 
         // Return a key, if we have one.
-        if ($this->ipver == 4) {
+        if (4 == $this->ipver) {
             return $xoopsModuleConfig['geoloc_apikey'];
         } else {
             return $xoopsModuleConfig['geoloc_apikey_v6'];
@@ -168,7 +168,7 @@ class geolocate
         // Get Provider
         $provider = $this->provider($ipver);
 
-        if ($provider === false) {
+        if (false === $provider) {
             return null;
         }
 
@@ -256,13 +256,13 @@ class geolocate
         $location = new geolocate_record;
 
         // Set our query for IPv4 lookups
-        if ($this->ipver == 4) {
+        if (4 == $this->ipver) {
             $query = 'SELECT * FROM ' . $xoopsDB->prefix('uhqgeolocate_v4cache') . ' WHERE ';
             $query .= "ipaddr = '" . ip2long($this->ipout) . "'";
         }
 
         // Set our query for IPv6 lookups
-        if ($this->ipver == 6) {
+        if (6 == $this->ipver) {
             $query = 'SELECT * FROM ' . $xoopsDB->prefix('uhqgeolocate_v6cache') . ' WHERE ';
             $query .= "v6subnet = '" . $this->v6subnet() . "'";
         }
@@ -276,18 +276,18 @@ class geolocate
         $result = $xoopsDB->queryF($query);
 
         // Return false if the lookup fails.
-        if ($result === false) {
+        if (false === $result) {
             return false;
         }
 
         if ($row = $xoopsDB->fetchArray($result)) {
 
             // Set up the cache query.
-            if ($this->ipver == 4) {
+            if (4 == $this->ipver) {
                 $hitquery = 'UPDATE ' . $xoopsDB->prefix('uhqgeolocate_v4cache') . ' SET ';
                 $hitquery .= "hits = hits + 1 WHERE ipaddr = '" . ip2long($this->ipout) . "'";
             }
-            if ($this->ipver == 6) {
+            if (6 == $this->ipver) {
                 $hitquery = 'UPDATE ' . $xoopsDB->prefix('uhqgeolocate_v6cache') . ' SET ';
                 $hitquery .= "hits = hits +1 WHERE v6subnet = '" . $this->v6subnet() . "'";
             }
@@ -327,7 +327,7 @@ class geolocate
         }
 
         // Set up insert query for IPv4 DB.
-        if ($this->ipver == 4) {
+        if (4 == $this->ipver) {
             // Remove any expired entries
             $query  = 'DELETE FROM ' . $xoopsDB->prefix('uhqgeolocate_v4cache') . " WHERE ipaddr ='" . ip2long($this->ipout) . "'";
             $result = $xoopsDB->queryF($query);
@@ -335,7 +335,7 @@ class geolocate
             $query = 'INSERT INTO ' . $xoopsDB->prefix('uhqgeolocate_v4cache') . ' SET ';
             $query .= "ipaddr = '" . ip2long($this->ipout) . "', ";
         }
-        if ($this->ipver == 6) {
+        if (6 == $this->ipver) {
             // Remove any expire entries
             $query  = 'DELETE FROM ' . $xoopsDB->prefix('uhqgeolocate_v6cache') . " WHERE v6subnet ='" . $this->v6subnet() . "'";
             $result = $xoopsDB->queryF($query);
@@ -370,7 +370,7 @@ class geolocate
         $result = $xoopsDB->queryF($query);
 
         // Return false on query error.
-        if ($result === false) {
+        if (false === $result) {
             return false;
         }
 
@@ -385,7 +385,7 @@ class geolocate
 
         // Make sure the module is enabled.
 
-        if ($this->geoloc_ready() === false) {
+        if (false === $this->geoloc_ready()) {
             $location->error = 1;    // Location Disabled
 
             return $location;
@@ -395,7 +395,7 @@ class geolocate
         $this->address_type();
 
         // Query for Location
-        if ($this->ipver == 0) {
+        if (0 == $this->ipver) {
             $location->error = 2;    // Invalid IP
 
             return $location;
@@ -422,10 +422,10 @@ class geolocate
             case 1:
                 require_once XOOPS_ROOT_PATH . '/modules/uhq_geolocate/class/ip2location.class.php';
                 // Set up Filename
-                if ($this->ipver == 4) {
+                if (4 == $this->ipver) {
                     $file = XOOPS_TRUST_PATH . '/IP2LOCATION.BIN';
                 }
-                if ($this->ipver == 6) {
+                if (6 == $this->ipver) {
                     $file = XOOPS_TRUST_PATH . '/IP2LOCATION-V6.BIN';
                 }
                 if (!file_exists($file)) {
@@ -480,10 +480,10 @@ class geolocate
                     if ($result['City']) {
                         $location->city = $result['City'];
                     }
-                    if ($result['Latitude'] != null) {
+                    if (null != $result['Latitude']) {
                         $location->latitude = $result['Latitude'];
                     }
-                    if ($result['Longitude'] != null) {
+                    if (null != $result['Longitude']) {
                         $location->longitude = $result['Longitude'];
                     }
                 } else {
@@ -514,10 +514,10 @@ class geolocate
                     if ($result['cityName']) {
                         $location->city = ucwords(strtolower($result['cityName']));
                     }
-                    if ($result['latitude'] != null) {
+                    if (null != $result['latitude']) {
                         $location->latitude = $result['latitude'];
                     }
-                    if ($result['longitude'] != null) {
+                    if (null != $result['longitude']) {
                         $location->longitude = $result['longitude'];
                     }
                 } else {
@@ -578,10 +578,10 @@ class geolocate
                     if ($result['City']) {
                         $location->city = ucwords(strtolower($result['City']));
                     }
-                    if ($result['Latitude'] != null) {
+                    if (null != $result['Latitude']) {
                         $location->latitude = $result['Latitude'];
                     }
-                    if ($result['Longitude'] != null) {
+                    if (null != $result['Longitude']) {
                         $location->longitude = $result['Longitude'];
                     }
                 } else {

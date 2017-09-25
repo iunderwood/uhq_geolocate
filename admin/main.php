@@ -86,7 +86,7 @@ function diagarray()
     $xoopsModuleConfig = $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
 
     // Return true if geolocation is enabled in the configuration.
-    if ($xoopsModuleConfig['geoloc_printr'] == 1) {
+    if (1 == $xoopsModuleConfig['geoloc_printr']) {
         return true;
     } else {
         return false;
