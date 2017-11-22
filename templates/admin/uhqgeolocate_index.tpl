@@ -1,7 +1,7 @@
 <{$smarty.const._AM_UHQGEO_YOURIP}><{$data.input.ipout}> - IPv<{$data.input.ipver}><br>
 <{$smarty.const._AM_UHQGEO_YOURLOC}>
 <{if $data.result.country}>
-<img src="../images/flags/<{$data.result.flag}>.gif"> :: <{$data.result.country}> :: <{$data.result.ccname}>
+<img src="../assets/images/flags/<{$data.result.flag}>.gif"> :: <{$data.result.country}> :: <{$data.result.ccname}>
 <{else}>
 <{$smarty.const._AM_UHQGEO_LOCNA}>
 <{/if}>
@@ -70,7 +70,7 @@
 <p><{$smarty.const._AM_UHQGEO_QUERYIP}><{$data.q2.ipout}> - IPv<{$data.q2.ipver}></p>
 <p><{$smarty.const._AM_UHQGEO_QUERYLOC}>
     <{if $data.query.country}>
-    <img src="../images/flags/<{$data.query.flag}>.gif"> :: <{$data.query.country}> :: <{$data.query.ccname}>
+    <img src="../assets/images/flags/<{$data.query.flag}>.gif"> :: <{$data.query.country}> :: <{$data.query.ccname}>
     <{else}>
     <{$smarty.const._AM_UHQGEO_LOCNA}>
     <{/if}>

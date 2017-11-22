@@ -18,13 +18,14 @@
  */
 
 $path = dirname(dirname(dirname(__DIR__)));
-require_once $path . '/mainfile.php';
-require_once $path . '/include/cp_functions.php';
 require_once $path . '/include/cp_header.php';
 
 global $xoopsModule;
 
 $moduleDirName = $GLOBALS['xoopsModule']->getVar('dirname');
+
+/** @var Xmf\Module\Admin $adminObject */
+$adminObject = \Xmf\Module\Admin::getInstance();
 
 //if functions.php file exist
 //require_once __DIR__ . '/../include/functions.php';
@@ -36,6 +37,7 @@ xoops_loadLanguage('main', $moduleDirName);
 
 $pathIcon16      = \Xmf\Module\Admin::iconUrl('', 16);
 $pathIcon16      = \Xmf\Module\Admin::iconUrl('', 32);
-$pathModuleAdmin = $xoopsModule->getInfo('dirmoduleadmin');
+//$pathModuleAdmin = $xoopsModule->getInfo('dirmoduleadmin');
 
-require_once $GLOBALS['xoops']->path($pathModuleAdmin . '/moduleadmin.php');
+//require_once $GLOBALS['xoops']->path($pathModuleAdmin . '/moduleadmin.php');
+require_once XOOPS_ROOT_PATH . '/Frameworks/moduleclasses/moduleadmin/moduleadmin.php';

@@ -11,7 +11,7 @@
     IPv<{$block.input.ipver}> - <{$block.input.ipout}><br>
     <br>
     <{if $block.result.country}>
-    <img src="<{$xoops_url}>/modules/uhq_geolocate/images/flags/<{$block.result.flag}>.gif"> ::
+    <img src="<{$xoops_url}>/modules/uhq_geolocate/assets/images/flags/<{$block.result.flag}>.gif"> ::
     <{if $block.result.ccname}>
     <{$block.result.ccname}>
     <{else}>

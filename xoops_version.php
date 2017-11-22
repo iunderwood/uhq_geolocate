@@ -186,7 +186,7 @@ $modversion['hasMain'] = 0;
 
 // Templates
 
-$modversion['templates'][1]['file']        = 'admin/uhqgeolocate_index.html';
+$modversion['templates'][1]['file']        = 'admin/uhqgeolocate_index.tpl';
 $modversion['templates'][1]['description'] = _MI_UHQGEO_TEMPLATE_INDEX;
 
 // Blocks
@@ -197,5 +197,5 @@ $modversion['blocks'][$i]['name']        = _MI_UHQGEO_BLOCK_FROM_NAME;
 $modversion['blocks'][$i]['description'] = _MI_UHQGEO_BLOCK_FROM_DESC;
 $modversion['blocks'][$i]['show_func']   = 'b_uhqgeo_from_show';
 //$modversion['blocks'][$i]['edit_func']    = "b_uhqgeo_from_edit";
-$modversion['blocks'][$i]['template'] = 'uhqgeo_from.html';
+$modversion['blocks'][$i]['template'] = 'uhqgeo_from.tpl';
 $modversion['blocks'][$i]['options']  = '';
