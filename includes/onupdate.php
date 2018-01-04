@@ -104,7 +104,7 @@ function xoops_module_update_uhq_geolocate(XoopsModule $module, $oldversion = nu
 
         // New field: dateadd
         $query  = 'ALTER TABLE ' . $xoopsDB->prefix('uhqgeolocate_v4cache') . ' ADD dateadd DATE AFTER hits';
-        $result = $xoopsDB->QueryF($query);
+        $result = $xoopsDB->queryF($query);
         if (!$result) {
             $module->setErrors('Error adding DB datadd field.');
 
@@ -116,7 +116,7 @@ function xoops_module_update_uhq_geolocate(XoopsModule $module, $oldversion = nu
         $query .= 'conf_title = "_MI_UHQGEO_MODCFG_APIV4KEY", ';
         $query .= 'conf_desc = "_MI_UHQGEO_MODCFG_APIV4KEY_DESC"';
 
-        $result = $xoopsDB->QueryF($query);
+        $result = $xoopsDB->queryF($query);
 
         if (!$result) {
             $module->setErrors('Error modifying API Key Description');
@@ -144,7 +144,7 @@ function xoops_module_update_uhq_geolocate(XoopsModule $module, $oldversion = nu
             PRIMARY KEY (v6subnet)
         ) ENGINE=MyISAM;';
 
-        $result = $xoopsDB->QueryF($query);
+        $result = $xoopsDB->queryF($query);
 
         if (!$result) {
             $module->setErrors('Error modifying API Key Description');
