@@ -1,5 +1,9 @@
 <?php
 
+use XoopsModules\Uhqgeolocate;
+/** @var Uhqgeolocate\Helper $helper */
+$helper = Uhqgeolocate\Helper::getInstance();
+
 $path = dirname(dirname(dirname(__DIR__)));
 require_once $path . '/mainfile.php';
 require_once $path . '/include/cp_functions.php';
@@ -12,7 +16,7 @@ require_once XOOPS_ROOT_PATH . '/class/template.php';
 // If we're using a template, disable the cache.
 
 if (!isset($xoopsTpl)) {
-    $xoopsTpl = new XoopsTpl();
+    $xoopsTpl = new \XoopsTpl();
 }
 $xoopsTpl->caching = 0;
 
@@ -80,13 +84,16 @@ if (isset($_REQUEST['op'])) {
 function diagarray()
 {
     // Load module options
-    $moduleHandler     = xoops_getHandler('module');
-    $xoopsModule       = $moduleHandler->getByDirname('uhq_geolocate');
-    $configHandler     = xoops_getHandler('config');
-    $xoopsModuleConfig = $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
+//    $moduleHandler     = xoops_getHandler('module');
+//    $xoopsModule       = $moduleHandler->getByDirname('uhq_geolocate');
+//    $configHandler     = xoops_getHandler('config');
+//    $xoopsModuleConfig = $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
+
+    /** @var Uhqgeolocate\Helper $helper */
+    $helper = Uhqgeolocate\Helper::getInstance();
 
     // Return true if geolocation is enabled in the configuration.
-    if (1 == $xoopsModuleConfig['geoloc_printr']) {
+    if (1 == $helper->getConfig('geoloc_printr')) {
         return true;
     } else {
         return false;

@@ -1,5 +1,9 @@
 <?php
 
+use XoopsModules\Uhqgeolocate;
+/** @var Uhqgeolocate\Helper $helper */
+$helper = Uhqgeolocate\Helper::getInstance();
+
 function uhq_onupdate_header($header)
 {
     echo '<h2>' . $header . '</h2>';
@@ -10,7 +14,7 @@ function uhq_onupdate_line($linetext)
     echo '<p>' . $linetext . '</p>';
 }
 
-function xoops_module_update_uhq_geolocate(XoopsModule $module, $oldversion = null)
+function xoops_module_update_uhq_geolocate(\XoopsModule $module, $oldversion = null)
 {
     global $xoopsDB;
 
@@ -158,12 +162,15 @@ function xoops_module_update_uhq_geolocate(XoopsModule $module, $oldversion = nu
         uhq_onupdate_line('<b>' . _AM_UHQGEO_UPDATE_TO . '0.96</b>');
 
         // Load module options
-        $moduleHandler     = xoops_getHandler('module');
-        $xoopsModule       = $moduleHandler->getByDirname('uhq_geolocate');
-        $configHandler     = xoops_getHandler('config');
-        $xoopsModuleConfig = $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
+//        $moduleHandler     = xoops_getHandler('module');
+//        $xoopsModule       = $moduleHandler->getByDirname('uhq_geolocate');
+//        $configHandler     = xoops_getHandler('config');
+//        $xoopsModuleConfig = $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
 
-        if ((11 == $xoopsModuleConfig['ipv4_prov']) || (12 == $xoopsModuleConfig['ipv4_prov'])) {
+        /** @var Uhqgeolocate\Helper $helper */
+        $helper = Uhqgeolocate\Helper::getInstance();
+
+        if ((11 == $helper->getConfig('ipv4_prov')) || (12 == $helper->getConfig('ipv4_prov'))) {
             // Set to 14
 
             $query = 'UPDATE ' . $xoopsDB->prefix('config') . ' SET ';
@@ -177,7 +184,7 @@ function xoops_module_update_uhq_geolocate(XoopsModule $module, $oldversion = nu
             } else {
                 uhq_onupdate_line(_AM_UHQGEO_UPDATE_IPV4CHG . _AM_UHQGEO_PROV_P14);
             }
-        } elseif (13 == $xoopsModuleConfig['ipv4_prov']) {
+        } elseif (13 == $helper->getConfig('ipv4_prov')) {
             // Set to 15
 
             $query = 'UPDATE ' . $xoopsDB->prefix('config') . ' SET ';

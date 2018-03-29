@@ -60,7 +60,7 @@ final class ipinfodb
                 }
 
                 return $result;
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->errors[] = $e->getMessage();
 
                 return;

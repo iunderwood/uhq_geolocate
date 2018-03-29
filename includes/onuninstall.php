@@ -1,6 +1,6 @@
 <?php
 
-function xoops_module_uninstall_uhq_geolocate(XoopsModule $module)
+function xoops_module_uninstall_uhq_geolocate(\XoopsModule $module)
 {
     $status = false;
 

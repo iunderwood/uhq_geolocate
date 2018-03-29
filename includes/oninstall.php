@@ -1,6 +1,6 @@
 <?php
 
-function xoops_module_install_uhq_geolocate(XoopsModule $module)
+function xoops_module_install_uhq_geolocate(\XoopsModule $module)
 {
     $status = false;
 

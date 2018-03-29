@@ -1,5 +1,7 @@
 <?php
 
+use XoopsModules\Uhqgeolocate;
+
 class geolocate_record
 {
     public $country;
@@ -74,13 +76,16 @@ class geolocate
     public function geoloc_ready()
     {
         // Load module options
-        $moduleHandler     = xoops_getHandler('module');
-        $xoopsModule       = $moduleHandler->getByDirname('uhq_geolocate');
-        $configHandler     = xoops_getHandler('config');
-        $xoopsModuleConfig = $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
+//        $moduleHandler     = xoops_getHandler('module');
+//        $xoopsModule       = $moduleHandler->getByDirname('uhq_geolocate');
+//        $configHandler     = xoops_getHandler('config');
+//        $xoopsModuleConfig = $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
+
+        /** @var Uhqgeolocate\Helper $helper */
+        $helper = Uhqgeolocate\Helper::getInstance();
 
         // Return true if geolocation is enabled in the configuration.
-        if (1 == $xoopsModuleConfig['geoloc_ready']) {
+        if (1 == $helper->getConfig('geoloc_ready')) {
             return true;
         } else {
             return false;
@@ -91,13 +96,16 @@ class geolocate
     public function geoloc_cache()
     {
         // Load module options
-        $moduleHandler     = xoops_getHandler('module');
-        $xoopsModule       = $moduleHandler->getByDirname('uhq_geolocate');
-        $configHandler     = xoops_getHandler('config');
-        $xoopsModuleConfig = $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
+//        $moduleHandler     = xoops_getHandler('module');
+//        $xoopsModule       = $moduleHandler->getByDirname('uhq_geolocate');
+//        $configHandler     = xoops_getHandler('config');
+//        $xoopsModuleConfig = $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
+
+        /** @var Uhqgeolocate\Helper $helper */
+        $helper = Uhqgeolocate\Helper::getInstance();
 
         // Return true if geolocation is enabled in the configuration.
-        if (1 == $xoopsModuleConfig['geoloc_cache']) {
+        if (1 == $helper->getConfig('geoloc_cache')) {
             return true;
         } else {
             return false;
@@ -108,17 +116,20 @@ class geolocate
     public function provider($ipver)
     {
         // Load module options
-        $moduleHandler     = xoops_getHandler('module');
-        $xoopsModule       = $moduleHandler->getByDirname('uhq_geolocate');
-        $configHandler     = xoops_getHandler('config');
-        $xoopsModuleConfig = $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
+//        $moduleHandler     = xoops_getHandler('module');
+//        $xoopsModule       = $moduleHandler->getByDirname('uhq_geolocate');
+//        $configHandler     = xoops_getHandler('config');
+//        $xoopsModuleConfig = $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
+
+        /** @var Uhqgeolocate\Helper $helper */
+        $helper = Uhqgeolocate\Helper::getInstance();
 
         // Return true if geolocation is enabled in the configuration.
         if (4 == $ipver) {
-            return $xoopsModuleConfig['ipv4_prov'];
+            return $helper->getConfig('ipv4_prov');
         }
         if (6 == $ipver) {
-            return $xoopsModuleConfig['ipv6_prov'];
+            return $helper->getConfig('ipv6_prov');
         }
 
         return false;
@@ -128,16 +139,19 @@ class geolocate
     public function apikey()
     {
         // Load module options
-        $moduleHandler     = xoops_getHandler('module');
-        $xoopsModule       = $moduleHandler->getByDirname('uhq_geolocate');
-        $configHandler     = xoops_getHandler('config');
-        $xoopsModuleConfig = $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
+//        $moduleHandler     = xoops_getHandler('module');
+//        $xoopsModule       = $moduleHandler->getByDirname('uhq_geolocate');
+//        $configHandler     = xoops_getHandler('config');
+//        $xoopsModuleConfig = $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
+
+        /** @var Uhqgeolocate\Helper $helper */
+        $helper = Uhqgeolocate\Helper::getInstance();
 
         // Return a key, if we have one.
         if (4 == $this->ipver) {
-            return $xoopsModuleConfig['geoloc_apikey'];
+            return $helper->getConfig('geoloc_apikey');
         } else {
-            return $xoopsModuleConfig['geoloc_apikey_v6'];
+            return $helper->getConfig('geoloc_apikey_v6');
 
             return false;
         }
@@ -147,14 +161,17 @@ class geolocate
     public function geoloc_cacheexpire()
     {
         // Load module options
-        $moduleHandler     = xoops_getHandler('module');
-        $xoopsModule       = $moduleHandler->getByDirname('uhq_geolocate');
-        $configHandler     = xoops_getHandler('config');
-        $xoopsModuleConfig = $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
+//        $moduleHandler     = xoops_getHandler('module');
+//        $xoopsModule       = $moduleHandler->getByDirname('uhq_geolocate');
+//        $configHandler     = xoops_getHandler('config');
+//        $xoopsModuleConfig = $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
+
+        /** @var Uhqgeolocate\Helper $helper */
+        $helper = Uhqgeolocate\Helper::getInstance();
 
         // Return value of days for cache expiration.
-        if ($xoopsModuleConfig['geoloc_cacheexpire']) {
-            return $xoopsModuleConfig['geoloc_cacheexpire'];
+        if ($helper->getConfig('geoloc_cacheexpire')) {
+            return $helper->getConfig('geoloc_cacheexpire');
         } else {
             return 0;
         }

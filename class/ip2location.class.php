@@ -170,7 +170,7 @@ class ip2location
             $output[1] += 4294967296;
         }
 
-        return (int)$output[1];
+        return $output[1];
     }
 
     public function read128($position)

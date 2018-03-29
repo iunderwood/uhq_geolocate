@@ -36,7 +36,7 @@ final class freegeoip
                 }
 
                 return $result;
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $result['error'] = (string)$e->getMessage();
 
                 return $result;
