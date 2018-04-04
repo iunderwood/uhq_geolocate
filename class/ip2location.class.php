@@ -533,10 +533,10 @@ class ip2location
             $ipTo   = $this->read32($this->baseAddress + ($mid + 1) * $this->dbColumn * 4);
 
             if ($ipFrom < 0) {
-                $ipFrom += pow(2, 32);
+                $ipFrom += 2 ** 32;
             }
             if ($ipTo < 0) {
-                $ipTo += pow(2, 32);
+                $ipTo += 2 ** 32;
             }
 
             if (($ipLong >= $ipFrom) && ($ipLong < $ipTo)) {
