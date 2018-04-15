@@ -1,8 +1,6 @@
 <?php
 
 use XoopsModules\Uhqgeolocate;
-/** @var Uhqgeolocate\Helper $helper */
-$helper = Uhqgeolocate\Helper::getInstance();
 
 $path = dirname(dirname(dirname(__DIR__)));
 require_once $path . '/mainfile.php';
@@ -12,6 +10,9 @@ require_once $path . '/include/cp_header.php';
 require_once XOOPS_ROOT_PATH . '/modules/uhq_geolocate/class/geolocate.class.php';
 require_once XOOPS_ROOT_PATH . '/modules/uhq_geolocate/includes/countryshort.php';
 require_once XOOPS_ROOT_PATH . '/class/template.php';
+
+/** @var Uhqgeolocate\Helper $helper */
+$helper = Uhqgeolocate\Helper::getInstance();
 
 // If we're using a template, disable the cache.
 

@@ -1,8 +1,6 @@
 <?php
 
 use XoopsModules\Uhqgeolocate;
-/** @var Uhqgeolocate\Helper $helper */
-$helper = Uhqgeolocate\Helper::getInstance();
 
 function uhq_onupdate_header($header)
 {
@@ -17,6 +15,8 @@ function uhq_onupdate_line($linetext)
 function xoops_module_update_uhq_geolocate(\XoopsModule $module, $oldversion = null)
 {
     global $xoopsDB;
+    /** @var Uhqgeolocate\Helper $helper */
+    $helper = Uhqgeolocate\Helper::getInstance();
 
     // Load Language
     if (file_exists(XOOPS_ROOT_PATH . '/modules/uhq_geolocate/language/' . $xoopsConfig['language'] . '/admin.php')) {

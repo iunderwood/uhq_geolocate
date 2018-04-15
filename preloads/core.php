@@ -20,7 +20,7 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
 /**
  * Class UhqgeolocateCorePreload
  */
-class UhqgeolocateCorePreload extends XoopsPreloadItem
+class UhqgeolocateCorePreload extends \XoopsPreloadItem
 {
     // to add PSR-4 autoloader
     /**
