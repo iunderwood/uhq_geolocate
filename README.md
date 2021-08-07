@@ -16,6 +16,8 @@
 * IP2Location (Binary Lookup)
 * MaxMind (Web API)
 
+---
+
 This module works on XOOPS 2.5.10. 
 
 Please visit us on https://xoops.org
