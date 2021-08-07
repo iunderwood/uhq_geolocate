@@ -10,7 +10,7 @@ $moduleDirName = basename(__DIR__);
 $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 $modversion['version']       = 1.00;
-$modversion['module_status'] = 'Beta 1';
+$modversion['module_status'] = 'Alpha 1';
 $modversion['release_date']  = '2021/08/06';
 $modversion['name']          = _MI_UHQGEO_NAME;
 $modversion['description']   = _MI_UHQGEO_DESC;
