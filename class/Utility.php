@@ -1,19 +1,16 @@
-<?php namespace XoopsModules\Uhqgeolocate;
+<?php
 
-use Xmf\Request;
-use XoopsModules\Uhqgeolocate;
-use XoopsModules\Uhqgeolocate\Common;
+namespace XoopsModules\Uhqgeolocate;
+
+use XoopsModules\Uhqgeolocate\{
+    Common
+};
+
 
 /**
  * Class Utility
  */
-class Utility
+class Utility extends Common\SysUtility
 {
-    use Common\VersionChecks; //checkVerXoops, checkVerPhp Traits
-
-    use Common\ServerStats; // getServerStats Trait
-
-    use Common\FilesManagement; // Files Management Trait
-
     //--------------- Custom module methods -----------------------------
 }

@@ -1,0 +1,74 @@
+uhqgeolocate_v4cache:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: ipaddr
+            attributes: ' int(10) unsigned  NOT NULL '
+        -
+            name: hits
+            attributes: ' int(10) unsigned '
+        -
+            name: dateadd
+            attributes: ' date '
+        -
+            name: countrycode
+            attributes: ' char(2) '
+        -
+            name: region
+            attributes: ' varchar(128) '
+        -
+            name: city
+            attributes: ' varchar(128) '
+        -
+            name: latitude
+            attributes: ' double '
+        -
+            name: longitude
+            attributes: ' double '
+        -
+            name: isp
+            attributes: ' varchar(128) '
+        -
+            name: org
+            attributes: ' varchar(128) '
+    keys:
+        PRIMARY:
+            columns: ipaddr
+            unique: true
+uhqgeolocate_v6cache:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: v6subnet
+            attributes: ' char(16)  NOT NULL '
+        -
+            name: hits
+            attributes: ' int(10) unsigned '
+        -
+            name: dateadd
+            attributes: ' date '
+        -
+            name: countrycode
+            attributes: ' char(2) '
+        -
+            name: region
+            attributes: ' varchar(128) '
+        -
+            name: city
+            attributes: ' varchar(128) '
+        -
+            name: latitude
+            attributes: ' double '
+        -
+            name: longitude
+            attributes: ' double '
+        -
+            name: isp
+            attributes: ' varchar(128) '
+        -
+            name: org
+            attributes: ' varchar(128) '
+    keys:
+        PRIMARY:
+            columns: v6subnet
+            unique: true

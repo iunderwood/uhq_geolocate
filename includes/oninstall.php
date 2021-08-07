@@ -1,12 +1,14 @@
 <?php
 
-function xoops_module_install_uhq_geolocate(\XoopsModule $module)
+function xoops_module_install_uhqgeolocate(\XoopsModule $module)
 {
     $status = false;
 
+    $mv1 = '';
+    $mv2 = '';
     // Move IPv4 Database from module to trusted path
 
-    $distfile  = XOOPS_ROOT_PATH . '/modules/uhq_geolocate/IP-COUNTRY-SAMPLE.BIN';
+    $distfile  = XOOPS_ROOT_PATH . '/modules/uhqgeolocate/IP-COUNTRY-SAMPLE.BIN';
     $trustfile = XOOPS_TRUST_PATH . '/IP2LOCATION.BIN';
 
     if (file_exists($distfile) && (!file_exists($trustfile))) {
@@ -15,7 +17,7 @@ function xoops_module_install_uhq_geolocate(\XoopsModule $module)
 
     // Move IPv6 Database from module to trusted path
 
-    $distfile  = XOOPS_ROOT_PATH . '/modules/uhq_geolocate/IPV6-COUNTRY-SAMPLE.BIN';
+    $distfile  = XOOPS_ROOT_PATH . '/modules/uhqgeolocate/IPV6-COUNTRY-SAMPLE.BIN';
     $trustfile = XOOPS_TRUST_PATH . '/IP2LOCATION-V6.BIN';
 
     if (file_exists($distfile) && (!file_exists($trustfile))) {
@@ -24,7 +26,7 @@ function xoops_module_install_uhq_geolocate(\XoopsModule $module)
 
     if ($mv1 && $mv2) {
         return true;
-    } else {
-        return false;
     }
+
+    return false;
 }

@@ -1,7 +1,7 @@
 <div id="help-template" class=outer>
 
     <h1 class="head">
-        <a class="ui-corner-all tooltip" href="<{$xoops_url}>/modules/uhq_geolocate/admin/index.php"
+        <a class="ui-corner-all tooltip" href="<{$xoops_url}>/modules/uhqgeolocate/admin/index.php"
            title="UHQ_GeoLocate Administration">UHQ_GeoLocate
         </a>
         :: Module Preferences

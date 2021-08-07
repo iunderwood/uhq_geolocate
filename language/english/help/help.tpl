@@ -46,7 +46,7 @@
         extract the module folder into the ../modules directory. Install the
         module through Admin -> System Module -> Modules.<br> <br>
         Detailed instructions on installing modules are available in the
-        <a href="https://www.gitbook.com/book/xoops/xoops-operations-guide/" target="_blank">Chapter 2.12 of our XOOPS
+        <a href="https://xoops.gitbook.io/xoops-operations-guide/" target="_blank">Chapter 2.12 of our XOOPS
             Operations Manual</a></p>
 
     <hr>
@@ -55,7 +55,7 @@
 
     This module and its operations are very simple.<br> <br>
     Detailed instructions on configuring the access rights for user groups are available in the
-    <a href="https://www.gitbook.com/book/xoops/xoops-operations-guide/" target="_blank">XOOPS Operations Manual</a><br>
+    <a href="https://xoops.gitbook.io/xoops-operations-guide/" target="_blank">XOOPS Operations Manual</a><br>
     <br>
 
     <hr>

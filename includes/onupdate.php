@@ -12,39 +12,34 @@ function uhq_onupdate_line($linetext)
     echo '<p>' . $linetext . '</p>';
 }
 
-function xoops_module_update_uhq_geolocate(\XoopsModule $module, $oldversion = null)
+function xoops_module_update_uhqgeolocate(\XoopsModule $module, $oldversion = null)
 {
     global $xoopsDB;
     /** @var Uhqgeolocate\Helper $helper */
     $helper = Uhqgeolocate\Helper::getInstance();
 
     // Load Language
-    if (file_exists(XOOPS_ROOT_PATH . '/modules/uhq_geolocate/language/' . $xoopsConfig['language'] . '/admin.php')) {
-        require_once XOOPS_ROOT_PATH . '/modules/uhq_geolocate/language/' . $xoopsConfig['language'] . '/admin.php';
-    } else {
-        require_once XOOPS_ROOT_PATH . '/modules/uhq_geolocate/language/english/admin.php';
-    }
+    xoops_loadLanguage('admin', 'uhqgeolocate');
 
     uhq_onupdate_header(_AM_UHQGEO_UPDATE_HDR);
 
     // Remove sample files if we've already got them installed.
 
-    $distfile  = XOOPS_ROOT_PATH . '/modules/uhq_geolocate/IP-COUNTRY-SAMPLE.BIN';
+    $distfile  = XOOPS_ROOT_PATH . '/modules/uhqgeolocate/IP-COUNTRY-SAMPLE.BIN';
     $trustfile = XOOPS_TRUST_PATH . '/IP2LOCATION.BIN';
-    if (file_exists($trustfile) && file_exists($distfile)) {
+    if (file_exists($trustfile) && is_file($distfile)) {
         unlink($distfile);
     }
 
-    $distfile  = XOOPS_ROOT_PATH . '/modules/uhq_geolocate/IPV6-COUNTRY-SAMPLE.BIN';
+    $distfile  = XOOPS_ROOT_PATH . '/modules/uhqgeolocate/IPV6-COUNTRY-SAMPLE.BIN';
     $trustfile = XOOPS_TRUST_PATH . '/IP2LOCATION-V6.BIN';
-    if (file_exists($trustfile) && file_exists($distfile)) {
+    if (file_exists($trustfile) && is_file($distfile)) {
         unlink($distfile);
     }
 
     // Let's Update!
 
     if ($oldversion < 91) {
-
         // Add new DB tables into the database
 
         $query  = 'CREATE TABLE ' . $xoopsDB->prefix('uhqgeolocate_v4cache') . ' (
@@ -66,7 +61,6 @@ function xoops_module_update_uhq_geolocate(\XoopsModule $module, $oldversion = n
     }
 
     if ($oldversion < 92) {
-
         // Expand DB to include new fields
 
         $query  = 'ALTER TABLE ' . $xoopsDB->prefix('uhqgeolocate_v4cache') . ' ADD latitude DOUBLE AFTER city';
@@ -105,7 +99,6 @@ function xoops_module_update_uhq_geolocate(\XoopsModule $module, $oldversion = n
     }
 
     if ($oldversion < 93) {
-
         // New field: dateadd
         $query  = 'ALTER TABLE ' . $xoopsDB->prefix('uhqgeolocate_v4cache') . ' ADD dateadd DATE AFTER hits';
         $result = $xoopsDB->queryF($query);
@@ -132,7 +125,6 @@ function xoops_module_update_uhq_geolocate(\XoopsModule $module, $oldversion = n
     }
 
     if ($oldversion < 94) {
-
         // New DB: IPv6 Cache
         $query = 'CREATE TABLE ' . $xoopsDB->prefix('uhqgeolocate_v6cache') . ' (
             v6subnet        CHAR(16),
@@ -162,10 +154,12 @@ function xoops_module_update_uhq_geolocate(\XoopsModule $module, $oldversion = n
         uhq_onupdate_line('<b>' . _AM_UHQGEO_UPDATE_TO . '0.96</b>');
 
         // Load module options
-//        $moduleHandler     = xoops_getHandler('module');
-//        $xoopsModule       = $moduleHandler->getByDirname('uhq_geolocate');
-//        $configHandler     = xoops_getHandler('config');
-//        $xoopsModuleConfig = $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
+        //        /** @var \XoopsModuleHandler $moduleHandler */
+        $moduleHandler = xoops_getHandler('module');
+        //        $xoopsModule       = $moduleHandler->getByDirname('uhqgeolocate');
+        //        /** @var \XoopsConfigHandler $configHandler */
+        $configHandler = xoops_getHandler('config');
+        //        $xoopsModuleConfig = $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
 
         /** @var Uhqgeolocate\Helper $helper */
         $helper = Uhqgeolocate\Helper::getInstance();
@@ -181,9 +175,8 @@ function xoops_module_update_uhq_geolocate(\XoopsModule $module, $oldversion = n
                 $module->setErrors(_AM_UHQGEO_UPDATE_ERR_LOCV4);
 
                 return false;
-            } else {
-                uhq_onupdate_line(_AM_UHQGEO_UPDATE_IPV4CHG . _AM_UHQGEO_PROV_P14);
             }
+            uhq_onupdate_line(_AM_UHQGEO_UPDATE_IPV4CHG . _AM_UHQGEO_PROV_P14);
         } elseif (13 == $helper->getConfig('ipv4_prov')) {
             // Set to 15
 
@@ -195,9 +188,8 @@ function xoops_module_update_uhq_geolocate(\XoopsModule $module, $oldversion = n
                 $module->setErrors(_AM_UHQGEO_UPDATE_ERR_LOCV4);
 
                 return false;
-            } else {
-                uhq_onupdate_line(_AM_UHQGEO_UPDATE_IPV4CHG . _AM_UHQGEO_PROV_P15);
             }
+            uhq_onupdate_line(_AM_UHQGEO_UPDATE_IPV4CHG . _AM_UHQGEO_PROV_P15);
         }
     }
 

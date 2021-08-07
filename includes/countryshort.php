@@ -10,11 +10,7 @@ if (!isset($xoopsConfig)) {
     global $xoopsConfig;
 }
 
-if (file_exists(XOOPS_ROOT_PATH . '/modules/uhq_geolocate/language/' . $xoopsConfig['language'] . '/geo.php')) {
-    require_once XOOPS_ROOT_PATH . '/modules/uhq_geolocate/language/' . $xoopsConfig['language'] . '/geo.php';
-} else {
-    require_once XOOPS_ROOT_PATH . '/modules/uhq_geolocate/language/english/geo.php';
-}
+xoops_loadLanguage('geo', 'uhqgeolocate');
 
 // Define Array, ordered by country code
 

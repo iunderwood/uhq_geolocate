@@ -1,6 +1,6 @@
 <?php
 
-function xoops_module_uninstall_uhq_geolocate(\XoopsModule $module)
+function xoops_module_uninstall_uhqgeolocate(\XoopsModule $module)
 {
     $status = false;
 
@@ -8,7 +8,7 @@ function xoops_module_uninstall_uhq_geolocate(\XoopsModule $module)
 
     $trustfile = XOOPS_TRUST_PATH . '/IP2LOCATION.BIN';
 
-    if (file_exists($trustfile)) {
+    if (is_file($trustfile)) {
         $del1 = unlink($trustfile);
     } else {
         $del1 = true;
@@ -18,7 +18,7 @@ function xoops_module_uninstall_uhq_geolocate(\XoopsModule $module)
 
     $trustfile = XOOPS_TRUST_PATH . '/IP2LOCATION-V6.BIN';
 
-    if (file_exists($trustfile)) {
+    if (is_file($trustfile)) {
         $del2 = unlink($trustfile);
     } else {
         $del2 = true;
@@ -26,7 +26,7 @@ function xoops_module_uninstall_uhq_geolocate(\XoopsModule $module)
 
     if ($del1 && $del2) {
         return true;
-    } else {
-        return false;
     }
+
+    return false;
 }

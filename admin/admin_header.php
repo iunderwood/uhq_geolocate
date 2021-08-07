@@ -11,29 +11,35 @@
 
 /**
  * @copyright    XOOPS Project (https://xoops.org)
- * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package
- * @since
- * @author       XOOPS Development Team
+ * @license      GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
+ * @author      XOOPS Development Team
  */
 
-$path = dirname(dirname(dirname(__DIR__)));
-require_once $path . '/include/cp_header.php';
+use Xmf\Module\Admin;
+use XoopsModules\Uhqgeolocate\{
+    Helper
+};
+/** @var Admin $adminObject */
+/** @var Helper $helper */
 
-global $xoopsModule;
+require dirname(__DIR__) . '/preloads/autoloader.php';
 
-$moduleDirName = $GLOBALS['xoopsModule']->getVar('dirname');
+require dirname(__DIR__, 3) . '/include/cp_header.php';
+//require dirname(__DIR__, 3) . '/class/xoopsformloader.php';
+//require  dirname(__DIR__) . '/include/common.php';
 
-//if functions.php file exist
-//require_once  dirname(__DIR__) . '/include/functions.php';
+$moduleDirName = \basename(\dirname(__DIR__));
+$moduleDirNameUpper = mb_strtoupper($moduleDirName);
+$helper = Helper::getInstance();
+
+$adminObject = Admin::getInstance();
 
 // Load language files
-xoops_loadLanguage('admin', $moduleDirName);
-xoops_loadLanguage('modinfo', $moduleDirName);
-xoops_loadLanguage('main', $moduleDirName);
+$helper->loadLanguage('admin');
+$helper->loadLanguage('modinfo');
+$helper->loadLanguage('common');
 
-$pathIcon16      = \Xmf\Module\Admin::iconUrl('', 16);
-$pathIcon16      = \Xmf\Module\Admin::iconUrl('', 32);
+$pathIcon16      = Admin::iconUrl('', 16);
+$pathIcon16      = Admin::iconUrl('', 32);
 $pathModuleAdmin = $xoopsModule->getInfo('dirmoduleadmin');
 
-require_once $GLOBALS['xoops']->path($pathModuleAdmin . '/moduleadmin.php');

@@ -1,18 +1,22 @@
 <?php
 
-use XoopsModules\Uhqgeolocate;
+use Xmf\Module\Admin;
+use Xmf\Request;
+use XoopsModules\Uhqgeolocate\{
+    Helper,
+    Geolocate
+};
+/** @var Helper $helper */
 
-$path = dirname(dirname(dirname(__DIR__)));
+$path = \dirname(__DIR__, 3);
 require_once $path . '/mainfile.php';
 require_once $path . '/include/cp_functions.php';
 require_once $path . '/include/cp_header.php';
 
-require_once XOOPS_ROOT_PATH . '/modules/uhq_geolocate/class/geolocate.class.php';
-require_once XOOPS_ROOT_PATH . '/modules/uhq_geolocate/includes/countryshort.php';
-require_once XOOPS_ROOT_PATH . '/class/template.php';
+$helper = Helper::getInstance();
 
-/** @var Uhqgeolocate\Helper $helper */
-$helper = Uhqgeolocate\Helper::getInstance();
+require_once $helper->path('includes/countryshort.php');
+require_once XOOPS_ROOT_PATH . '/class/template.php';
 
 // If we're using a template, disable the cache.
 
@@ -29,7 +33,6 @@ function uhqgeo_providername($prov)
         case 1:
             return _AM_UHQGEO_PROV_P1;
             break;
-
         case 11:
             return _AM_UHQGEO_PROV_P11;
             break;
@@ -45,7 +48,6 @@ function uhqgeo_providername($prov)
         case 15:
             return _AM_UHQGEO_PROV_P15;
             break;
-
         case 21:
             return _AM_UHQGEO_PROV_P21;
             break;
@@ -55,11 +57,9 @@ function uhqgeo_providername($prov)
         case 23:
             return _AM_UHQGEO_PROV_P23;
             break;
-
         case 31:
             return _AM_UHQGEO_PROV_P31;
             break;
-
         default:
             return;
     }
@@ -70,13 +70,13 @@ function uhqgeo_providername($prov)
 require_once __DIR__ . '/admin_header.php';
 
 xoops_cp_header();
-$adminObject = \Xmf\Module\Admin::getInstance();
+$adminObject = Admin::getInstance();
 
 $adminObject->displayNavigation(basename(__FILE__));
 
 // Now the fun begins!
 
-if (isset($_REQUEST['op'])) {
+if (Request::hasVar('op', 'REQUEST')) {
     $op = $_REQUEST['op'];
 } else {
     $op = 'none';
@@ -85,23 +85,25 @@ if (isset($_REQUEST['op'])) {
 function diagarray()
 {
     // Load module options
-//    $moduleHandler     = xoops_getHandler('module');
-//    $xoopsModule       = $moduleHandler->getByDirname('uhq_geolocate');
-//    $configHandler     = xoops_getHandler('config');
-//    $xoopsModuleConfig = $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
+    //    /** @var \XoopsModuleHandler $moduleHandler */
+    $moduleHandler = xoops_getHandler('module');
+    //    $xoopsModule       = $moduleHandler->getByDirname('uhqgeolocate');
+    //    /** @var \XoopsConfigHandler $configHandler */
+    $configHandler = xoops_getHandler('config');
+    //    $xoopsModuleConfig = $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
 
-    /** @var Uhqgeolocate\Helper $helper */
-    $helper = Uhqgeolocate\Helper::getInstance();
+    /** @var Helper $helper */
+    $helper = Helper::getInstance();
 
     // Return true if geolocation is enabled in the configuration.
     if (1 == $helper->getConfig('geoloc_printr')) {
         return true;
-    } else {
-        return false;
     }
+
+    return false;
 }
 
-$geoloc = new geolocate;
+$geoloc = new Geolocate();
 
 switch ($op) {
     case 'c': // Clear IPv4 Cache
@@ -123,7 +125,7 @@ switch ($op) {
         $query                   = $geoloc->locate();
         $data['q2']              = (array)$geoloc;
         $data['query']           = (array)$query;
-        $data['query']['flag']   = strtolower($data['query']['country']);
+        $data['query']['flag']   = mb_strtolower($data['query']['country']);
         $data['query']['ccname'] = $_UHQGEO_CC[$data['query']['country']];
         break;
     default:
@@ -136,7 +138,7 @@ $result       = $geoloc->locate();
 $data['input'] = (array)$geoloc;
 
 $data['result']           = (array)$result;
-$data['result']['flag']   = strtolower($data['result']['country']);
+$data['result']['flag']   = mb_strtolower($data['result']['country']);
 $data['result']['ccname'] = isset($_UHQGEO_CC[$data['result']['country']]) ? $_UHQGEO_CC[$data['result']['country']] : '';
 
 if ($geoloc->geoloc_cache()) {

@@ -1,13 +1,17 @@
 <?php
 
-require_once XOOPS_ROOT_PATH . '/modules/uhq_geolocate/class/geolocate.class.php';
+use XoopsModules\Uhqgeolocate\{
+    Helper,
+    Geolocate
+};
+/** @var Helper $helper */
 
 function b_uhqgeo_from_show($options)
 {
-
     // One of the simplest things we can do to use this.
 
-    $geoloc = new geolocate;
+    $helper = Helper::getInstance();
+    $geoloc = new Geolocate();
 
     $geoloc->ipin = $_SERVER['REMOTE_ADDR'];
     $result       = $geoloc->locate();
@@ -16,9 +20,9 @@ function b_uhqgeo_from_show($options)
     $data['result'] = (array)$result;
 
     if ($result) {
-        include XOOPS_ROOT_PATH . '/modules/uhq_geolocate/includes/countryshort.php';
+        require_once $helper->path('includes/countryshort.php');
 
-        $data['result']['flag']   = strtolower($data['result']['country']);
+        $data['result']['flag']   = mb_strtolower($data['result']['country']);
         $data['result']['ccname'] = $_UHQGEO_CC[$data['result']['country']];
     }
 

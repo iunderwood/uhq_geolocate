@@ -1,4 +1,5 @@
 <?php
+
 # Copyright 2010 Maxmind LLC All Rights Reserved
 $GEOIP_REGION_NAME = [
     'AD' => [
@@ -8,7 +9,7 @@ $GEOIP_REGION_NAME = [
         '05' => 'Ordino',
         '06' => 'Sant Julia de Loria',
         '07' => 'Andorra la Vella',
-        '08' => 'Escaldes-Engordany'
+        '08' => 'Escaldes-Engordany',
     ],
     'AE' => [
         '01' => 'Abu Dhabi',
@@ -17,7 +18,7 @@ $GEOIP_REGION_NAME = [
         '04' => 'Fujairah',
         '05' => 'Ras Al Khaimah',
         '06' => 'Sharjah',
-        '07' => 'Umm Al Quwain'
+        '07' => 'Umm Al Quwain',
     ],
     'AF' => [
         '01' => 'Badakhshan',
@@ -53,7 +54,7 @@ $GEOIP_REGION_NAME = [
         '39' => 'Oruzgan',
         '40' => 'Parvan',
         '41' => 'Daykondi',
-        '42' => 'Panjshir'
+        '42' => 'Panjshir',
     ],
     'AG' => [
         '01' => 'Barbuda',
@@ -63,7 +64,7 @@ $GEOIP_REGION_NAME = [
         '06' => 'Saint Paul',
         '07' => 'Saint Peter',
         '08' => 'Saint Philip',
-        '09' => 'Redonda'
+        '09' => 'Redonda',
     ],
     'AL' => [
         '40' => 'Berat',
@@ -77,7 +78,7 @@ $GEOIP_REGION_NAME = [
         '48' => 'Lezhe',
         '49' => 'Shkoder',
         '50' => 'Tirane',
-        '51' => 'Vlore'
+        '51' => 'Vlore',
     ],
     'AM' => [
         '01' => 'Aragatsotn',
@@ -90,7 +91,7 @@ $GEOIP_REGION_NAME = [
         '08' => "Syunik'",
         '09' => 'Tavush',
         '10' => "Vayots' Dzor",
-        '11' => 'Yerevan'
+        '11' => 'Yerevan',
     ],
     'AO' => [
         '01' => 'Benguela',
@@ -110,7 +111,7 @@ $GEOIP_REGION_NAME = [
         '17' => 'Lunda Norte',
         '18' => 'Lunda Sul',
         '19' => 'Bengo',
-        '20' => 'Luanda'
+        '20' => 'Luanda',
     ],
     'AR' => [
         '01' => 'Buenos Aires',
@@ -136,7 +137,7 @@ $GEOIP_REGION_NAME = [
         '21' => 'Santa Fe',
         '22' => 'Santiago del Estero',
         '23' => 'Tierra del Fuego',
-        '24' => 'Tucuman'
+        '24' => 'Tucuman',
     ],
     'AT' => [
         '01' => 'Burgenland',
@@ -147,7 +148,7 @@ $GEOIP_REGION_NAME = [
         '06' => 'Steiermark',
         '07' => 'Tirol',
         '08' => 'Vorarlberg',
-        '09' => 'Wien'
+        '09' => 'Wien',
     ],
     'AU' => [
         '01' => 'Australian Capital Territory',
@@ -157,7 +158,7 @@ $GEOIP_REGION_NAME = [
         '05' => 'South Australia',
         '06' => 'Tasmania',
         '07' => 'Victoria',
-        '08' => 'Western Australia'
+        '08' => 'Western Australia',
     ],
     'AZ' => [
         '01' => 'Abseron',
@@ -230,11 +231,11 @@ $GEOIP_REGION_NAME = [
         '68' => 'Yevlax',
         '69' => 'Zangilan',
         '70' => 'Zaqatala',
-        '71' => 'Zardab'
+        '71' => 'Zardab',
     ],
     'BA' => [
         '01' => 'Federation of Bosnia and Herzegovina',
-        '02' => 'Republika Srpska'
+        '02' => 'Republika Srpska',
     ],
     'BB' => [
         '01' => 'Christ Church',
@@ -247,7 +248,7 @@ $GEOIP_REGION_NAME = [
         '08' => 'Saint Michael',
         '09' => 'Saint Peter',
         '10' => 'Saint Philip',
-        '11' => 'Saint Thomas'
+        '11' => 'Saint Thomas',
     ],
     'BD' => [
         '81' => 'Dhaka',
@@ -255,7 +256,7 @@ $GEOIP_REGION_NAME = [
         '83' => 'Rajshahi',
         '84' => 'Chittagong',
         '85' => 'Barisal',
-        '86' => 'Sylhet'
+        '86' => 'Sylhet',
     ],
     'BE' => [
         '01' => 'Antwerpen',
@@ -268,7 +269,7 @@ $GEOIP_REGION_NAME = [
         '09' => 'West-Vlaanderen',
         '10' => 'Brabant Wallon',
         '11' => 'Brussels Hoofdstedelijk Gewest',
-        '12' => 'Vlaams-Brabant'
+        '12' => 'Vlaams-Brabant',
     ],
     'BF' => [
         '15' => 'Bam',
@@ -315,7 +316,7 @@ $GEOIP_REGION_NAME = [
         '75' => 'Yagha',
         '76' => 'Yatenga',
         '77' => 'Ziro',
-        '78' => 'Zondoma'
+        '78' => 'Zondoma',
     ],
     'BG' => [
         '33' => 'Mikhaylovgrad',
@@ -346,7 +347,7 @@ $GEOIP_REGION_NAME = [
         '62' => 'Veliko Turnovo',
         '63' => 'Vidin',
         '64' => 'Vratsa',
-        '65' => 'Yambol'
+        '65' => 'Yambol',
     ],
     'BH' => [
         '01' => 'Al Hadd',
@@ -364,7 +365,7 @@ $GEOIP_REGION_NAME = [
         '16' => 'Al Asimah',
         '17' => 'Al Janubiyah',
         '18' => 'Ash Shamaliyah',
-        '19' => 'Al Wusta'
+        '19' => 'Al Wusta',
     ],
     'BI' => [
         '02' => 'Bujumbura',
@@ -382,7 +383,7 @@ $GEOIP_REGION_NAME = [
         '20' => 'Rutana',
         '21' => 'Ruyigi',
         '22' => 'Muramvya',
-        '23' => 'Mwaro'
+        '23' => 'Mwaro',
     ],
     'BJ' => [
         '07' => 'Alibori',
@@ -396,7 +397,7 @@ $GEOIP_REGION_NAME = [
         '15' => 'Mono',
         '16' => 'Oueme',
         '17' => 'Plateau',
-        '18' => 'Zou'
+        '18' => 'Zou',
     ],
     'BM' => [
         '01' => 'Devonshire',
@@ -409,7 +410,7 @@ $GEOIP_REGION_NAME = [
         '08' => 'Sandys',
         '09' => 'Smiths',
         '10' => 'Southampton',
-        '11' => 'Warwick'
+        '11' => 'Warwick',
     ],
     'BN' => [
         '07' => 'Alibori',
@@ -423,7 +424,7 @@ $GEOIP_REGION_NAME = [
         '15' => 'Tutong',
         '16' => 'Oueme',
         '17' => 'Plateau',
-        '18' => 'Zou'
+        '18' => 'Zou',
     ],
     'BO' => [
         '01' => 'Chuquisaca',
@@ -434,7 +435,7 @@ $GEOIP_REGION_NAME = [
         '06' => 'Pando',
         '07' => 'Potosi',
         '08' => 'Santa Cruz',
-        '09' => 'Tarija'
+        '09' => 'Tarija',
     ],
     'BR' => [
         '01' => 'Acre',
@@ -463,7 +464,7 @@ $GEOIP_REGION_NAME = [
         '28' => 'Sergipe',
         '29' => 'Goias',
         '30' => 'Pernambuco',
-        '31' => 'Tocantins'
+        '31' => 'Tocantins',
     ],
     'BS' => [
         '05' => 'Bimini',
@@ -486,7 +487,7 @@ $GEOIP_REGION_NAME = [
         '32' => 'Nichollstown and Berry Islands',
         '33' => 'Rock Sound',
         '34' => 'Sandy Point',
-        '35' => 'San Salvador and Rum Cay'
+        '35' => 'San Salvador and Rum Cay',
     ],
     'BT' => [
         '05' => 'Bumthang',
@@ -506,7 +507,7 @@ $GEOIP_REGION_NAME = [
         '19' => 'Tashigang',
         '20' => 'Thimphu',
         '21' => 'Tongsa',
-        '22' => 'Wangdi Phodrang'
+        '22' => 'Wangdi Phodrang',
     ],
     'BW' => [
         '01' => 'Central',
@@ -517,7 +518,7 @@ $GEOIP_REGION_NAME = [
         '08' => 'North-East',
         '09' => 'South-East',
         '10' => 'Southern',
-        '11' => 'North-West'
+        '11' => 'North-West',
     ],
     'BY' => [
         '01' => "Brestskaya Voblasts'",
@@ -526,7 +527,7 @@ $GEOIP_REGION_NAME = [
         '04' => 'Minsk',
         '05' => "Minskaya Voblasts'",
         '06' => "Mahilyowskaya Voblasts'",
-        '07' => "Vitsyebskaya Voblasts'"
+        '07' => "Vitsyebskaya Voblasts'",
     ],
     'BZ' => [
         '01' => 'Belize',
@@ -534,7 +535,7 @@ $GEOIP_REGION_NAME = [
         '03' => 'Corozal',
         '04' => 'Orange Walk',
         '05' => 'Stann Creek',
-        '06' => 'Toledo'
+        '06' => 'Toledo',
     ],
     'CA' => [
         'AB' => 'Alberta',
@@ -549,7 +550,7 @@ $GEOIP_REGION_NAME = [
         'PE' => 'Prince Edward Island',
         'QC' => 'Quebec',
         'SK' => 'Saskatchewan',
-        'YT' => 'Yukon Territory'
+        'YT' => 'Yukon Territory',
     ],
     'CD' => [
         '01' => 'Bandundu',
@@ -561,7 +562,7 @@ $GEOIP_REGION_NAME = [
         '09' => 'Orientale',
         '10' => 'Maniema',
         '11' => 'Nord-Kivu',
-        '12' => 'Sud-Kivu'
+        '12' => 'Sud-Kivu',
     ],
     'CF' => [
         '01' => 'Bamingui-Bangoran',
@@ -580,7 +581,7 @@ $GEOIP_REGION_NAME = [
         '15' => 'Nana-Grebizi',
         '16' => 'Sangha-Mbaere',
         '17' => 'Ombella-Mpoko',
-        '18' => 'Bangui'
+        '18' => 'Bangui',
     ],
     'CG' => [
         '01' => 'Bouenza',
@@ -593,7 +594,7 @@ $GEOIP_REGION_NAME = [
         '11' => 'Pool',
         '12' => 'Brazzaville',
         '13' => 'Cuvette',
-        '14' => 'Cuvette-Ouest'
+        '14' => 'Cuvette-Ouest',
     ],
     'CH' => [
         '01' => 'Aargau',
@@ -621,7 +622,7 @@ $GEOIP_REGION_NAME = [
         '23' => 'Vaud',
         '24' => 'Zug',
         '25' => 'Zurich',
-        '26' => 'Jura'
+        '26' => 'Jura',
     ],
     'CI' => [
         '74' => 'Agneby',
@@ -642,7 +643,7 @@ $GEOIP_REGION_NAME = [
         '89' => 'Sud-Comoe',
         '90' => 'Vallee du Bandama',
         '91' => 'Worodougou',
-        '92' => 'Zanzan'
+        '92' => 'Zanzan',
     ],
     'CL' => [
         '01' => 'Valparaiso',
@@ -661,7 +662,7 @@ $GEOIP_REGION_NAME = [
         '14' => 'Los Lagos',
         '15' => 'Tarapaca',
         '16' => 'Arica y Parinacota',
-        '17' => 'Los Rios'
+        '17' => 'Los Rios',
     ],
     'CM' => [
         '04' => 'Est',
@@ -673,7 +674,7 @@ $GEOIP_REGION_NAME = [
         '11' => 'Centre',
         '12' => 'Extreme-Nord',
         '13' => 'Nord',
-        '14' => 'Sud'
+        '14' => 'Sud',
     ],
     'CN' => [
         '01' => 'Anhui',
@@ -706,7 +707,7 @@ $GEOIP_REGION_NAME = [
         '30' => 'Guangdong',
         '31' => 'Hainan',
         '32' => 'Sichuan',
-        '33' => 'Chongqing'
+        '33' => 'Chongqing',
     ],
     'CO' => [
         '01' => 'Amazonas',
@@ -745,7 +746,7 @@ $GEOIP_REGION_NAME = [
         '35' => 'Bolivar',
         '36' => 'Boyaca',
         '37' => 'Caldas',
-        '38' => 'Magdalena'
+        '38' => 'Magdalena',
     ],
     'CR' => [
         '01' => 'Alajuela',
@@ -754,7 +755,7 @@ $GEOIP_REGION_NAME = [
         '04' => 'Heredia',
         '06' => 'Limon',
         '07' => 'Puntarenas',
-        '08' => 'San Jose'
+        '08' => 'San Jose',
     ],
     'CU' => [
         '01' => 'Pinar del Rio',
@@ -771,7 +772,7 @@ $GEOIP_REGION_NAME = [
         '13' => 'Las Tunas',
         '14' => 'Sancti Spiritus',
         '15' => 'Santiago de Cuba',
-        '16' => 'Villa Clara'
+        '16' => 'Villa Clara',
     ],
     'CV' => [
         '01' => 'Boa Vista',
@@ -789,7 +790,7 @@ $GEOIP_REGION_NAME = [
         '17' => 'Sao Domingos',
         '18' => 'Sao Filipe',
         '19' => 'Sao Miguel',
-        '20' => 'Tarrafal'
+        '20' => 'Tarrafal',
     ],
     'CY' => [
         '01' => 'Famagusta',
@@ -797,7 +798,7 @@ $GEOIP_REGION_NAME = [
         '03' => 'Larnaca',
         '04' => 'Nicosia',
         '05' => 'Limassol',
-        '06' => 'Paphos'
+        '06' => 'Paphos',
     ],
     'CZ' => [
         '52' => 'Hlavni mesto Praha',
@@ -813,7 +814,7 @@ $GEOIP_REGION_NAME = [
         '87' => 'Plzensky kraj',
         '88' => 'Stredocesky kraj',
         '89' => 'Ustecky kraj',
-        '90' => 'Zlinsky kraj'
+        '90' => 'Zlinsky kraj',
     ],
     'DE' => [
         '01' => 'Baden-Wurttemberg',
@@ -831,7 +832,7 @@ $GEOIP_REGION_NAME = [
         '13' => 'Sachsen',
         '14' => 'Sachsen-Anhalt',
         '15' => 'Thuringen',
-        '16' => 'Berlin'
+        '16' => 'Berlin',
     ],
     'DJ' => [
         '01' => 'Ali Sabieh',
@@ -839,14 +840,14 @@ $GEOIP_REGION_NAME = [
         '05' => 'Tadjoura',
         '06' => 'Dikhil',
         '07' => 'Djibouti',
-        '08' => 'Arta'
+        '08' => 'Arta',
     ],
     'DK' => [
         '17' => 'Hovedstaden',
         '18' => 'Midtjylland',
         '19' => 'Nordjylland',
         '20' => 'Sjelland',
-        '21' => 'Syddanmark'
+        '21' => 'Syddanmark',
     ],
     'DM' => [
         '02' => 'Saint Andrew',
@@ -858,7 +859,7 @@ $GEOIP_REGION_NAME = [
         '08' => 'Saint Mark',
         '09' => 'Saint Patrick',
         '10' => 'Saint Paul',
-        '11' => 'Saint Peter'
+        '11' => 'Saint Peter',
     ],
     'DO' => [
         '01' => 'Azua',
@@ -894,7 +895,7 @@ $GEOIP_REGION_NAME = [
         '34' => 'Distrito Nacional',
         '35' => 'Peravia',
         '36' => 'San Jose de Ocoa',
-        '37' => 'Santo Domingo'
+        '37' => 'Santo Domingo',
     ],
     'DZ' => [
         '01' => 'Alger',
@@ -944,7 +945,7 @@ $GEOIP_REGION_NAME = [
         '53' => 'Tamanghasset',
         '54' => 'Tindouf',
         '55' => 'Tipaza',
-        '56' => 'Tissemsilt'
+        '56' => 'Tissemsilt',
     ],
     'EC' => [
         '01' => 'Galapagos',
@@ -968,7 +969,7 @@ $GEOIP_REGION_NAME = [
         '20' => 'Zamora-Chinchipe',
         '22' => 'Sucumbios',
         '23' => 'Napo',
-        '24' => 'Orellana'
+        '24' => 'Orellana',
     ],
     'EE' => [
         '01' => 'Harjumaa',
@@ -991,7 +992,7 @@ $GEOIP_REGION_NAME = [
         '18' => 'Tartumaa',
         '19' => 'Valgamaa',
         '20' => 'Viljandimaa',
-        '21' => 'Vorumaa'
+        '21' => 'Vorumaa',
     ],
     'EG' => [
         '01' => 'Ad Daqahliyah',
@@ -1019,7 +1020,7 @@ $GEOIP_REGION_NAME = [
         '23' => 'Qina',
         '24' => 'Suhaj',
         '26' => "Janub Sina'",
-        '27' => "Shamal Sina'"
+        '27' => "Shamal Sina'",
     ],
     'ER' => [
         '01' => 'Anseba',
@@ -1027,7 +1028,7 @@ $GEOIP_REGION_NAME = [
         '03' => "Debubawi K'eyih Bahri",
         '04' => 'Gash Barka',
         '05' => "Ma'akel",
-        '06' => "Semenawi K'eyih Bahri"
+        '06' => "Semenawi K'eyih Bahri",
     ],
     'ES' => [
         '07' => 'Islas Baleares',
@@ -1046,7 +1047,7 @@ $GEOIP_REGION_NAME = [
         '57' => 'Extremadura',
         '58' => 'Galicia',
         '59' => 'Pais Vasco',
-        '60' => 'Comunidad Valenciana'
+        '60' => 'Comunidad Valenciana',
     ],
     'ET' => [
         '44' => 'Adis Abeba',
@@ -1059,7 +1060,7 @@ $GEOIP_REGION_NAME = [
         '51' => 'Oromiya',
         '52' => 'Sumale',
         '53' => 'Tigray',
-        '54' => 'YeDebub Biheroch Bihereseboch na Hizboch'
+        '54' => 'YeDebub Biheroch Bihereseboch na Hizboch',
     ],
     'FI' => [
         '01' => 'Aland',
@@ -1067,20 +1068,20 @@ $GEOIP_REGION_NAME = [
         '08' => 'Oulu',
         '13' => 'Southern Finland',
         '14' => 'Eastern Finland',
-        '15' => 'Western Finland'
+        '15' => 'Western Finland',
     ],
     'FJ' => [
         '01' => 'Central',
         '02' => 'Eastern',
         '03' => 'Northern',
         '04' => 'Rotuma',
-        '05' => 'Western'
+        '05' => 'Western',
     ],
     'FM' => [
         '01' => 'Kosrae',
         '02' => 'Pohnpei',
         '03' => 'Chuuk',
-        '04' => 'Yap'
+        '04' => 'Yap',
     ],
     'FR' => [
         '97' => 'Aquitaine',
@@ -1104,7 +1105,7 @@ $GEOIP_REGION_NAME = [
         'B7' => 'Poitou-Charentes',
         'B8' => "Provence-Alpes-Cote d'Azur",
         'B9' => 'Rhone-Alpes',
-        'C1' => 'Alsace'
+        'C1' => 'Alsace',
     ],
     'GA' => [
         '01' => 'Estuaire',
@@ -1115,7 +1116,7 @@ $GEOIP_REGION_NAME = [
         '06' => 'Ogooue-Ivindo',
         '07' => 'Ogooue-Lolo',
         '08' => 'Ogooue-Maritime',
-        '09' => 'Woleu-Ntem'
+        '09' => 'Woleu-Ntem',
     ],
     'GB' => [
         'A1' => 'Barking and Dagenham',
@@ -1346,7 +1347,7 @@ $GEOIP_REGION_NAME = [
         'Z1' => 'Swansea',
         'Z2' => 'Torfaen',
         'Z3' => 'Vale of Glamorgan, The',
-        'Z4' => 'Wrexham'
+        'Z4' => 'Wrexham',
     ],
     'GD' => [
         '01' => 'Saint Andrew',
@@ -1354,7 +1355,7 @@ $GEOIP_REGION_NAME = [
         '03' => 'Saint George',
         '04' => 'Saint John',
         '05' => 'Saint Mark',
-        '06' => 'Saint Patrick'
+        '06' => 'Saint Patrick',
     ],
     'GE' => [
         '01' => 'Abashis Raioni',
@@ -1420,7 +1421,7 @@ $GEOIP_REGION_NAME = [
         '61' => 'Vanis Raioni',
         '62' => "Zestap'onis Raioni",
         '63' => 'Zugdidi',
-        '64' => 'Zugdidis Raioni'
+        '64' => 'Zugdidis Raioni',
     ],
     'GH' => [
         '01' => 'Greater Accra',
@@ -1432,12 +1433,12 @@ $GEOIP_REGION_NAME = [
         '08' => 'Volta',
         '09' => 'Western',
         '10' => 'Upper East',
-        '11' => 'Upper West'
+        '11' => 'Upper West',
     ],
     'GL' => [
         '01' => 'Nordgronland',
         '02' => 'Ostgronland',
-        '03' => 'Vestgronland'
+        '03' => 'Vestgronland',
     ],
     'GM' => [
         '01' => 'Banjul',
@@ -1445,7 +1446,7 @@ $GEOIP_REGION_NAME = [
         '03' => 'Central River',
         '04' => 'Upper River',
         '05' => 'Western',
-        '07' => 'North Bank'
+        '07' => 'North Bank',
     ],
     'GN' => [
         '01' => 'Beyla',
@@ -1481,7 +1482,7 @@ $GEOIP_REGION_NAME = [
         '36' => 'Lola',
         '37' => 'Mandiana',
         '38' => 'Nzerekore',
-        '39' => 'Siguiri'
+        '39' => 'Siguiri',
     ],
     'GQ' => [
         '03' => 'Annobon',
@@ -1490,7 +1491,7 @@ $GEOIP_REGION_NAME = [
         '06' => 'Centro Sur',
         '07' => 'Kie-Ntem',
         '08' => 'Litoral',
-        '09' => 'Wele-Nzas'
+        '09' => 'Wele-Nzas',
     ],
     'GR' => [
         '01' => 'Evros',
@@ -1543,7 +1544,7 @@ $GEOIP_REGION_NAME = [
         '48' => 'Samos',
         '49' => 'Kikladhes',
         '50' => 'Khios',
-        '51' => 'Lesvos'
+        '51' => 'Lesvos',
     ],
     'GT' => [
         '01' => 'Alta Verapaz',
@@ -1567,7 +1568,7 @@ $GEOIP_REGION_NAME = [
         '19' => 'Solola',
         '20' => 'Suchitepequez',
         '21' => 'Totonicapan',
-        '22' => 'Zacapa'
+        '22' => 'Zacapa',
     ],
     'GW' => [
         '01' => 'Bafata',
@@ -1578,7 +1579,7 @@ $GEOIP_REGION_NAME = [
         '07' => 'Tombali',
         '10' => 'Gabu',
         '11' => 'Bissau',
-        '12' => 'Biombo'
+        '12' => 'Biombo',
     ],
     'GY' => [
         '10' => 'Barima-Waini',
@@ -1590,7 +1591,7 @@ $GEOIP_REGION_NAME = [
         '16' => 'Pomeroon-Supenaam',
         '17' => 'Potaro-Siparuni',
         '18' => 'Upper Demerara-Berbice',
-        '19' => 'Upper Takutu-Upper Essequibo'
+        '19' => 'Upper Takutu-Upper Essequibo',
     ],
     'HN' => [
         '01' => 'Atlantida',
@@ -1610,7 +1611,7 @@ $GEOIP_REGION_NAME = [
         '15' => 'Olancho',
         '16' => 'Santa Barbara',
         '17' => 'Valle',
-        '18' => 'Yoro'
+        '18' => 'Yoro',
     ],
     'HR' => [
         '01' => 'Bjelovarsko-Bilogorska',
@@ -1633,7 +1634,7 @@ $GEOIP_REGION_NAME = [
         '18' => 'Vukovarsko-Srijemska',
         '19' => 'Zadarska',
         '20' => 'Zagrebacka',
-        '21' => 'Grad Zagreb'
+        '21' => 'Grad Zagreb',
     ],
     'HT' => [
         '03' => 'Nord-Ouest',
@@ -1645,7 +1646,7 @@ $GEOIP_REGION_NAME = [
         '12' => 'Sud',
         '13' => 'Sud-Est',
         '14' => "Grand' Anse",
-        '15' => 'Nippes'
+        '15' => 'Nippes',
     ],
     'HU' => [
         '01' => 'Bacs-Kiskun',
@@ -1690,7 +1691,7 @@ $GEOIP_REGION_NAME = [
         '40' => 'Zalaegerszeg',
         '41' => 'Salgotarjan',
         '42' => 'Szekszard',
-        '43' => 'Erd'
+        '43' => 'Erd',
     ],
     'ID' => [
         '01' => 'Aceh',
@@ -1732,7 +1733,7 @@ $GEOIP_REGION_NAME = [
         '38' => 'Sulawesi Selatan',
         '39' => 'Irian Jaya Barat',
         '40' => 'Kepulauan Riau',
-        '41' => 'Sulawesi Barat'
+        '41' => 'Sulawesi Barat',
     ],
     'IE' => [
         '01' => 'Carlow',
@@ -1760,7 +1761,7 @@ $GEOIP_REGION_NAME = [
         '27' => 'Waterford',
         '29' => 'Westmeath',
         '30' => 'Wexford',
-        '31' => 'Wicklow'
+        '31' => 'Wicklow',
     ],
     'IL' => [
         '01' => 'HaDarom',
@@ -1768,7 +1769,7 @@ $GEOIP_REGION_NAME = [
         '03' => 'HaZafon',
         '04' => 'Hefa',
         '05' => 'Tel Aviv',
-        '06' => 'Yerushalayim'
+        '06' => 'Yerushalayim',
     ],
     'IN' => [
         '01' => 'Andaman and Nicobar Islands',
@@ -1805,7 +1806,7 @@ $GEOIP_REGION_NAME = [
         '36' => 'Uttar Pradesh',
         '37' => 'Chhattisgarh',
         '38' => 'Jharkhand',
-        '39' => 'Uttarakhand'
+        '39' => 'Uttarakhand',
     ],
     'IQ' => [
         '01' => 'Al Anbar',
@@ -1825,7 +1826,7 @@ $GEOIP_REGION_NAME = [
         '15' => 'Ninawa',
         '16' => 'Wasit',
         '17' => 'An Najaf',
-        '18' => 'Salah ad Din'
+        '18' => 'Salah ad Din',
     ],
     'IR' => [
         '01' => 'Azarbayjan-e Bakhtari',
@@ -1866,7 +1867,7 @@ $GEOIP_REGION_NAME = [
         '40' => 'Yazd',
         '41' => 'Khorasan-e Janubi',
         '42' => 'Khorasan-e Razavi',
-        '43' => 'Khorasan-e Shemali'
+        '43' => 'Khorasan-e Shemali',
     ],
     'IS' => [
         '03' => 'Arnessysla',
@@ -1894,7 +1895,7 @@ $GEOIP_REGION_NAME = [
         '42' => 'Suourland',
         '43' => 'Suournes',
         '44' => 'Vestfiroir',
-        '45' => 'Vesturland'
+        '45' => 'Vesturland',
     ],
     'IT' => [
         '01' => 'Abruzzi',
@@ -1916,7 +1917,7 @@ $GEOIP_REGION_NAME = [
         '17' => 'Trentino-Alto Adige',
         '18' => 'Umbria',
         '19' => "Valle d'Aosta",
-        '20' => 'Veneto'
+        '20' => 'Veneto',
     ],
     'JM' => [
         '01' => 'Clarendon',
@@ -1932,7 +1933,7 @@ $GEOIP_REGION_NAME = [
         '14' => 'Saint Thomas',
         '15' => 'Trelawny',
         '16' => 'Westmoreland',
-        '17' => 'Kingston'
+        '17' => 'Kingston',
     ],
     'JO' => [
         '02' => "Al Balqa'",
@@ -1943,7 +1944,7 @@ $GEOIP_REGION_NAME = [
         '12' => 'At Tafilah',
         '13' => 'Az Zarqa',
         '14' => 'Irbid',
-        '16' => 'Amman'
+        '16' => 'Amman',
     ],
     'JP' => [
         '01' => 'Aichi',
@@ -1992,7 +1993,7 @@ $GEOIP_REGION_NAME = [
         '44' => 'Yamagata',
         '45' => 'Yamaguchi',
         '46' => 'Yamanashi',
-        '47' => 'Okinawa'
+        '47' => 'Okinawa',
     ],
     'KE' => [
         '01' => 'Central',
@@ -2002,7 +2003,7 @@ $GEOIP_REGION_NAME = [
         '06' => 'North-Eastern',
         '07' => 'Nyanza',
         '08' => 'Rift Valley',
-        '09' => 'Western'
+        '09' => 'Western',
     ],
     'KG' => [
         '01' => 'Bishkek',
@@ -2013,7 +2014,7 @@ $GEOIP_REGION_NAME = [
         '06' => 'Talas',
         '07' => 'Ysyk-Kol',
         '08' => 'Osh',
-        '09' => 'Batken'
+        '09' => 'Batken',
     ],
     'KH' => [
         '01' => 'Batdambang',
@@ -2037,17 +2038,17 @@ $GEOIP_REGION_NAME = [
         '19' => 'Takeo',
         '25' => 'Banteay Meanchey',
         '29' => 'Batdambang',
-        '30' => 'Pailin'
+        '30' => 'Pailin',
     ],
     'KI' => [
         '01' => 'Gilbert Islands',
         '02' => 'Line Islands',
-        '03' => 'Phoenix Islands'
+        '03' => 'Phoenix Islands',
     ],
     'KM' => [
         '01' => 'Anjouan',
         '02' => 'Grande Comore',
-        '03' => 'Moheli'
+        '03' => 'Moheli',
     ],
     'KN' => [
         '01' => 'Christ Church Nichola Town',
@@ -2063,7 +2064,7 @@ $GEOIP_REGION_NAME = [
         '11' => 'Saint Peter Basseterre',
         '12' => 'Saint Thomas Lowland',
         '13' => 'Saint Thomas Middle Island',
-        '15' => 'Trinity Palmetto Point'
+        '15' => 'Trinity Palmetto Point',
     ],
     'KP' => [
         '01' => 'Chagang-do',
@@ -2078,7 +2079,7 @@ $GEOIP_REGION_NAME = [
         '14' => "Namp'o-si",
         '15' => "P'yongan-namdo",
         '17' => 'Hamgyong-bukto',
-        '18' => 'Najin Sonbong-si'
+        '18' => 'Najin Sonbong-si',
     ],
     'KR' => [
         '01' => 'Cheju-do',
@@ -2096,7 +2097,7 @@ $GEOIP_REGION_NAME = [
         '18' => 'Kwangju-jikhalsi',
         '19' => 'Taejon-jikhalsi',
         '20' => 'Kyongsang-namdo',
-        '21' => 'Ulsan-gwangyoksi'
+        '21' => 'Ulsan-gwangyoksi',
     ],
     'KW' => [
         '01' => 'Al Ahmadi',
@@ -2104,7 +2105,7 @@ $GEOIP_REGION_NAME = [
         '05' => 'Al Jahra',
         '07' => 'Al Farwaniyah',
         '08' => 'Hawalli',
-        '09' => 'Mubarak al Kabir'
+        '09' => 'Mubarak al Kabir',
     ],
     'KY' => [
         '01' => 'Creek',
@@ -2114,7 +2115,7 @@ $GEOIP_REGION_NAME = [
         '05' => 'Spot Bay',
         '06' => 'Stake Bay',
         '07' => 'West End',
-        '08' => 'Western'
+        '08' => 'Western',
     ],
     'KZ' => [
         '01' => 'Almaty',
@@ -2133,7 +2134,7 @@ $GEOIP_REGION_NAME = [
         '14' => 'Qyzylorda',
         '15' => 'East Kazakhstan',
         '16' => 'North Kazakhstan',
-        '17' => 'Zhambyl'
+        '17' => 'Zhambyl',
     ],
     'LA' => [
         '01' => 'Attapu',
@@ -2148,7 +2149,7 @@ $GEOIP_REGION_NAME = [
         '11' => 'Vientiane',
         '13' => 'Xaignabouri',
         '14' => 'Xiangkhoang',
-        '17' => 'Louangphrabang'
+        '17' => 'Louangphrabang',
     ],
     'LB' => [
         '01' => 'Beqaa',
@@ -2161,7 +2162,7 @@ $GEOIP_REGION_NAME = [
         '08' => 'Beqaa',
         '09' => 'Liban-Nord',
         '10' => 'Aakk,r',
-        '11' => 'Baalbek-Hermel'
+        '11' => 'Baalbek-Hermel',
     ],
     'LC' => [
         '01' => 'Anse-la-Raye',
@@ -2174,7 +2175,7 @@ $GEOIP_REGION_NAME = [
         '08' => 'Micoud',
         '09' => 'Soufriere',
         '10' => 'Vieux-Fort',
-        '11' => 'Praslin'
+        '11' => 'Praslin',
     ],
     'LI' => [
         '01' => 'Balzers',
@@ -2189,7 +2190,7 @@ $GEOIP_REGION_NAME = [
         '10' => 'Triesenberg',
         '11' => 'Vaduz',
         '21' => 'Gbarpolu',
-        '22' => 'River Gee'
+        '22' => 'River Gee',
     ],
     'LK' => [
         '01' => 'Amparai',
@@ -2223,7 +2224,7 @@ $GEOIP_REGION_NAME = [
         '33' => 'Sabaragamuwa',
         '34' => 'Southern',
         '35' => 'Uva',
-        '36' => 'Western'
+        '36' => 'Western',
     ],
     'LR' => [
         '01' => 'Bong',
@@ -2242,7 +2243,7 @@ $GEOIP_REGION_NAME = [
         '19' => 'Grand Gedeh',
         '20' => 'Lofa',
         '21' => 'Gbarpolu',
-        '22' => 'River Gee'
+        '22' => 'River Gee',
     ],
     'LS' => [
         '10' => 'Berea',
@@ -2254,7 +2255,7 @@ $GEOIP_REGION_NAME = [
         '16' => 'Mokhotlong',
         '17' => 'Qachas Nek',
         '18' => 'Quthing',
-        '19' => 'Thaba-Tseka'
+        '19' => 'Thaba-Tseka',
     ],
     'LT' => [
         '56' => 'Alytaus Apskritis',
@@ -2266,12 +2267,12 @@ $GEOIP_REGION_NAME = [
         '62' => 'Taurages Apskritis',
         '63' => 'Telsiu Apskritis',
         '64' => 'Utenos Apskritis',
-        '65' => 'Vilniaus Apskritis'
+        '65' => 'Vilniaus Apskritis',
     ],
     'LU' => [
         '01' => 'Diekirch',
         '02' => 'Grevenmacher',
-        '03' => 'Luxembourg'
+        '03' => 'Luxembourg',
     ],
     'LV' => [
         '01' => 'Aizkraukles',
@@ -2306,7 +2307,7 @@ $GEOIP_REGION_NAME = [
         '30' => 'Valkas',
         '31' => 'Valmieras',
         '32' => 'Ventspils',
-        '33' => 'Ventspils'
+        '33' => 'Ventspils',
     ],
     'LY' => [
         '03' => 'Al Aziziyah',
@@ -2333,7 +2334,7 @@ $GEOIP_REGION_NAME = [
         '59' => 'Sawfajjin',
         '60' => 'Surt',
         '61' => 'Tarabulus',
-        '62' => 'Yafran'
+        '62' => 'Yafran',
     ],
     'MA' => [
         '45' => 'Grand Casablanca',
@@ -2350,12 +2351,12 @@ $GEOIP_REGION_NAME = [
         '56' => 'Tadla-Azilal',
         '57' => 'Tanger-Tetouan',
         '58' => 'Taza-Al Hoceima-Taounate',
-        '59' => 'La,youne-Boujdour-Sakia El Hamra'
+        '59' => 'La,youne-Boujdour-Sakia El Hamra',
     ],
     'MC' => [
         '01' => 'La Condamine',
         '02' => 'Monaco',
-        '03' => 'Monte-Carlo'
+        '03' => 'Monte-Carlo',
     ],
     'MD' => [
         '51' => 'Gagauzia',
@@ -2393,7 +2394,7 @@ $GEOIP_REGION_NAME = [
         '89' => 'Straseni',
         '90' => 'Taraclia',
         '91' => 'Telenesti',
-        '92' => 'Ungheni'
+        '92' => 'Ungheni',
     ],
     'MG' => [
         '01' => 'Antsiranana',
@@ -2401,7 +2402,7 @@ $GEOIP_REGION_NAME = [
         '03' => 'Mahajanga',
         '04' => 'Toamasina',
         '05' => 'Antananarivo',
-        '06' => 'Toliara'
+        '06' => 'Toliara',
     ],
     'MK' => [
         '01' => 'Aracinovo',
@@ -2526,7 +2527,7 @@ $GEOIP_REGION_NAME = [
         'C3' => 'Zelino',
         'C4' => 'Zitose',
         'C5' => 'Zletovo',
-        'C6' => 'Zrnovci'
+        'C6' => 'Zrnovci',
     ],
     'ML' => [
         '01' => 'Bamako',
@@ -2537,7 +2538,7 @@ $GEOIP_REGION_NAME = [
         '07' => 'Koulikoro',
         '08' => 'Tombouctou',
         '09' => 'Gao',
-        '10' => 'Kidal'
+        '10' => 'Kidal',
     ],
     'MM' => [
         '01' => 'Rakhine State',
@@ -2554,7 +2555,7 @@ $GEOIP_REGION_NAME = [
         '12' => 'Tenasserim',
         '13' => 'Mon State',
         '14' => 'Rangoon',
-        '17' => 'Yangon'
+        '17' => 'Yangon',
     ],
     'MN' => [
         '01' => 'Arhangay',
@@ -2580,11 +2581,11 @@ $GEOIP_REGION_NAME = [
         '22' => 'Erdenet',
         '23' => 'Darhan-Uul',
         '24' => 'Govisumber',
-        '25' => 'Orhon'
+        '25' => 'Orhon',
     ],
     'MO' => [
         '01' => 'Ilhas',
-        '02' => 'Macau'
+        '02' => 'Macau',
     ],
     'MR' => [
         '01' => 'Hodh Ech Chargui',
@@ -2598,12 +2599,12 @@ $GEOIP_REGION_NAME = [
         '09' => 'Tagant',
         '10' => 'Guidimaka',
         '11' => 'Tiris Zemmour',
-        '12' => 'Inchiri'
+        '12' => 'Inchiri',
     ],
     'MS' => [
         '01' => 'Saint Anthony',
         '02' => 'Saint Georges',
-        '03' => 'Saint Peter'
+        '03' => 'Saint Peter',
     ],
     'MU' => [
         '12' => 'Black River',
@@ -2617,7 +2618,7 @@ $GEOIP_REGION_NAME = [
         '20' => 'Savanne',
         '21' => 'Agalega Islands',
         '22' => 'Cargados Carajos',
-        '23' => 'Rodrigues'
+        '23' => 'Rodrigues',
     ],
     'MV' => [
         '01' => 'Seenu',
@@ -2639,7 +2640,7 @@ $GEOIP_REGION_NAME = [
         '44' => 'Raa',
         '45' => 'Shaviyani',
         '46' => 'Thaa',
-        '47' => 'Vaavu'
+        '47' => 'Vaavu',
     ],
     'MW' => [
         '02' => 'Chikwawa',
@@ -2668,7 +2669,7 @@ $GEOIP_REGION_NAME = [
         '27' => 'Likoma',
         '28' => 'Machinga',
         '29' => 'Mulanje',
-        '30' => 'Phalombe'
+        '30' => 'Phalombe',
     ],
     'MX' => [
         '01' => 'Aguascalientes',
@@ -2702,7 +2703,7 @@ $GEOIP_REGION_NAME = [
         '29' => 'Tlaxcala',
         '30' => 'Veracruz-Llave',
         '31' => 'Yucatan',
-        '32' => 'Zacatecas'
+        '32' => 'Zacatecas',
     ],
     'MY' => [
         '01' => 'Johor',
@@ -2720,7 +2721,7 @@ $GEOIP_REGION_NAME = [
         '14' => 'Kuala Lumpur',
         '15' => 'Labuan',
         '16' => 'Sabah',
-        '17' => 'Putrajaya'
+        '17' => 'Putrajaya',
     ],
     'MZ' => [
         '01' => 'Cabo Delgado',
@@ -2733,7 +2734,7 @@ $GEOIP_REGION_NAME = [
         '08' => 'Tete',
         '09' => 'Zambezia',
         '10' => 'Manica',
-        '11' => 'Maputo'
+        '11' => 'Maputo',
     ],
     'NA' => [
         '01' => 'Bethanien',
@@ -2773,7 +2774,7 @@ $GEOIP_REGION_NAME = [
         '36' => 'Omusati',
         '37' => 'Oshana',
         '38' => 'Oshikoto',
-        '39' => 'Otjozondjupa'
+        '39' => 'Otjozondjupa',
     ],
     'NE' => [
         '01' => 'Agadez',
@@ -2783,7 +2784,7 @@ $GEOIP_REGION_NAME = [
         '05' => 'Niamey',
         '06' => 'Tahoua',
         '07' => 'Zinder',
-        '08' => 'Niamey'
+        '08' => 'Niamey',
     ],
     'NG' => [
         '05' => 'Lagos',
@@ -2822,7 +2823,7 @@ $GEOIP_REGION_NAME = [
         '54' => 'Ekiti',
         '55' => 'Gombe',
         '56' => 'Nassarawa',
-        '57' => 'Zamfara'
+        '57' => 'Zamfara',
     ],
     'NI' => [
         '01' => 'Boaco',
@@ -2842,7 +2843,7 @@ $GEOIP_REGION_NAME = [
         '15' => 'Rivas',
         '16' => 'Zelaya',
         '17' => 'Autonoma Atlantico Norte',
-        '18' => 'Region Autonoma Atlantico Sur'
+        '18' => 'Region Autonoma Atlantico Sur',
     ],
     'NL' => [
         '01' => 'Drenthe',
@@ -2857,7 +2858,7 @@ $GEOIP_REGION_NAME = [
         '10' => 'Zeeland',
         '11' => 'Zuid-Holland',
         '15' => 'Overijssel',
-        '16' => 'Flevoland'
+        '16' => 'Flevoland',
     ],
     'NO' => [
         '01' => 'Akershus',
@@ -2878,7 +2879,7 @@ $GEOIP_REGION_NAME = [
         '17' => 'Telemark',
         '18' => 'Troms',
         '19' => 'Vest-Agder',
-        '20' => 'Vestfold'
+        '20' => 'Vestfold',
     ],
     'NP' => [
         '01' => 'Bagmati',
@@ -2894,7 +2895,7 @@ $GEOIP_REGION_NAME = [
         '11' => 'Narayani',
         '12' => 'Rapti',
         '13' => 'Sagarmatha',
-        '14' => 'Seti'
+        '14' => 'Seti',
     ],
     'NR' => [
         '01' => 'Aiwo',
@@ -2910,7 +2911,7 @@ $GEOIP_REGION_NAME = [
         '11' => 'Meneng',
         '12' => 'Nibok',
         '13' => 'Uaboe',
-        '14' => 'Yaren'
+        '14' => 'Yaren',
     ],
     'NZ' => [
         '10' => 'Chatham Islands',
@@ -2928,7 +2929,7 @@ $GEOIP_REGION_NAME = [
         'F9' => 'Taranaki',
         'G1' => 'Waikato',
         'G2' => 'Wellington',
-        'G3' => 'West Coast'
+        'G3' => 'West Coast',
     ],
     'OM' => [
         '01' => 'Ad Dakhiliyah',
@@ -2938,7 +2939,7 @@ $GEOIP_REGION_NAME = [
         '05' => 'Az Zahirah',
         '06' => 'Masqat',
         '07' => 'Musandam',
-        '08' => 'Zufar'
+        '08' => 'Zufar',
     ],
     'PA' => [
         '01' => 'Bocas del Toro',
@@ -2950,7 +2951,7 @@ $GEOIP_REGION_NAME = [
         '07' => 'Los Santos',
         '08' => 'Panama',
         '09' => 'San Blas',
-        '10' => 'Veraguas'
+        '10' => 'Veraguas',
     ],
     'PE' => [
         '01' => 'Amazonas',
@@ -2977,7 +2978,7 @@ $GEOIP_REGION_NAME = [
         '22' => 'San Martin',
         '23' => 'Tacna',
         '24' => 'Tumbes',
-        '25' => 'Ucayali'
+        '25' => 'Ucayali',
     ],
     'PG' => [
         '01' => 'Central',
@@ -2999,7 +3000,7 @@ $GEOIP_REGION_NAME = [
         '17' => 'West New Britain',
         '18' => 'Sandaun',
         '19' => 'Enga',
-        '20' => 'National Capital'
+        '20' => 'National Capital',
     ],
     'PH' => [
         '01' => 'Abra',
@@ -3136,7 +3137,7 @@ $GEOIP_REGION_NAME = [
         'G7' => 'Zamboanga',
         'G8' => 'Aurora',
         'H2' => 'Quezon',
-        'H3' => 'Negros Occidental'
+        'H3' => 'Negros Occidental',
     ],
     'PK' => [
         '01' => 'Federally Administered Tribal Areas',
@@ -3146,7 +3147,7 @@ $GEOIP_REGION_NAME = [
         '05' => 'Sindh',
         '06' => 'Azad Kashmir',
         '07' => 'Northern Areas',
-        '08' => 'Islamabad'
+        '08' => 'Islamabad',
     ],
     'PL' => [
         '72' => 'Dolnoslaskie',
@@ -3164,11 +3165,11 @@ $GEOIP_REGION_NAME = [
         '84' => 'Swietokrzyskie',
         '85' => 'Warminsko-Mazurskie',
         '86' => 'Wielkopolskie',
-        '87' => 'Zachodniopomorskie'
+        '87' => 'Zachodniopomorskie',
     ],
     'PS' => [
         'GZ' => 'Gaza',
-        'WE' => 'West Bank'
+        'WE' => 'West Bank',
     ],
     'PT' => [
         '02' => 'Aveiro',
@@ -3190,7 +3191,7 @@ $GEOIP_REGION_NAME = [
         '20' => 'Viana do Castelo',
         '21' => 'Vila Real',
         '22' => 'Viseu',
-        '23' => 'Azores'
+        '23' => 'Azores',
     ],
     'PY' => [
         '01' => 'Alto Parana',
@@ -3211,7 +3212,7 @@ $GEOIP_REGION_NAME = [
         '19' => 'Canindeyu',
         '20' => 'Chaco',
         '21' => 'Nueva Asuncion',
-        '23' => 'Alto Paraguay'
+        '23' => 'Alto Paraguay',
     ],
     'QA' => [
         '01' => 'Ad Dawhah',
@@ -3224,7 +3225,7 @@ $GEOIP_REGION_NAME = [
         '09' => 'Umm Salal',
         '10' => 'Al Wakrah',
         '11' => 'Jariyan al Batnah',
-        '12' => "Umm Sa'id"
+        '12' => "Umm Sa'id",
     ],
     'RO' => [
         '01' => 'Alba',
@@ -3268,11 +3269,11 @@ $GEOIP_REGION_NAME = [
         '40' => 'Vrancea',
         '41' => 'Calarasi',
         '42' => 'Giurgiu',
-        '43' => 'Ilfov'
+        '43' => 'Ilfov',
     ],
     'RS' => [
         '01' => 'Kosovo',
-        '02' => 'Vojvodina'
+        '02' => 'Vojvodina',
     ],
     'RU' => [
         '01' => 'Adygeya, Republic of',
@@ -3366,7 +3367,7 @@ $GEOIP_REGION_NAME = [
         '89' => 'Yevrey',
         '90' => 'Permskiy Kray',
         '91' => 'Krasnoyarskiy Kray',
-        'CI' => 'Chechnya Republic'
+        'CI' => 'Chechnya Republic',
     ],
     'RW' => [
         '01' => 'Butare',
@@ -3377,7 +3378,7 @@ $GEOIP_REGION_NAME = [
         '12' => 'Kigali',
         '13' => 'Nord',
         '14' => 'Ouest',
-        '15' => 'Sud'
+        '15' => 'Sud',
     ],
     'SA' => [
         '02' => 'Al Bahah',
@@ -3393,7 +3394,7 @@ $GEOIP_REGION_NAME = [
         '16' => 'Najran',
         '17' => 'Jizan',
         '19' => 'Tabuk',
-        '20' => 'Al Jawf'
+        '20' => 'Al Jawf',
     ],
     'SB' => [
         '03' => 'Malaita',
@@ -3404,7 +3405,7 @@ $GEOIP_REGION_NAME = [
         '10' => 'Central',
         '11' => 'Western',
         '12' => 'Choiseul',
-        '13' => 'Rennell and Bellona'
+        '13' => 'Rennell and Bellona',
     ],
     'SC' => [
         '01' => 'Anse aux Pins',
@@ -3429,7 +3430,7 @@ $GEOIP_REGION_NAME = [
         '20' => 'Pointe La Rue',
         '21' => 'Port Glaud',
         '22' => 'Saint Louis',
-        '23' => 'Takamaka'
+        '23' => 'Takamaka',
     ],
     'SD' => [
         '27' => 'Al Wusta',
@@ -3442,7 +3443,7 @@ $GEOIP_REGION_NAME = [
         '34' => 'Kurdufan',
         '35' => 'Upper Nile',
         '40' => 'Al Wahadah State',
-        '44' => 'Central Equatoria State'
+        '44' => 'Central Equatoria State',
     ],
     'SE' => [
         '02' => 'Blekinge Lan',
@@ -3465,12 +3466,12 @@ $GEOIP_REGION_NAME = [
         '25' => 'Vastmanlands Lan',
         '26' => 'Stockholms Lan',
         '27' => 'Skane Lan',
-        '28' => 'Vastra Gotaland'
+        '28' => 'Vastra Gotaland',
     ],
     'SH' => [
         '01' => 'Ascension',
         '02' => 'Saint Helena',
-        '03' => 'Tristan da Cunha'
+        '03' => 'Tristan da Cunha',
     ],
     'SI' => [
         '01' => 'Ajdovscina',
@@ -3613,7 +3614,7 @@ $GEOIP_REGION_NAME = [
         'L8' => 'Slovenska Bistrica',
         'N2' => 'Videm',
         'N3' => 'Vojnik',
-        'N5' => 'Zalec'
+        'N5' => 'Zalec',
     ],
     'SK' => [
         '01' => 'Banska Bystrica',
@@ -3623,13 +3624,13 @@ $GEOIP_REGION_NAME = [
         '05' => 'Presov',
         '06' => 'Trencin',
         '07' => 'Trnava',
-        '08' => 'Zilina'
+        '08' => 'Zilina',
     ],
     'SL' => [
         '01' => 'Eastern',
         '02' => 'Northern',
         '03' => 'Southern',
-        '04' => 'Western Area'
+        '04' => 'Western Area',
     ],
     'SM' => [
         '01' => 'Acquaviva',
@@ -3640,7 +3641,7 @@ $GEOIP_REGION_NAME = [
         '06' => 'Borgo Maggiore',
         '07' => 'San Marino',
         '08' => 'Monte Giardino',
-        '09' => 'Serravalle'
+        '09' => 'Serravalle',
     ],
     'SN' => [
         '01' => 'Dakar',
@@ -3653,7 +3654,7 @@ $GEOIP_REGION_NAME = [
         '12' => 'Ziguinchor',
         '13' => 'Louga',
         '14' => 'Saint-Louis',
-        '15' => 'Matam'
+        '15' => 'Matam',
     ],
     'SO' => [
         '01' => 'Bakool',
@@ -3675,7 +3676,7 @@ $GEOIP_REGION_NAME = [
         '19' => 'Togdheer',
         '20' => 'Woqooyi Galbeed',
         '21' => 'Awdal',
-        '22' => 'Sool'
+        '22' => 'Sool',
     ],
     'SR' => [
         '10' => 'Brokopondo',
@@ -3687,11 +3688,11 @@ $GEOIP_REGION_NAME = [
         '16' => 'Paramaribo',
         '17' => 'Saramacca',
         '18' => 'Sipaliwini',
-        '19' => 'Wanica'
+        '19' => 'Wanica',
     ],
     'ST' => [
         '01' => 'Principe',
-        '02' => 'Sao Tome'
+        '02' => 'Sao Tome',
     ],
     'SV' => [
         '01' => 'Ahuachapan',
@@ -3707,7 +3708,7 @@ $GEOIP_REGION_NAME = [
         '11' => 'Santa Ana',
         '12' => 'San Vicente',
         '13' => 'Sonsonate',
-        '14' => 'Usulutan'
+        '14' => 'Usulutan',
     ],
     'SY' => [
         '01' => 'Al Hasakah',
@@ -3723,14 +3724,14 @@ $GEOIP_REGION_NAME = [
         '11' => 'Hims',
         '12' => 'Idlib',
         '13' => 'Dimashq',
-        '14' => 'Tartus'
+        '14' => 'Tartus',
     ],
     'SZ' => [
         '01' => 'Hhohho',
         '02' => 'Lubombo',
         '03' => 'Manzini',
         '04' => 'Shiselweni',
-        '05' => 'Praslin'
+        '05' => 'Praslin',
     ],
     'TD' => [
         '01' => 'Batha',
@@ -3746,14 +3747,14 @@ $GEOIP_REGION_NAME = [
         '11' => 'Moyen-Chari',
         '12' => 'Ouaddai',
         '13' => 'Salamat',
-        '14' => 'Tandjile'
+        '14' => 'Tandjile',
     ],
     'TG' => [
         '22' => 'Centrale',
         '23' => 'Kara',
         '24' => 'Maritime',
         '25' => 'Plateaux',
-        '26' => 'Savanes'
+        '26' => 'Savanes',
     ],
     'TH' => [
         '01' => 'Mae Hong Son',
@@ -3833,19 +3834,19 @@ $GEOIP_REGION_NAME = [
         '77' => 'Amnat Charoen',
         '78' => 'Mukdahan',
         '79' => 'Nong Bua Lamphu',
-        '80' => 'Sa Kaeo'
+        '80' => 'Sa Kaeo',
     ],
     'TJ' => [
         '01' => 'Kuhistoni Badakhshon',
         '02' => 'Khatlon',
-        '03' => 'Sughd'
+        '03' => 'Sughd',
     ],
     'TM' => [
         '01' => 'Ahal',
         '02' => 'Balkan',
         '03' => 'Dashoguz',
         '04' => 'Lebap',
-        '05' => 'Mary'
+        '05' => 'Mary',
     ],
     'TN' => [
         '02' => 'Kasserine',
@@ -3871,12 +3872,12 @@ $GEOIP_REGION_NAME = [
         '36' => 'Tunis',
         '37' => 'Zaghouan',
         '38' => 'Aiana',
-        '39' => 'Manouba'
+        '39' => 'Manouba',
     ],
     'TO' => [
         '01' => 'Ha',
         '02' => 'Tongatapu',
-        '03' => 'Vava'
+        '03' => 'Vava',
     ],
     'TR' => [
         '02' => 'Adiyaman',
@@ -3959,7 +3960,7 @@ $GEOIP_REGION_NAME = [
         '90' => 'Kilis',
         '91' => 'Osmaniye',
         '92' => 'Yalova',
-        '93' => 'Duzce'
+        '93' => 'Duzce',
     ],
     'TT' => [
         '01' => 'Arima',
@@ -3973,13 +3974,13 @@ $GEOIP_REGION_NAME = [
         '09' => 'Saint Patrick',
         '10' => 'San Fernando',
         '11' => 'Tobago',
-        '12' => 'Victoria'
+        '12' => 'Victoria',
     ],
     'TW' => [
         '01' => 'Fu-chien',
         '02' => 'Kao-hsiung',
         '03' => "T'ai-pei",
-        '04' => "T'ai-wan"
+        '04' => "T'ai-wan",
     ],
     'TZ' => [
         '02' => 'Pwani',
@@ -4007,7 +4008,7 @@ $GEOIP_REGION_NAME = [
         '24' => 'Rukwa',
         '25' => 'Zanzibar Urban',
         '26' => 'Arusha',
-        '27' => 'Manyara'
+        '27' => 'Manyara',
     ],
     'UA' => [
         '01' => "Cherkas'ka Oblast'",
@@ -4036,7 +4037,7 @@ $GEOIP_REGION_NAME = [
         '24' => "Volyns'ka Oblast'",
         '25' => "Zakarpats'ka Oblast'",
         '26' => "Zaporiz'ka Oblast'",
-        '27' => "Zhytomyrs'ka Oblast'"
+        '27' => "Zhytomyrs'ka Oblast'",
     ],
     'UG' => [
         '26' => 'Apac',
@@ -4093,7 +4094,7 @@ $GEOIP_REGION_NAME = [
         '94' => 'Sironko',
         '95' => 'Soroti',
         '96' => 'Wakiso',
-        '97' => 'Yumbe'
+        '97' => 'Yumbe',
     ],
     'US' => [
         'AA' => 'Armed Forces Americas',
@@ -4157,7 +4158,7 @@ $GEOIP_REGION_NAME = [
         'WA' => 'Washington',
         'WI' => 'Wisconsin',
         'WV' => 'West Virginia',
-        'WY' => 'Wyoming'
+        'WY' => 'Wyoming',
     ],
     'UY' => [
         '01' => 'Artigas',
@@ -4178,7 +4179,7 @@ $GEOIP_REGION_NAME = [
         '16' => 'San Jose',
         '17' => 'Soriano',
         '18' => 'Tacuarembo',
-        '19' => 'Treinta y Tres'
+        '19' => 'Treinta y Tres',
     ],
     'UZ' => [
         '01' => 'Andijon',
@@ -4194,7 +4195,7 @@ $GEOIP_REGION_NAME = [
         '11' => 'Sirdaryo',
         '12' => 'Surkhondaryo',
         '13' => 'Toshkent',
-        '14' => 'Toshkent'
+        '14' => 'Toshkent',
     ],
     'VC' => [
         '01' => 'Charlotte',
@@ -4202,7 +4203,7 @@ $GEOIP_REGION_NAME = [
         '03' => 'Saint David',
         '04' => 'Saint George',
         '05' => 'Saint Patrick',
-        '06' => 'Grenadines'
+        '06' => 'Grenadines',
     ],
     'VE' => [
         '01' => 'Amazonas',
@@ -4229,7 +4230,7 @@ $GEOIP_REGION_NAME = [
         '23' => 'Zulia',
         '24' => 'Dependencias Federales',
         '25' => 'Distrito Federal',
-        '26' => 'Vargas'
+        '26' => 'Vargas',
     ],
     'VN' => [
         '01' => 'An Giang',
@@ -4295,7 +4296,7 @@ $GEOIP_REGION_NAME = [
         '90' => 'Lao Cai',
         '91' => 'Dak Nong',
         '92' => 'Dien Bien',
-        '93' => 'Hau Giang'
+        '93' => 'Hau Giang',
     ],
     'VU' => [
         '05' => 'Ambrym',
@@ -4311,7 +4312,7 @@ $GEOIP_REGION_NAME = [
         '15' => 'Tafea',
         '16' => 'Malampa',
         '17' => 'Penama',
-        '18' => 'Shefa'
+        '18' => 'Shefa',
     ],
     'WS' => [
         '02' => 'Aiga-i-le-Tai',
@@ -4323,7 +4324,7 @@ $GEOIP_REGION_NAME = [
         '08' => 'Palauli',
         '09' => 'Satupa',
         '10' => 'Tuamasaga',
-        '11' => 'Vaisigano'
+        '11' => 'Vaisigano',
     ],
     'YE' => [
         '01' => 'Abyan',
@@ -4343,7 +4344,7 @@ $GEOIP_REGION_NAME = [
         '22' => 'Hajjah',
         '23' => 'Ibb',
         '24' => 'Lahij',
-        '25' => 'Ta'
+        '25' => 'Ta',
     ],
     'ZA' => [
         '01' => 'North-Western Province',
@@ -4355,7 +4356,7 @@ $GEOIP_REGION_NAME = [
         '08' => 'Northern Cape',
         '09' => 'Limpopo',
         '10' => 'North-West',
-        '11' => 'Western Cape'
+        '11' => 'Western Cape',
     ],
     'ZM' => [
         '01' => 'Western',
@@ -4366,7 +4367,7 @@ $GEOIP_REGION_NAME = [
         '06' => 'North-Western',
         '07' => 'Southern',
         '08' => 'Copperbelt',
-        '09' => 'Lusaka'
+        '09' => 'Lusaka',
     ],
     'ZW' => [
         '01' => 'Manicaland',
@@ -4378,6 +4379,6 @@ $GEOIP_REGION_NAME = [
         '07' => 'Matabeleland South',
         '08' => 'Masvingo',
         '09' => 'Bulawayo',
-        '10' => 'Harare'
-    ]
+        '10' => 'Harare',
+    ],
 ];
